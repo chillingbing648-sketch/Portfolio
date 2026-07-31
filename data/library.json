@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "category": "Architecture & Engineering",
+    "notes": "Fundamental principles of software craft, readability, and refactoring."
+  },
+  {
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "category": "Systems & Reliability",
+    "notes": "Deep dive into distributed systems, consistency, and storage engines."
+  },
+  {
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "category": "Cognitive Science & Strategy",
+    "notes": "System 1 vs System 2 thinking, decision making under uncertainty."
+  }
+]

@@ -1,0 +1,76 @@
+/* ==========================================================================
+   SKILLS SECTION STYLES
+   ========================================================================== */
+.skills-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+}
+
+.skill-category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+}
+
+.skill-category-icon {
+    font-size: 1.2rem;
+}
+
+.skill-category h4 {
+    font-size: 0.82rem;
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.skill-cat-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-glass);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.skill-capsule {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-glass);
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    backdrop-filter: blur(12px);
+    transition: var(--transition-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: default;
+    position: relative;
+}
+
+.skill-capsule:hover {
+    border-color: var(--env-primary);
+    color: #fff;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(139,92,246,0.25);
+    background: rgba(139,92,246,0.1);
+}
+
+.skill-capsule .skill-icon {
+    font-size: 0.95rem;
+}
+
+.skill-capsule.highlight-search {
+    border-color: var(--accent-cyan) !important;
+    background: rgba(6, 182, 212, 0.25) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6) !important;
+    transform: scale(1.1) translateY(-4px) !important;
+}
