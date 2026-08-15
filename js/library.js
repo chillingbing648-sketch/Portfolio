@@ -77,7 +77,6 @@ function renderTabs(container) {
             container.querySelectorAll('.library-tab').forEach(b => b.classList.toggle('active', b === btn));
             const grid = document.getElementById('library-grid');
             if (grid) renderGrid(grid);
-        });
     });
 }
 
