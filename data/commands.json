@@ -1,0 +1,41 @@
+{
+  "commands": [
+    "help",
+    "whoami",
+    "about",
+    "projects",
+    "skills",
+    "experience",
+    "education",
+    "timeline",
+    "achievements",
+    "resume",
+    "github",
+    "linkedin",
+    "contact",
+    "stats",
+    "search",
+    "history",
+    "pwd",
+    "date",
+    "time",
+    "theme",
+    "matrix",
+    "coffee",
+    "quote",
+    "future",
+    "origin",
+    "clear",
+    "exit",
+    "open",
+    "find"
+  ],
+  "easterEggs": [
+    "sudo hire harsh",
+    "42",
+    "konami",
+    "developer",
+    "debug",
+    "hello"
+  ]
+}

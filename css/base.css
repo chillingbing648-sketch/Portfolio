@@ -1,0 +1,84 @@
+/* ==========================================================================
+   BASE & RESET
+   ========================================================================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: dark;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    scroll-behavior: auto; /* Managed via JS Lenis / GSAP */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: none;
+}
+
+body.loading {
+    overflow: hidden !important;
+}
+
+/* While loading: hide content behind the loader overlay */
+body.loading #hero,
+body.loading #navbar,
+body.loading nav,
+body.loading .hero-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Once body.loading is removed, content is visible by default.
+   GSAP entrance animations are additive bonuses, not requirements. */
+body:not(.loading) #hero,
+body:not(.loading) #navbar,
+body:not(.loading) nav,
+body:not(.loading) .hero-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(139,92,246,0.3);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-main);
+}
+
+ul {
+    list-style: none;
+}

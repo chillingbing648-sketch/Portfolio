@@ -1,0 +1,31 @@
+[
+  {
+    "logo": "🏛️",
+    "title": "IT Specialist",
+    "organization": "University of Mumbai",
+    "description": "Managing end-to-end technical operations, university admission digital logistics, and system administration for large-scale academic workflows. Responsible for maintaining data integrity across institutional systems.",
+    "chips": [
+      "Technical Support",
+      "System Administration",
+      "Digital Transformation",
+      "Admission Operations",
+      "Process Optimization",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "logo": "🎭",
+    "title": "Public Relations Head",
+    "organization": "Thakur Specialized Degree College",
+    "description": "Spearheaded student parliament initiatives, public policy coordination, event leadership, and student advocacy. Led PR strategy for an InterCollegiate Fest attracting 2,000+ attendees and 1,000+ registrations.",
+    "chips": [
+      "Leadership",
+      "Student Representation",
+      "Public Administration",
+      "Event Leadership",
+      "Team Management",
+      "Public Speaking",
+      "Decision Making"
+    ]
+  }
+]

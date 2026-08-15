@@ -1,0 +1,156 @@
+/* ==========================================================================
+   DEVELOPER TERMINAL STYLES (ENHANCED)
+   ========================================================================== */
+#terminal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 2rem;
+}
+
+#terminal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 820px;
+    background: rgba(4,8,6,0.97);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 14px;
+    box-shadow: 0 40px 90px rgba(0,0,0,0.85), 0 0 60px rgba(16,185,129,0.1);
+    overflow: hidden;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#terminal-overlay.open .terminal-window {
+    transform: scale(1) translateY(0);
+}
+
+.terminal-titlebar {
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 0.6rem;
+}
+
+.term-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.term-dot-red { background: rgba(255,95,87,0.8); }
+.term-dot-yellow { background: rgba(255,189,46,0.8); }
+.term-dot-green { background: rgba(40,201,64,0.8); }
+
+.terminal-title-text {
+    margin-left: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+}
+
+.terminal-shortcut-hint {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.25);
+}
+
+.terminal-body {
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 320px;
+    max-height: 60vh;
+}
+
+.terminal-output {
+    min-height: 200px;
+}
+
+.term-line {
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.term-prompt { color: rgba(16,185,129,0.9); }
+.term-command { color: #a5f3fc; }
+.term-response { color: rgba(255,255,255,0.7); }
+.term-error { color: rgba(239,68,68,0.9); }
+.term-success { color: rgba(16,185,129,0.95); }
+.term-info { color: rgba(96,165,250,0.9); }
+.term-highlight { color: #c4b5fd; font-weight: 600; }
+.term-separator { color: rgba(255,255,255,0.15); margin: 0.4rem 0; }
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.3);
+}
+
+.terminal-input-prompt {
+    color: rgba(16,185,129,0.85);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+#terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #a5f3fc;
+    caret-color: rgba(16,185,129,0.9);
+}
+
+.terminal-autocomplete {
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.term-suggestion {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    background: transparent;
+    transition: var(--transition-fast);
+}
+
+.term-suggestion:hover {
+    color: rgba(16,185,129,0.9);
+    border-color: rgba(16,185,129,0.3);
+    background: rgba(16,185,129,0.05);
+}
