@@ -40,27 +40,6 @@ const FALLBACK_LIBRARY = [
     icon: '🧠',
     notes: 'System 1 vs System 2 thinking, cognitive biases, and strategic decision making.'
   },
-  {
-    id: 'research-agentic',
-    title: 'Autonomous Agent Architectures & LLM Reasoning',
-    author: 'DeepMind & Research Papers',
-    category: 'research',
-    status: 'Active Study',
-    currentlyReading: false,
-    progress: 85,
-    icon: '🔬',
-    notes: 'Exploring ReAct patterns, tool-use routing, and memory persistence in multi-agent networks.'
-  },
-  {
-    id: 'cert-ai',
-    title: 'Full-Stack AI Application Engineering',
-    author: 'Industry & Self-Directed',
-    category: 'certificates',
-    status: 'Verified',
-    currentlyReading: false,
-    progress: 100,
-    icon: '📜',
-    notes: 'Practical mastery of Claude API, OpenAI function calling, RAG pipelines, and prompt optimization.'
   }
 ];
 
@@ -83,9 +62,7 @@ function renderTabs(container) {
     if (!container) return;
     const categories = [
         { id: 'all', label: 'All Resources' },
-        { id: 'books', label: '📖 Books' },
-        { id: 'research', label: '🔬 Research' },
-        { id: 'certificates', label: '📜 Certificates' }
+        { id: 'books', label: '📖 Books' }
     ];
 
     container.innerHTML = categories.map(cat => `

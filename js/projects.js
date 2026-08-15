@@ -64,21 +64,21 @@ const FALLBACK = [
     }
   },
   {
-    id: 'modal-chatbot', number: '04 / 04', title: 'Real-Time Chatbot',
+    id: 'modal-chatbot', number: '04 / 04', title: 'WALL-E — Mental Health AI Companion App',
     accentGradient: 'linear-gradient(90deg,#ec4899,#8b5cf6)',
-    tech: ['Machine Learning','WebSockets','Real-Time'],
-    description: 'A low-latency, scalable communication platform integrating ML features. Built under strict time constraints, ranking in the top 5% of 500 competitors.',
+    tech: ['AI Integration','Mood Tracking','Guided Journaling'],
+    description: 'A supportive AI companion for mood check-ins, guided journaling, and reflective conversations — designed to encourage healthier daily habits with clear, user-first boundaries.',
     github: null, live: null,
-    award: '⭐ Top 5% — 500 Competitors',
+    award: null,
     caseStudy: {
       heroGradient:'linear-gradient(135deg,#1a0520,#0d0530,#200520)',
-      story:'500 developers. One brief. A strict time limit. I didn\'t approach this as a student competing — I approached it as an engineer solving a real infrastructure problem.',
-      problem:'Real-time communication systems are deceptively complex. Maintaining low latency at scale, handling connection drops, and integrating ML features — all simultaneously, under pressure.',
-      architecture:'WebSocket-based scalable chatbot with ML response generation, intent classification, and connection-resilient architecture with message queue buffering.',
-      stack:['WebSockets','Machine Learning','Real-Time Architecture','Node.js'],
-      challenges:'Optimizing socket payload sizes for maximum throughput. Preventing thread starvation during real-time ML inference.',
-      impact:'Top 5% ranking among 500 developers. Engineering discipline, not just technical knowledge, separates good solutions from great ones.',
-      lessons:'Architecture decisions made in the first 10 minutes define your ceiling. Calm, structured thinking beats reactive coding every time.'
+      story:'WALL-E began with a simple idea: create a calm, private space where a person can pause, reflect, and build a more consistent emotional check-in habit.',
+      problem:'Daily stress is easy to overlook until it compounds. People need a low-friction way to capture how they feel, reflect on patterns, and find supportive prompts without replacing professional care.',
+      architecture:'A responsive AI companion experience with guided check-ins, journal prompts, mood history, and contextual conversation flows. Personal reflection stays at the center, with support resources easy to access when needed.',
+      stack:['JavaScript','AI Integration','Local Storage','Responsive Design'],
+      challenges:'Designing language that feels supportive without making clinical claims, protecting personal reflections, and making the experience clear about its limits.',
+      impact:'Created a gentler daily reflection experience that helps users notice patterns and make space for intentional self-care.',
+      lessons:'Empathy must shape every interaction. Mental-health-related tools need clear boundaries, privacy-first decisions, and easy access to professional support.'
     }
   }
 ];

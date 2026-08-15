@@ -485,7 +485,7 @@ export function initTerminal() {
                     ['info',      '  AI Stack : Claude API · OpenAI · Prompt Engineering'],
                     ['info',      '  Core     : Java · Data Structures · REST · Modular'],
                     ['info',      '  DevOps   : Git · Vercel · CI/CD'],
-                    ['info',      '  GPA      : 9.1 | Projects: 4+ | Hackathon: 🥇'],
+                    ['info',      '  CGPA     : 9.5 | Projects: 4+ | Hackathon: 🥇'],
                     ['separator', '─────────────────────────────────────────────────────────'],
                 ]);
                 break;
