@@ -39,7 +39,6 @@ const FALLBACK_LIBRARY = [
     progress: 100,
     icon: '🧠',
     notes: 'System 1 vs System 2 thinking, cognitive biases, and strategic decision making.'
-  },
   }
 ];
 
@@ -77,6 +76,7 @@ function renderTabs(container) {
             container.querySelectorAll('.library-tab').forEach(b => b.classList.toggle('active', b === btn));
             const grid = document.getElementById('library-grid');
             if (grid) renderGrid(grid);
+        });
     });
 }
 
