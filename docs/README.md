@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/chillingbing648-sketch/Portfolio/main/Photo.jpeg" alt="Harsh Dubey" width="110" style="border-radius:50%;border:2px solid #8b5cf6"/>
+<img src="https://raw.githubusercontent.com/chillingbing648-sketch/Portfolio/main/SaveClip.App_751726771_17937382965320859_6813620073578380356_n.jpg" alt="Harsh Dubey" width="110" style="border-radius:50%;border:2px solid #8b5cf6"/>
 
 <br/>
 
