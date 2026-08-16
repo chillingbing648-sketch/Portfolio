@@ -51,7 +51,6 @@ const FALLBACK = [
     tech: ['AI Integration','Full-Stack','Data Analysis'],
     description: 'An intelligent assistant driving eco-friendly purchasing decisions through real-time data analysis. Awarded First Prize in a renowned Tech Hackathon.',
     github: null, live: 'https://chillingbing648-sketch.github.io/MENSWARE/',
-    award: '🏆 First Prize — Tech Hackathon',
     caseStudy: {
       heroGradient:'linear-gradient(135deg,#001a0e,#001520,#0a1a0a)',
       story:'A hackathon brief: solve a real-world problem in 24 hours. Most teams built dashboards. We built an intelligence layer.',
