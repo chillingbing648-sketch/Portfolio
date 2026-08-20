@@ -238,7 +238,7 @@ Curiosity is the default state. Discipline is how things ship. Calculated risk i
 | ◆ Portfolio | [harshportfolio404.netlify.app](https://harshportfolio404.netlify.app/) |
 | ◆ GitHub | [chillingbing648-sketch](https://github.com/chillingbing648-sketch) |
 | ◆ LinkedIn | [harsh-dubey-640a68389](https://www.linkedin.com/in/harsh-dubey-640a68389/) |
-| ◆ Resume | [Harsh_Resume_Doc.pdf](https://github.com/chillingbing648-sketch/Portfolio/raw/main/Harsh_Resume_Doc.pdf) |
+| ◆ Resume | [Harsh_Resume.pdf](https://github.com/chillingbing648-sketch/Portfolio/raw/main/Harsh_Resume.pdf) |
 | ◆ Email | harshitd585@gmail.com |
 
 ---

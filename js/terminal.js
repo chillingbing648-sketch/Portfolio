@@ -267,7 +267,7 @@ export function initTerminal() {
                 closeTerminal();
                 setTimeout(() => {
                     const a = document.createElement('a');
-                    a.href = 'Harsh_Resume_Doc.pdf';
+                    a.href = 'Harsh_Resume.pdf';
                     a.download = 'Harsh_Dubey_Resume.pdf';
                     a.click();
                 }, 400);

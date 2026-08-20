@@ -1,171 +1,432 @@
 /**
  * js/loader.js
- * AI Boot Loader Engine — Zero External Dependencies
- * 
- * Works with the existing HTML markup in Index.html:
- *   - .boot-line elements with data-msg and data-progress attributes
- *   - .boot-text span inside each line for typing
- *   - .boot-cursor span for blinking cursor
- *   - #loaderProgressFill for progress beam
- * 
- * Exposes: initLoader(), finishLoader(), forceExitLoader()
+ * AI Boot Loader Engine — Performance Optimized
+ *
+ * Preserves the existing loader markup and visual sequence while:
+ * - Removing per-character setInterval()
+ * - Using one controlled animation loop for typing
+ * - Preventing overlapping timers
+ * - Making loader completion deterministic
+ * - Coordinating page reveal through loader:complete
  */
 
-const LOADER_TIMEOUT = 8000; // 8-second hard ceiling
+const LOADER_TIMEOUT = 8000;
+const INITIAL_DELAY = 200;
+const LINE_DELAY = 150;
+const FINAL_HOLD = 650;
+const CHAR_DELAY = 22;
+
 let _loaderDone = false;
 let _timeoutId = null;
+let _typingFrame = null;
+let _delayTimeout = null;
 
 export function initLoader() {
     if (_loaderDone) return;
 
-    // HARD CEILING — set immediately, cleared in finishLoader/forceExitLoader
-    _timeoutId = setTimeout(() => forceExitLoader('timeout'), LOADER_TIMEOUT);
+    _loaderDone = false;
 
-    // Disable browser scroll restoration
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
-    const loader = document.getElementById('cinematic-loader');
+    const loader = document.getElementById(
+        'cinematic-loader'
+    );
+
     if (!loader) {
-        // No loader element in the DOM — skip straight to reveal
         finishLoader();
         return;
     }
 
-    // Gather boot lines from existing HTML (data-msg attribute has the message text)
-    const bootLines = loader.querySelectorAll('.boot-line');
-    const progressFill = document.getElementById('loaderProgressFill');
+    const bootLines =
+        loader.querySelectorAll('.boot-line');
+
+    const progressFill =
+        document.getElementById(
+            'loaderProgressFill'
+        );
 
     if (!bootLines.length) {
         finishLoader();
         return;
     }
 
+    /*
+     * Hard safety ceiling.
+     */
+    _timeoutId = setTimeout(() => {
+        forceExitLoader('timeout');
+    }, LOADER_TIMEOUT);
+
     let lineIdx = 0;
 
-    function typeNextLine() {
-        if (_loaderDone || lineIdx >= bootLines.length) return;
+    /*
+     * ---------------------------------------------------------
+     * CONTROLLED DELAY
+     * ---------------------------------------------------------
+     */
 
-        const lineEl = bootLines[lineIdx];
-        const textEl = lineEl.querySelector('.boot-text');
-        const cursorEl = lineEl.querySelector('.boot-cursor');
-        const message = lineEl.dataset.msg || '';
-        const progress = parseInt(lineEl.dataset.progress, 10) || 0;
-        const isWelcome = lineEl.classList.contains('welcome');
+    const schedule = (callback, delay) => {
+        if (_loaderDone) return;
 
-        // Show the line
+        _delayTimeout = setTimeout(() => {
+            _delayTimeout = null;
+
+            if (!_loaderDone) {
+                callback();
+            }
+        }, delay);
+    };
+
+    /*
+     * ---------------------------------------------------------
+     * CHARACTER TYPING
+     *
+     * Uses requestAnimationFrame instead of setInterval.
+     * This keeps typing synchronized with browser rendering.
+     * ---------------------------------------------------------
+     */
+
+    function typeLine(lineEl, onComplete) {
+        if (_loaderDone) return;
+
+        const textEl =
+            lineEl.querySelector('.boot-text');
+
+        const cursorEl =
+            lineEl.querySelector('.boot-cursor');
+
+        const message =
+            lineEl.dataset.msg || '';
+
+        const progress =
+            parseInt(
+                lineEl.dataset.progress,
+                10
+            ) || 0;
+
+        const isWelcome =
+            lineEl.classList.contains('welcome');
+
         lineEl.classList.add('visible');
 
-        // Show cursor on current line
-        if (cursorEl) cursorEl.style.display = 'inline-block';
-
-        // Update progress beam
-        if (progressFill) {
-            progressFill.style.width = progress + '%';
+        if (cursorEl) {
+            cursorEl.style.display =
+                'inline-block';
         }
 
-        // Type character by character
+        if (progressFill) {
+            progressFill.style.width =
+                `${progress}%`;
+        }
+
         let charIdx = 0;
-        const charInterval = setInterval(() => {
+        let lastTime = performance.now();
+
+        function tick(now) {
             if (_loaderDone) {
-                clearInterval(charInterval);
+                _typingFrame = null;
                 return;
             }
 
-            charIdx++;
-            if (textEl) textEl.textContent = message.substring(0, charIdx);
+            const elapsed =
+                now - lastTime;
 
-            if (charIdx >= message.length) {
-                clearInterval(charInterval);
+            if (
+                elapsed >= CHAR_DELAY
+            ) {
+                const charsToAdd =
+                    Math.max(
+                        1,
+                        Math.floor(
+                            elapsed /
+                            CHAR_DELAY
+                        )
+                    );
 
-                // Hide cursor on completed lines (except the last "welcome" line)
-                if (cursorEl && !isWelcome) {
-                    cursorEl.style.display = 'none';
+                charIdx = Math.min(
+                    charIdx +
+                    charsToAdd,
+                    message.length
+                );
+
+                if (textEl) {
+                    textEl.textContent =
+                        message.substring(
+                            0,
+                            charIdx
+                        );
                 }
 
-                if (isWelcome || lineIdx === bootLines.length - 1) {
-                    // Final line completed — pause then finish
-                    setTimeout(() => finishLoader(), 800);
-                } else {
-                    lineIdx++;
-                    setTimeout(typeNextLine, 150);
+                lastTime = now;
+
+                if (
+                    charIdx >=
+                    message.length
+                ) {
+                    _typingFrame = null;
+
+                    if (
+                        cursorEl &&
+                        !isWelcome
+                    ) {
+                        cursorEl.style.display =
+                            'none';
+                    }
+
+                    onComplete(
+                        isWelcome
+                    );
+
+                    return;
                 }
             }
-        }, 22); // ~45 chars/second — fast but readable
+
+            _typingFrame =
+                requestAnimationFrame(
+                    tick
+                );
+        }
+
+        _typingFrame =
+            requestAnimationFrame(
+                tick
+            );
     }
 
-    // Small initial delay so the loader UI renders before typing starts
-    setTimeout(typeNextLine, 200);
+    /*
+     * ---------------------------------------------------------
+     * LINE SEQUENCER
+     * ---------------------------------------------------------
+     */
+
+    function typeNextLine() {
+        if (
+            _loaderDone ||
+            lineIdx >= bootLines.length
+        ) {
+            return;
+        }
+
+        const lineEl =
+            bootLines[lineIdx];
+
+        typeLine(
+            lineEl,
+            (isWelcome) => {
+                if (_loaderDone) return;
+
+                const isLast =
+                    lineIdx >=
+                    bootLines.length - 1;
+
+                if (
+                    isWelcome ||
+                    isLast
+                ) {
+                    schedule(
+                        () => finishLoader(),
+                        FINAL_HOLD
+                    );
+
+                    return;
+                }
+
+                lineIdx++;
+
+                schedule(
+                    typeNextLine,
+                    LINE_DELAY
+                );
+            }
+        );
+    }
+
+    /*
+     * Give the browser one frame to paint the
+     * loader before starting the sequence.
+     */
+    schedule(
+        typeNextLine,
+        INITIAL_DELAY
+    );
 }
+
+/*
+ * -------------------------------------------------------------
+ * NORMAL COMPLETION
+ * -------------------------------------------------------------
+ */
 
 export function finishLoader() {
     if (_loaderDone) return;
+
     _loaderDone = true;
-    if (_timeoutId) { clearTimeout(_timeoutId); _timeoutId = null; }
+
+    clearLoaderTimers();
 
     releaseBody();
 
-    // Start the hero reveal while the terminal fades out. This gives the next
-    // scene time to establish its entrance state beneath the loader instead of
-    // flashing the finished hero before its animation can begin.
-    document.dispatchEvent(new CustomEvent('loader:complete'));
+    /*
+     * Tell the rest of the application that the
+     * loader sequence has completed.
+     *
+     * The page reveal should listen to this event.
+     */
+    document.dispatchEvent(
+        new CustomEvent('loader:complete')
+    );
+
     runLoaderExit();
 }
 
+/*
+ * -------------------------------------------------------------
+ * EMERGENCY COMPLETION
+ * -------------------------------------------------------------
+ */
+
 export function forceExitLoader(reason) {
     if (_loaderDone) return;
-    _loaderDone = true;
-    if (_timeoutId) { clearTimeout(_timeoutId); _timeoutId = null; }
 
-    // Immediate hide — skip cinematic exit
-    const loader = document.getElementById('cinematic-loader');
+    _loaderDone = true;
+
+    clearLoaderTimers();
+
+    const loader =
+        document.getElementById(
+            'cinematic-loader'
+        );
+
     if (loader) {
-        loader.style.transition = 'opacity 0.3s ease';
+        loader.style.transition =
+            'opacity 0.3s ease';
+
         loader.style.opacity = '0';
-        setTimeout(() => { loader.style.display = 'none'; }, 350);
+
+        setTimeout(() => {
+            loader.style.display =
+                'none';
+        }, 350);
     }
 
     releaseBody();
-    document.dispatchEvent(new CustomEvent('loader:complete'));
+
+    document.dispatchEvent(
+        new CustomEvent('loader:complete', {
+            detail: {
+                reason
+            }
+        })
+    );
 }
 
+/*
+ * -------------------------------------------------------------
+ * TIMER CLEANUP
+ * -------------------------------------------------------------
+ */
+
+function clearLoaderTimers() {
+    if (_timeoutId !== null) {
+        clearTimeout(_timeoutId);
+        _timeoutId = null;
+    }
+
+    if (_delayTimeout !== null) {
+        clearTimeout(_delayTimeout);
+        _delayTimeout = null;
+    }
+
+    if (_typingFrame !== null) {
+        cancelAnimationFrame(
+            _typingFrame
+        );
+
+        _typingFrame = null;
+    }
+}
+
+/*
+ * -------------------------------------------------------------
+ * BODY RELEASE
+ * -------------------------------------------------------------
+ */
+
 function releaseBody() {
-    document.body.classList.remove('loading', 'loader-active', 'no-scroll');
-    document.documentElement.classList.remove('loading');
+    document.body.classList.remove(
+        'loading',
+        'loader-active',
+        'no-scroll'
+    );
+
+    document.documentElement.classList.remove(
+        'loading'
+    );
+
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
 
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    window.scrollTo(
+        0,
+        0
+    );
 }
 
+/*
+ * -------------------------------------------------------------
+ * LOADER EXIT
+ * -------------------------------------------------------------
+ */
+
 function runLoaderExit() {
-    const loaderEl = document.getElementById('cinematic-loader');
+    const loaderEl =
+        document.getElementById(
+            'cinematic-loader'
+        );
+
     if (!loaderEl) {
         return;
     }
 
-    if (typeof gsap !== 'undefined') {
-        gsap.to(loaderEl, {
-            opacity: 0,
-            duration: 0.6,
-            ease: 'power2.inOut',
-            onComplete: () => {
-                loaderEl.style.display = 'none';
+    if (
+        typeof gsap !== 'undefined'
+    ) {
+        gsap.to(
+            loaderEl,
+            {
+                opacity: 0,
+                duration: 0.6,
+                ease: 'power2.inOut',
+
+                onComplete: () => {
+                    loaderEl.style.display =
+                        'none';
+                }
             }
-        });
-    } else {
-        // CSS fallback — no GSAP required
-        loaderEl.style.transition = 'opacity 0.5s ease';
-        loaderEl.style.opacity = '0';
-        setTimeout(() => {
-            loaderEl.style.display = 'none';
-        }, 550);
+        );
+
+        return;
     }
+
+    loaderEl.style.transition =
+        'opacity 0.5s ease';
+
+    loaderEl.style.opacity = '0';
+
+    setTimeout(() => {
+        loaderEl.style.display =
+            'none';
+    }, 550);
 }
 
-// Aliases for backward compatibility
-export const initBootLoader = initLoader;
+/*
+ * Backward compatibility.
+ */
+export const initBootLoader =
+    initLoader;
