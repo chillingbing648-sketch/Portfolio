@@ -6,7 +6,7 @@
 import { fetchJson } from './utils.js';
 
 const FB_TIMELINE = [
-  { date:'Currently Pursuing', title:'BSc Information Technology', subtitle:'Thakur Specialised Degree College · GPA 9.1', position:'left' },
+  { date:'Currently Pursuing', title:'BSc Information Technology', subtitle:'Thakur Specialised Degree College · GPA 9.5', position:'left' },
   { date:'2024 — 2025', title:'12th Grade (Computer Science)', subtitle:'Sardar Vallabhai Patel College', position:'right' },
   { date:'2022 — 2023', title:'10th Grade', subtitle:'St. Xavier\'s High School · Maharashtra Board', position:'left' }
 ];
@@ -14,7 +14,7 @@ const FB_TIMELINE = [
 const FB_ACHIEVEMENTS = [
   { icon:'🏆', title:'IntraCollegiate Debate Winner', description:'Won 1st place presenting well-researched arguments under pressure across diverse complex topics.' },
   { icon:'📊', title:'PR Head — InterCollegiate Fest', description:'Led PR efforts attracting 2,000+ attendees and generating 1,000+ registrations through strategic outreach.' },
-  { icon:'🎓', title:'Academic Excellence', description:'Recognized for maintaining GPA 9.1 with active involvement in Fests, NSS Unit, and student leadership.' }
+  { icon:'🎓', title:'Academic Excellence', description:'Recognized for maintaining GPA 9.5 with active involvement in Fests, NSS Unit, and student leadership.' }
 ];
 
 export async function initTimeline() {

@@ -40,8 +40,7 @@ const FALLBACK_LIBRARY = [
     icon: '🧠',
     notes: 'System 1 vs System 2 thinking, cognitive biases, and strategic decision making.'
   },
-  }
-];
+]
 
 let libraryData = [];
 let activeCategory = 'all';

@@ -1,69 +1,232 @@
 /**
- * Custom Cursor & Ambient Glow Engine
+ * Premium Custom Cursor & Ambient Glow Engine
+ *
+ * Features:
+ * - Smooth lagging cursor orb
+ * - Instant cursor dot
+ * - Ambient mouse-following glow
+ * - Smart hover states
+ * - Button/card ripple effects
+ * - Mobile/touch protection
+ * - Reduced-motion support
+ * - Safe re-binding without duplicate listeners
+ * - Automatic cleanup
  */
 
+let cursorCleanup = null;
+
 export function initCursor() {
-    const cursorDot = document.getElementById('cursorDot');
-    const cursorOrb = document.getElementById('cursorOrb');
-    const ambientGlow = document.getElementById('ambientGlow');
+    // Prevent duplicate initialization
+    if (cursorCleanup) {
+        cursorCleanup();
+        cursorCleanup = null;
+    }
+
+    const cursorDot = document.getElementById("cursorDot");
+    const cursorOrb = document.getElementById("cursorOrb");
+    const ambientGlow = document.getElementById("ambientGlow");
 
     if (!cursorDot || !cursorOrb) return;
 
-    let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-    let ox = cx, oy = cy;
+    // Don't run custom cursor on touch devices
+    const isTouchDevice =
+        window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-    window.addEventListener('mousemove', e => {
-        cx = e.clientX; cy = e.clientY;
-        cursorDot.style.transform = `translate(${cx}px, ${cy}px)`;
-        if (ambientGlow) ambientGlow.style.transform = `translate(${cx}px, ${cy}px)`;
-    }, { passive: true });
-
-    function renderCursor() {
-        ox += (cx - ox) * 0.12;
-        oy += (cy - oy) * 0.12;
-        cursorOrb.style.transform = `translate(${ox}px, ${oy}px)`;
-        requestAnimationFrame(renderCursor);
+    if (isTouchDevice) {
+        cursorDot.style.display = "none";
+        cursorOrb.style.display = "none";
+        if (ambientGlow) ambientGlow.style.display = "none";
+        return;
     }
+
+    // Respect accessibility preferences
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let orbX = mouseX;
+    let orbY = mouseY;
+
+    let animationFrame = null;
+
+    const handleMouseMove = (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        // Instant dot
+        cursorDot.style.transform =
+            `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+
+        // Ambient glow
+        if (ambientGlow) {
+            ambientGlow.style.transform =
+                `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+        }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, {
+        passive: true
+    });
+
+    // Smooth orb interpolation
+    const renderCursor = () => {
+        if (prefersReducedMotion) {
+            orbX = mouseX;
+            orbY = mouseY;
+        } else {
+            orbX += (mouseX - orbX) * 0.14;
+            orbY += (mouseY - orbY) * 0.14;
+        }
+
+        cursorOrb.style.transform =
+            `translate3d(${orbX}px, ${orbY}px, 0)`;
+
+        animationFrame = requestAnimationFrame(renderCursor);
+    };
+
     renderCursor();
 
-    bindHoverTargets();
+    const removeListeners = bindHoverTargets({
+        cursorOrb,
+        reducedMotion: prefersReducedMotion
+    });
+
+    // Cleanup function
+    cursorCleanup = () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+        }
+
+        removeListeners?.();
+
+        cursorOrb.classList.remove("hover-active", "hover-link");
+        cursorOrb.removeAttribute("data-cursor");
+    };
+
+    return cursorCleanup;
 }
 
-export function bindHoverTargets() {
-    const cursorOrb = document.getElementById('cursorOrb');
-    if (!cursorOrb) return;
 
-    const hoverTargets = document.querySelectorAll('a, button, .btn, .glass-panel, .skill-capsule, .contact-card-interactive, .social-card-item, .project-card, .constellation-node');
-    hoverTargets.forEach(t => {
-        t.removeEventListener('mouseenter', onMouseEnter);
-        t.removeEventListener('mouseleave', onMouseLeave);
-        t.addEventListener('mouseenter', onMouseEnter);
-        t.addEventListener('mouseleave', onMouseLeave);
-    });
-
-    function onMouseEnter(e) {
-        const t = e.currentTarget;
-        if (t.tagName === 'A' || t.tagName === 'BUTTON' || t.classList.contains('btn')) {
-            cursorOrb.classList.add('hover-active');
-        } else {
-            cursorOrb.classList.add('hover-link');
-        }
+/**
+ * Bind hover interactions and ripple effects
+ */
+export function bindHoverTargets({
+    cursorOrb = document.getElementById("cursorOrb"),
+    reducedMotion = false
+} = {}) {
+    if (!cursorOrb) {
+        return () => {};
     }
 
-    function onMouseLeave() {
-        cursorOrb.classList.remove('hover-active', 'hover-link');
-    }
+    const hoverSelector = [
+        "a",
+        "button",
+        ".btn",
+        ".glass-panel",
+        ".skill-capsule",
+        ".contact-card-interactive",
+        ".social-card-item",
+        ".project-card",
+        ".constellation-node"
+    ].join(",");
 
-    // Ripple physics for buttons
-    document.querySelectorAll('.btn, .contact-card-interactive, .social-card-item').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const r = document.createElement('span');
-            r.classList.add('ripple');
-            const size = Math.max(rect.width, rect.height);
-            r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
-            this.appendChild(r);
-            setTimeout(() => r.remove(), 600);
+    const hoverTargets = document.querySelectorAll(hoverSelector);
+
+    const listeners = [];
+
+    const addListener = (element, event, handler) => {
+        element.addEventListener(event, handler);
+        listeners.push(() => {
+            element.removeEventListener(event, handler);
         });
+    };
+
+    // -----------------------------
+    // Hover interaction
+    // -----------------------------
+
+    hoverTargets.forEach((target) => {
+        const isInteractive =
+            target.matches("a, button, .btn");
+
+        const handleEnter = () => {
+            cursorOrb.classList.remove("hover-active", "hover-link");
+
+            cursorOrb.classList.add(
+                isInteractive ? "hover-active" : "hover-link"
+            );
+
+            cursorOrb.dataset.cursor =
+                isInteractive ? "interactive" : "hover";
+        };
+
+        const handleLeave = () => {
+            cursorOrb.classList.remove(
+                "hover-active",
+                "hover-link"
+            );
+
+            delete cursorOrb.dataset.cursor;
+        };
+
+        addListener(target, "mouseenter", handleEnter);
+        addListener(target, "mouseleave", handleLeave);
     });
+
+    // -----------------------------
+    // Ripple interaction
+    // -----------------------------
+
+    const rippleTargets = document.querySelectorAll(
+        ".btn, .contact-card-interactive, .social-card-item"
+    );
+
+    rippleTargets.forEach((element) => {
+        const handleClick = (event) => {
+            if (reducedMotion) return;
+
+            const rect = element.getBoundingClientRect();
+
+            const size = Math.max(
+                rect.width,
+                rect.height
+            );
+
+            const ripple = document.createElement("span");
+
+            ripple.className = "ripple";
+
+            ripple.style.width = `${size}px`;
+            ripple.style.height = `${size}px`;
+
+            ripple.style.left =
+                `${event.clientX - rect.left - size / 2}px`;
+
+            ripple.style.top =
+                `${event.clientY - rect.top - size / 2}px`;
+
+            element.appendChild(ripple);
+
+            ripple.addEventListener(
+                "animationend",
+                () => ripple.remove(),
+                { once: true }
+            );
+        };
+
+        addListener(element, "click", handleClick);
+    });
+
+    // -----------------------------
+    // Cleanup
+    // -----------------------------
+
+    return () => {
+        listeners.forEach((remove) => remove());
+    };
 }

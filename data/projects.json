@@ -44,23 +44,23 @@
   {
     "id": "modal-sustainable",
     "number": "03 / 04",
-    "title": "Sustainable Shopping Assistant",
-    "award": "🏆 First Prize — Tech Hackathon",
+    "title": "Continuity - Financial Sustainability Vault",
     "accentGradient": "linear-gradient(90deg, #10b981, #06b6d4)",
-    "tech": ["AI Integration", "Full-Stack", "Data Analysis"],
-    "description": "An intelligent assistant driving eco-friendly purchasing decisions through real-time data analysis. Awarded First Prize in a renowned Tech Hackathon.",
-    "github": null,
-    "live": "https://chillingbing648-sketch.github.io/MENSWARE/",
+    "tech": ["AI Integration", "React", "Data Analysis"],
+    "description": "Continuity is a secure digital legacy platform that brings wills, investments, assets, estates, and important documents into one trusted place—with controlled access for the people who matter most."
+,
+    "github": "https://github.com/chillingbing648-sketch/Continuity.git",
+    "live": "https://chillingbing648-sketch.github.io/Continuity/",
     "caseStudy": {
       "heroGradient": "linear-gradient(135deg, #001a0e, #001520, #0a1a0a)",
-      "story": "A hackathon brief: solve a real-world problem in 24 hours. Most teams built dashboards. We built an intelligence layer. The goal was to help people make better purchasing decisions — not by restricting choice, but by illuminating consequences.",
-      "problem": "Consumer purchasing decisions are made with minimal environmental context. Product labels are opaque, sustainability scores don't exist at point-of-decision, and eco-friendly alternatives are buried. The gap between intention and action is massive.",
-      "architecture": "Built an AI-powered shopping assistant that analyzes products in real time, surfaces sustainability metrics (carbon footprint, recyclability, brand ethics scores), and intelligently recommends eco-friendly alternatives. Full-stack implementation with AI integration layer for data processing.",
-      "stack": ["AI Integration", "Full-Stack", "Data Analysis", "Responsive Design"],
-      "challenges": "Building a production-quality AI product in 24 hours. Sourcing and normalizing sustainability data in real time. Creating an interface that made environmental data understandable and actionable for everyday consumers under competitive pressure.",
-      "impact": "🏆 First Prize out of all competing teams. Validated the concept that AI can bridge the intention-action gap in sustainable consumer behavior at scale.",
-      "lessons": "Pressure is a filter — it reveals true engineering capability. The difference between winning and losing is often UX clarity, not technical complexity."
-    }
+      "story": "A secure digital legacy platform designed to bring wills, investments, assets, estates, and important documents together in one trusted place. Continuity focuses on making personal legacies organized, accessible, and securely shareable with the people who matter most.",
+      "problem": "Important financial and legacy information is often scattered across documents, accounts, institutions, and personal records. Families may struggle to know what exists, where it is, or how to access it when it matters most.",
+      "architecture": "Built a centralized digital platform that enables users to organize assets, investments, wills, estates, and critical documents, while providing secure, role-based access and family notifications for controlled information sharing.",
+      "stack": ["Full-Stack", "Secure Data Management", "Access Control", "Responsive Design"],
+     "challenges": "Designing a system that balances accessibility with privacy and security. Creating a simple experience for managing complex financial and legacy information while ensuring that sensitive data is shared only with the right people.",
+      "impact": "Created a unified digital space for managing personal legacy and financial information, helping individuals stay organized while giving trusted family members the right access when needed.",
+      "lessons": "The best digital systems simplify complexity without compromising trust. Continuity was built around the idea that preserving a legacy is not just about storing information, but ensuring it reaches the right people at the right time."
+}
   },
   {
     "id": "modal-chatbot",
@@ -69,8 +69,8 @@
     "accentGradient": "linear-gradient(90deg, #ec4899, #8b5cf6)",
     "tech": ["AI Integration", "Mood Tracking", "Guided Journaling"],
     "description": "A supportive AI companion for mood check-ins, guided journaling, and reflective conversations — designed to encourage healthier daily habits with clear, user-first boundaries.",
-    "github": null,
-    "live": null,
+    "github": "https://github.com/chillingbing648-sketch/WALL-E.git",
+    "live": "https://chillingbing648-sketch.github.io/WALL-E/",
     "caseStudy": {
       "heroGradient": "linear-gradient(135deg, #1a0520, #0d0530, #200520)",
       "story": "WALL-E began with a simple idea: create a calm, private space where a person can pause, reflect, and build a more consistent emotional check-in habit.",

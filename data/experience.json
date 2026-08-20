@@ -7,7 +7,7 @@
     "chips": [
       "Technical Support",
       "System Administration",
-      "Digital Transformation",
+      "Computer Systems",
       "Admission Operations",
       "Process Optimization",
       "Troubleshooting"
@@ -17,7 +17,7 @@
     "logo": "🎭",
     "title": "Public Relations Head",
     "organization": "Thakur Specialized Degree College",
-    "description": "Spearheaded student parliament initiatives, public policy coordination, event leadership, and student advocacy. Led PR strategy for an InterCollegiate Fest attracting 2,000+ attendees and 1,000+ registrations.",
+    "description": "Spearheaded student leadership initiatives, public policy coordination, event leadership, and student advocacy. Led PR strategy for an intercollegiate fest attracting 2,000+ attendees and 1,000+ registrations.",
     "chips": [
       "Leadership",
       "Student Representation",
@@ -25,6 +25,21 @@
       "Event Leadership",
       "Team Management",
       "Public Speaking",
+      "Decision Making"
+    ]
+  },
+  {
+    "logo": "⚜️",
+    "title": "Chief Minister",
+    "organization": "Student Parliament Initiative — Career Katta, Government of Maharashtra & MITSC",
+    "description": "Served as Chief Minister of the Student Parliament initiative, leading student representatives, coordinating leadership activities, and driving initiatives focused on student development, civic engagement, and collaborative decision-making.",
+    "chips": [
+      "Student Leadership",
+      "Civic Engagement",
+      "Team Coordination",
+      "Strategic Planning",
+      "Public Speaking",
+      "Student Development",
       "Decision Making"
     ]
   }
