@@ -9,7 +9,7 @@ export function initContactInteractions() {
     copyBtns.forEach(btn => {
         btn.addEventListener('click', e => {
             e.preventDefault();
-            const email = btn.dataset.email || 'harshitd585@gmail.com';
+            const email = btn.dataset.email || 'harshdubey.works@gmail.com';
 
             navigator.clipboard.writeText(email).then(() => {
                 const originalText = btn.innerHTML;

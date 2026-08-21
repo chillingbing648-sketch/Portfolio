@@ -1,0 +1,164 @@
+[
+  {
+    "id": "frontend-developer",
+    "title": "Frontend Developer",
+    "description": "Building responsive, accessible and interactive web experiences.",
+    "skills": [
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6+",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "TailwindCSS",
+      "Responsive Design",
+      "Accessibility"
+    ],
+    "projectSignals": [
+      "HTML/CSS/JS",
+      "HTML5 / CSS3 / JS",
+      "React",
+      "Responsive Design",
+      "Frontend"
+    ],
+    "experienceSignals": [
+      "Technical Support",
+      "Troubleshooting",
+      "Process Optimization"
+    ]
+  },
+  {
+    "id": "fullstack-developer",
+    "title": "Full-Stack Developer",
+    "description": "Building applications across frontend, backend, APIs and data layers.",
+    "skills": [
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6+",
+      "React",
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "MongoDB",
+      "MySQL",
+      "Firebase",
+      "Supabase"
+    ],
+    "projectSignals": [
+      "Node.js",
+      "REST API",
+      "Full-Stack",
+      "JSON Data Store",
+      "HTML/CSS/JS"
+    ],
+    "experienceSignals": [
+      "System Administration",
+      "Computer Systems",
+      "Troubleshooting",
+      "Process Optimization"
+    ]
+  },
+  {
+    "id": "javascript-developer",
+    "title": "JavaScript Developer",
+    "description": "Developing interactive applications and web experiences using modern JavaScript.",
+    "skills": [
+      "JavaScript ES6+",
+      "HTML5",
+      "CSS3",
+      "Node.js",
+      "Express.js",
+      "REST APIs"
+    ],
+    "projectSignals": [
+      "JavaScript",
+      "HTML/CSS/JS",
+      "Fetch API",
+      "REST API"
+    ],
+    "experienceSignals": [
+      "Troubleshooting",
+      "Process Optimization"
+    ]
+  },
+  {
+    "id": "ai-application-developer",
+    "title": "AI Application Developer",
+    "description": "Building applications that integrate AI capabilities into useful user experiences.",
+    "skills": [
+      "Prompt Engineering",
+      "OpenAI APIs",
+      "Claude APIs",
+      "AI Agents",
+      "JavaScript ES6+",
+      "React",
+      "Node.js"
+    ],
+    "projectSignals": [
+      "Claude AI API",
+      "AI Integration",
+      "Prompt Engineering",
+      "JavaScript",
+      "AI-powered",
+      "AI companion"
+    ],
+    "experienceSignals": [
+      "Technical Support",
+      "Process Optimization",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "id": "backend-developer",
+    "title": "Backend Developer",
+    "description": "Working with server-side applications, APIs and data systems.",
+    "skills": [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "MySQL",
+      "MongoDB",
+      "Firebase",
+      "Supabase",
+      "Java",
+      "Data Structures"
+    ],
+    "projectSignals": [
+      "Node.js",
+      "REST API",
+      "JSON Data Store",
+      "Full-Stack"
+    ],
+    "experienceSignals": [
+      "System Administration",
+      "Computer Systems",
+      "Data integrity",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "id": "ai-engineering",
+    "title": "AI / AI Engineering",
+    "description": "Exploring AI-powered applications, APIs, agents and intelligent user experiences.",
+    "skills": [
+      "Prompt Engineering",
+      "OpenAI APIs",
+      "Claude APIs",
+      "AI Agents",
+      "JavaScript ES6+",
+      "Node.js"
+    ],
+    "projectSignals": [
+      "Claude AI API",
+      "AI Integration",
+      "Prompt Engineering",
+      "AI-powered",
+      "AI companion"
+    ],
+    "experienceSignals": [
+      "Technical Support",
+      "Process Optimization",
+      "Troubleshooting"
+    ]
+  }
+]

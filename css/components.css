@@ -21,6 +21,7 @@
     padding: 1px;
     background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 60%, rgba(139,92,246,0.12));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -150,222 +151,205 @@
 }
 
 /* =========================================================
-   AETHER AI COMPANION
-   Production-Grade Floating UI System
+   AETHER AI COMPANION — UNIFIED IMPLEMENTATION
    ========================================================= */
 
-#ai-assistant-btn,
-#ai-assistant-panel {
-    box-sizing: border-box;
-}
-
-
-/* =========================================================
-   AETHER LAUNCH BUTTON
-   ========================================================= */
+/* ---------------------------------------------------------
+   LAUNCHER BUTTON
+   --------------------------------------------------------- */
 
 #ai-assistant-btn {
     position: fixed;
 
-    /*
-     * Safe viewport positioning.
-     * Keeps the button visible on desktop,
-     * tablets and mobile browsers.
-     */
     left: max(
         20px,
         env(safe-area-inset-left)
     );
+    right: auto;
 
     bottom: max(
         20px,
         env(safe-area-inset-bottom)
     );
 
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
 
-    min-width: 56px;
-    min-height: 56px;
-
-    max-width: calc(100vw - 32px);
-    max-height: calc(100dvh - 32px);
+    padding: 0;
+    margin: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    z-index: 10001;
-
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(139,92,246,0.95),
-            rgba(6,182,212,0.95)
+            #8b5cf6 0%,
+            #3b82f6 52%,
+            #06b6d4 100%
         );
 
     color: #fff;
 
     cursor: pointer;
 
-    box-shadow:
-        0 12px 35px rgba(0,0,0,0.35),
-        0 0 35px rgba(139,92,246,0.25);
+    z-index: 10001;
 
-    transform:
-        translate3d(0,0,0)
-        scale(1);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35),
+        0 0 24px rgba(139,92,246,0.24);
 
     transition:
-        transform 0.35s cubic-bezier(0.16,1,0.3,1),
-        box-shadow 0.35s ease,
-        border-radius 0.3s ease;
+        transform .3s cubic-bezier(.16,1,.3,1),
+        box-shadow .3s ease,
+        border-radius .25s ease;
 
     isolation: isolate;
-
+    overflow: visible;
     -webkit-tap-highlight-color: transparent;
-
-    /*
-     * Prevent inherited layout rules
-     * from affecting the button.
-     */
-    margin: 0;
-    padding: 0;
-
-    overflow: hidden;
-
-    contain: layout paint style;
 }
 
 
-/* Button hover */
+/* ---------------------------------------------------------
+   EXPRESSIVE ANIMATED EYES
+   --------------------------------------------------------- */
+
+.aether-eyes-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+    transition: transform 0.25s ease;
+}
+
+.aether-eye {
+    position: relative;
+    width: 10px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    transform-origin: center;
+    transition: transform 0.15s ease-out;
+}
+
+.aether-eye.is-blinking {
+    transform: scaleY(0.08);
+}
+
+.aether-pupil {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #0e0927;
+    box-shadow: 0 0 4px #06b6d4;
+    will-change: transform;
+}
 
 #ai-assistant-btn:hover {
     transform:
-        translate3d(0,-4px,0)
-        scale(1.06);
+        translateY(-3px)
+        scale(1.05);
 
     box-shadow:
-        0 18px 45px rgba(0,0,0,0.45),
-        0 0 45px rgba(139,92,246,0.38);
+        0 16px 36px rgba(0,0,0,0.42),
+        0 0 32px rgba(139,92,246,0.32);
 }
 
+#ai-assistant-btn:hover .aether-eyes-container {
+    transform: scale(1.06);
+}
 
-/* Button active */
 
 #ai-assistant-btn:active {
-    transform:
-        translate3d(0,0,0)
-        scale(0.96);
+    transform: scale(.95);
 }
 
-
-/* Open state */
 
 #ai-assistant-btn.open {
-    border-radius: 18px;
+    border-radius: 15px;
 }
 
 
-/* =========================================================
-   AETHER PANEL
-   ========================================================= */
+/* ---------------------------------------------------------
+   PANEL
+   --------------------------------------------------------- */
 
 #ai-assistant-panel {
     position: fixed;
 
-    /*
-     * Anchored to the same side as the launcher.
-     */
     left: max(
         20px,
         env(safe-area-inset-left)
     );
 
+    bottom: calc(
+        58px + 32px +
+        max(20px, env(safe-area-inset-bottom))
+    );
+
     right: auto;
 
-    bottom:
-        calc(
-            72px +
-            36px +
-            env(safe-area-inset-bottom)
-        );
-
-    /*
-     * Responsive width.
-     *
-     * Desktop:
-     *   max 390px
-     *
-     * Mobile:
-     *   never exceed viewport.
-     */
     width: min(
-        390px,
+        400px,
         calc(100vw - 32px)
     );
 
-    /*
-     * IMPORTANT:
-     * Fixed height prevents flex children
-     * from expanding the entire widget.
-     */
     height: min(
-        560px,
+        580px,
         calc(100dvh - 120px)
     );
 
     min-width: 0;
     min-height: 280px;
-
     max-width: calc(100vw - 32px);
-
-    max-height:
-        calc(
-            100dvh - 120px
-        );
+    max-height: calc(100dvh - 120px);
 
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
 
-    /*
-     * Critical containment.
-     */
     overflow: hidden;
 
-    /*
-     * Make the widget independent
-     * from page layout.
-     */
     margin: 0;
     padding: 0;
 
-    /*
-     * Above normal portfolio content,
-     * below the launch button.
-     */
     z-index: 10000;
 
-    /*
-     * Glass surface.
-     */
     background:
-        linear-gradient(
-            145deg,
-            rgba(8,8,20,0.98),
-            rgba(12,10,28,0.96)
-        );
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(139,92,246,0.14),
+            transparent 36%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(6,182,212,0.08),
+            transparent 36%
+        ),
+        rgba(8,8,20,0.97);
 
     border:
         1px solid
         rgba(139,92,246,0.42);
 
-    border-radius: 24px;
+    border-radius: 22px;
 
     backdrop-filter:
         blur(28px)
@@ -380,68 +364,40 @@
         0 0 45px rgba(139,92,246,0.14),
         inset 0 1px 0 rgba(255,255,255,0.06);
 
-    /*
-     * Closed state.
-     */
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
 
     transform:
-        translate3d(
-            0,
-            18px,
-            0
-        )
+        translateY(18px)
         scale(0.96);
 
-    transform-origin:
-        bottom left;
+    transform-origin: bottom left;
 
     transition:
         opacity 0.25s ease,
         visibility 0.25s ease,
-        transform 0.35s
-        cubic-bezier(0.16,1,0.3,1);
+        transform 0.35s cubic-bezier(0.16,1,0.3,1);
 
-    /*
-     * Rendering isolation.
-     */
     isolation: isolate;
-
-    contain:
-        layout
-        paint
-        style;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    OPEN STATE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel.open {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
-
-    transform:
-        translate3d(
-            0,
-            0,
-            0
-        )
-        scale(1);
+    transform: translateY(0) scale(1);
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    DIRECT CHILD CONTAINMENT
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel > * {
     min-width: 0;
@@ -450,29 +406,19 @@
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    HEADER
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-header {
     position: relative;
-
-    flex:
-        0 0 auto;
-
+    flex: 0 0 auto;
     width: 100%;
     min-width: 0;
-
-    padding:
-        14px
-        16px;
-
+    padding: 14px 16px;
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     box-sizing: border-box;
 
     background:
@@ -483,303 +429,195 @@
         );
 
     border-bottom:
-        1px solid
-        rgba(255,255,255,0.07);
+        1px solid rgba(255,255,255,0.07);
 
     overflow: hidden;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    AVATAR
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-avatar {
-    flex:
-        0 0 36px;
-
+    flex: 0 0 36px;
     width: 36px;
     height: 36px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
 
     background:
-        var(--gradient-primary,
         linear-gradient(
             135deg,
             #8b5cf6,
             #06b6d4
-        ));
+        );
 
     color: #fff;
-
     font-size: 1rem;
-
     overflow: hidden;
 
     box-shadow:
-        0 0 18px
-        rgba(139,92,246,0.25);
+        0 0 18px rgba(139,92,246,0.25);
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    HEADER TEXT
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-header-info {
     min-width: 0;
-
     flex: 1 1 auto;
-
     overflow: hidden;
 }
 
 #ai-assistant-panel .assistant-header-info h4 {
-    margin:
-        0 0
-        2px;
-
+    margin: 0 0 2px;
     max-width: 100%;
-
     font-size: 0.95rem;
-
     line-height: 1.25;
-
     font-weight: 700;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    STATUS
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-status {
     display: flex;
-
     align-items: center;
-
     gap: 6px;
-
     min-width: 0;
-
-    color:
-        rgba(16,185,129,0.85);
-
+    color: rgba(16,185,129,0.85);
     font-size: 0.7rem;
-
     line-height: 1.2;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
-
 #ai-assistant-panel .status-dot {
-    flex:
-        0 0 6px;
-
+    flex: 0 0 6px;
     width: 6px;
     height: 6px;
-
     border-radius: 50%;
-
-    background:
-        rgba(16,185,129,0.85);
-
-    animation:
-        aether-status-blink
-        2s infinite;
+    background: rgba(16,185,129,0.85);
+    animation: aether-status-blink 2s infinite;
 }
-
 
 @keyframes aether-status-blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.3;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 
-/* =========================================================
-   CLOSE BUTTON
-   ========================================================= */
+/* ---------------------------------------------------------
+   HEADER ACTIONS & BUTTONS
+   --------------------------------------------------------- */
 
-#ai-assistant-panel .assistant-close-btn {
-    flex:
-        0 0 auto;
-
-    width: 34px;
-    height: 34px;
-
+#ai-assistant-panel .assistant-header-actions {
     display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+}
 
+#ai-assistant-panel .assistant-close-btn,
+#ai-assistant-panel .assistant-clear-btn {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: flex;
     align-items: center;
     justify-content: center;
-
     margin: 0;
     padding: 0;
-
     border: 0;
-
     border-radius: 10px;
-
-    background:
-        rgba(255,255,255,0.04);
-
-    color:
-        var(--text-muted,
-        rgba(255,255,255,0.55));
-
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.55);
     cursor: pointer;
-
-    font-size: 1rem;
-
+    font-size: 0.95rem;
     transition:
         background 0.2s ease,
         color 0.2s ease,
         transform 0.2s ease;
 }
 
-
-#ai-assistant-panel .assistant-close-btn:hover {
-    background:
-        rgba(255,255,255,0.09);
-
-    color:
-        var(--text-main,#fff);
-
+#ai-assistant-panel .assistant-close-btn:hover,
+#ai-assistant-panel .assistant-clear-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
     transform: scale(1.05);
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    MESSAGE VIEWPORT
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-messages {
-    flex:
-        1 1 0%;
-
+    flex: 1 1 0%;
     width: 100%;
-
     min-width: 0;
-
     min-height: 0;
-
     height: 0;
-
     max-width: 100%;
-
     box-sizing: border-box;
-
-    padding:
-        16px;
-
+    padding: 16px;
     display: flex;
-
     flex-direction: column;
-
     gap: 12px;
-
     overflow-x: hidden;
-
     overflow-y: auto;
-
-    overscroll-behavior:
-        contain;
-
-    scrollbar-width:
-        thin;
-
-    scrollbar-color:
-        rgba(139,92,246,0.35)
-        transparent;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139,92,246,0.35) transparent;
 }
 
-
-/* Chromium scrollbar */
-
-#ai-assistant-panel
-.assistant-messages::-webkit-scrollbar {
+#ai-assistant-panel .assistant-messages::-webkit-scrollbar {
     width: 5px;
 }
 
-#ai-assistant-panel
-.assistant-messages::-webkit-scrollbar-track {
+#ai-assistant-panel .assistant-messages::-webkit-scrollbar-track {
     background: transparent;
 }
 
-#ai-assistant-panel
-.assistant-messages::-webkit-scrollbar-thumb {
-    background:
-        rgba(139,92,246,0.35);
-
+#ai-assistant-panel .assistant-messages::-webkit-scrollbar-thumb {
+    background: rgba(139,92,246,0.35);
     border-radius: 999px;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    MESSAGES
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .msg {
     width: auto;
-
     max-width: 86%;
-
     min-width: 0;
-
     box-sizing: border-box;
-
-    animation:
-        aether-msg-appear
-        0.25s ease both;
+    animation: aether-msg-appear 0.25s ease both;
 }
-
 
 @keyframes aether-msg-appear {
-
     from {
         opacity: 0;
-        transform:
-            translate3d(
-                0,
-                7px,
-                0
-            );
+        transform: translateY(7px);
     }
-
     to {
         opacity: 1;
-        transform:
-            translate3d(
-                0,
-                0,
-                0
-            );
+        transform: translateY(0);
     }
 }
-
 
 #ai-assistant-panel .msg.ai {
     align-self: flex-start;
@@ -790,1014 +628,415 @@
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    MESSAGE BUBBLES
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .msg-bubble {
     display: block;
-
     width: auto;
-
     max-width: 100%;
-
     min-width: 0;
-
     box-sizing: border-box;
-
-    padding:
-        10px
-        13px;
-
+    padding: 10px 13px;
     border-radius: 14px;
-
     font-size: 0.86rem;
-
     line-height: 1.55;
-
-    overflow-wrap:
-        anywhere;
-
-    word-break:
-        break-word;
-
-    white-space:
-        normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
 }
-
 
 #ai-assistant-panel .msg.ai .msg-bubble {
-    background:
-        rgba(255,255,255,0.045);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.075);
-
-    color:
-        var(--text-muted,
-        rgba(255,255,255,0.68));
-
-    border-radius:
-        4px
-        14px
-        14px
-        14px;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.075);
+    color: rgba(255,255,255,0.68);
+    border-radius: 4px 14px 14px 14px;
 }
-
 
 #ai-assistant-panel .msg.user .msg-bubble {
     background:
-        var(--gradient-primary,
         linear-gradient(
             135deg,
             #8b5cf6,
             #06b6d4
-        ));
-
+        );
     color: #fff;
-
-    border-radius:
-        14px
-        14px
-        4px
-        14px;
+    border-radius: 14px 14px 4px 14px;
 }
 
 
-/* =========================================================
-   RESPONSE CONTENT
-   ========================================================= */
-
-#ai-assistant-panel .assistant-result {
-    width: 100%;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    box-sizing: border-box;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-}
-
-
-#ai-assistant-panel .assistant-result p {
-    margin:
-        0 0
-        9px;
-
-    max-width: 100%;
-}
-
-
-#ai-assistant-panel .assistant-result p:last-child {
-    margin-bottom: 0;
-}
-
-
-#ai-assistant-panel .assistant-result strong {
-    overflow-wrap: anywhere;
-}
-
-
-/* =========================================================
-   PROJECT / SKILL GROUPS
-   ========================================================= */
-
-#ai-assistant-panel
-.assistant-project-item,
-#ai-assistant-panel
-.assistant-skill-group {
-    width: 100%;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    margin-top: 10px;
-
-    padding-top: 10px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.06);
-
-    box-sizing: border-box;
-
-    overflow-wrap: anywhere;
-}
-
-
-/* =========================================================
-   TAGS
-   ========================================================= */
-
-#ai-assistant-panel .assistant-tags {
-    width: 100%;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 5px;
-
-    margin-top: 10px;
-
-    overflow: hidden;
-}
-
-
-#ai-assistant-panel .assistant-tags span {
-    display: inline-flex;
-
-    align-items: center;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    padding:
-        4px
-        8px;
-
-    border-radius: 999px;
-
-    background:
-        rgba(139,92,246,0.08);
-
-    border:
-        1px solid
-        rgba(139,92,246,0.22);
-
-    color:
-        var(--text-muted,
-        rgba(255,255,255,0.65));
-
-    font-size:
-        0.68rem;
-
-    line-height: 1.2;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-}
-
-
-/* =========================================================
-   LINKS
-   ========================================================= */
-
-#ai-assistant-panel .assistant-links {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 7px;
-
-    width: 100%;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    margin-top: 11px;
-}
-
-
-#ai-assistant-panel
-.assistant-links a {
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    padding:
-        6px
-        9px;
-
-    border-radius: 8px;
-
-    background:
-        rgba(255,255,255,0.04);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.08);
-
-    color:
-        var(--text-main,#fff);
-
-    font-size:
-        0.72rem;
-
-    text-decoration: none;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-#ai-assistant-panel
-.assistant-links a:hover {
-    background:
-        rgba(139,92,246,0.12);
-
-    border-color:
-        rgba(139,92,246,0.35);
-}
-
-
-/* =========================================================
-   ACTION BUTTONS
-   ========================================================= */
-
-#ai-assistant-panel .assistant-action {
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    max-width: 100%;
-
-    min-width: 0;
-
-    margin-top: 7px;
-
-    padding:
-        7px
-        10px;
-
-    border:
-        1px solid
-        rgba(139,92,246,0.28);
-
-    border-radius: 9px;
-
-    background:
-        rgba(139,92,246,0.07);
-
-    color:
-        var(--text-main,#fff);
-
-    font-family: inherit;
-
-    font-size:
-        0.74rem;
-
-    line-height: 1.3;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-#ai-assistant-panel .assistant-action:hover {
-    background:
-        rgba(139,92,246,0.15);
-
-    border-color:
-        rgba(139,92,246,0.45);
-
-    transform:
-        translateY(-1px);
-}
-
-
-/* =========================================================
+/* ---------------------------------------------------------
    TYPING INDICATOR
-   ---------------------------------------------------------
-   Supports BOTH:
-   .typing-indicator / .typing-dot
-   AND the classes generated by your new JS:
-   .assistant-typing / span
-   ========================================================= */
+   --------------------------------------------------------- */
 
-#ai-assistant-panel
-.typing-indicator,
-#ai-assistant-panel
-.assistant-typing {
+#ai-assistant-panel .typing-indicator {
     display: inline-flex;
-
     align-items: center;
-
     gap: 4px;
-
     padding: 4px;
 }
 
-
-#ai-assistant-panel
-.typing-dot,
-#ai-assistant-panel
-.assistant-typing span {
+#ai-assistant-panel .typing-dot {
     display: block;
-
     width: 6px;
     height: 6px;
-
-    flex:
-        0 0 6px;
-
+    flex: 0 0 6px;
     border-radius: 50%;
-
-    background:
-        rgba(255,255,255,0.45);
-
-    animation:
-        aether-typing
-        1.2s infinite;
+    background: rgba(255,255,255,0.45);
+    animation: aether-typing 1.2s infinite;
 }
 
-
-#ai-assistant-panel
-.typing-dot:nth-child(2),
-#ai-assistant-panel
-.assistant-typing span:nth-child(2) {
-    animation-delay:
-        0.2s;
+#ai-assistant-panel .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
 }
 
-
-#ai-assistant-panel
-.typing-dot:nth-child(3),
-#ai-assistant-panel
-.assistant-typing span:nth-child(3) {
-    animation-delay:
-        0.4s;
+#ai-assistant-panel .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
 }
-
 
 @keyframes aether-typing {
-
-    0%,
-    60%,
-    100% {
-        transform:
-            translateY(0);
-
+    0%, 60%, 100% {
+        transform: translateY(0);
         opacity: 0.4;
     }
-
     30% {
-        transform:
-            translateY(-5px);
-
+        transform: translateY(-5px);
         opacity: 1;
     }
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    QUICK PROMPTS
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-chips {
-    flex:
-        0 0 auto;
-
+    flex: 0 0 auto;
     width: 100%;
-
     max-width: 100%;
-
     min-width: 0;
-
     box-sizing: border-box;
-
-    padding:
-        9px
-        12px;
-
+    padding: 9px 12px;
     display: flex;
-
     gap: 7px;
-
     flex-wrap: wrap;
-
     overflow-x: hidden;
-
     overflow-y: auto;
-
     max-height: 78px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
 }
 
+#ai-assistant-panel .assistant-chips.faded {
+    opacity: 0.4;
+    max-height: 42px;
+}
 
 #ai-assistant-panel .assist-chip {
-    flex:
-        0 0 auto;
-
+    flex: 0 0 auto;
     max-width: 100%;
-
     min-width: 0;
-
-    padding:
-        6px
-        10px;
-
-    border:
-        1px solid
-        rgba(139,92,246,0.25);
-
+    padding: 6px 10px;
+    border: 1px solid rgba(139,92,246,0.25);
     border-radius: 999px;
-
-    background:
-        rgba(139,92,246,0.06);
-
-    color:
-        var(--text-muted,
-        rgba(255,255,255,0.65));
-
+    background: rgba(139,92,246,0.06);
+    color: rgba(255,255,255,0.65);
     font-family: inherit;
-
-    font-size:
-        0.72rem;
-
+    font-size: 0.72rem;
     line-height: 1.25;
-
     cursor: pointer;
-
     white-space: normal;
-
     overflow-wrap: anywhere;
-
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
         color 0.2s ease;
 }
 
-
 #ai-assistant-panel .assist-chip:hover {
-    background:
-        rgba(139,92,246,0.14);
-
-    border-color:
-        rgba(139,92,246,0.5);
-
-    color:
-        var(--text-main,#fff);
+    background: rgba(139,92,246,0.14);
+    border-color: rgba(139,92,246,0.5);
+    color: #fff;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    INPUT AREA
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel .assistant-input-row {
-    flex:
-        0 0 auto;
-
+    flex: 0 0 auto;
     width: 100%;
-
     max-width: 100%;
-
     min-width: 0;
-
     box-sizing: border-box;
-
     display: flex;
-
     align-items: center;
-
     gap: 8px;
 
     padding:
         10px
         12px
-        calc(
-            10px +
-            env(safe-area-inset-bottom)
-        );
+        calc(10px + env(safe-area-inset-bottom));
 
     border-top:
-        1px solid
-        rgba(255,255,255,0.06);
+        1px solid rgba(255,255,255,0.06);
 
-    background:
-        rgba(0,0,0,0.22);
+    background: rgba(0,0,0,0.22);
 }
 
 
-/* =========================================================
-   INPUT
-   ========================================================= */
+/* ---------------------------------------------------------
+   INPUT FIELD
+   --------------------------------------------------------- */
 
 #ai-assistant-panel #assistant-input {
-    flex:
-        1 1 auto;
-
+    flex: 1 1 auto;
     width: 0;
-
     min-width: 0;
-
     max-width: 100%;
-
     height: 40px;
-
     box-sizing: border-box;
-
-    padding:
-        0
-        12px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.09);
-
+    padding: 0 12px;
+    border: 1px solid rgba(255,255,255,0.09);
     border-radius: 10px;
-
     outline: none;
-
-    background:
-        rgba(255,255,255,0.045);
-
-    color:
-        var(--text-main,#fff);
-
+    background: rgba(255,255,255,0.045);
+    color: #fff;
     font-family: inherit;
-
-    font-size:
-        0.84rem;
-
+    font-size: 0.84rem;
     line-height: 40px;
-
     transition:
         border-color 0.25s ease,
         background 0.25s ease,
         box-shadow 0.25s ease;
 }
 
+#ai-assistant-panel #assistant-input::placeholder {
+    color: rgba(255,255,255,0.38);
+}
 
-#ai-assistant-panel
-#assistant-input::placeholder {
-    color:
-        rgba(255,255,255,0.38);
+#ai-assistant-panel #assistant-input:focus {
+    border-color: rgba(139,92,246,0.45);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.07);
+}
+
+#ai-assistant-panel #assistant-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 
-#ai-assistant-panel
-#assistant-input:focus {
-    border-color:
-        rgba(139,92,246,0.45);
-
-    background:
-        rgba(255,255,255,0.06);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(139,92,246,0.07);
-}
-
-
-/* =========================================================
+/* ---------------------------------------------------------
    SEND BUTTON
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-panel #assistant-send {
-    flex:
-        0 0 40px;
-
+    flex: 0 0 40px;
     width: 40px;
     height: 40px;
-
     min-width: 40px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     padding: 0;
-
     border: 0;
-
     border-radius: 10px;
 
     background:
-        var(--gradient-primary,
         linear-gradient(
             135deg,
             #8b5cf6,
             #06b6d4
-        ));
+        );
 
     color: #fff;
-
     cursor: pointer;
-
     font-size: 1rem;
-
     transition:
         transform 0.2s ease,
+        opacity 0.2s ease,
         box-shadow 0.2s ease;
 }
 
+#ai-assistant-panel #assistant-send:hover:not(:disabled) {
+    transform: scale(1.06);
+    box-shadow: 0 6px 18px rgba(139,92,246,0.35);
+}
 
-#ai-assistant-panel #assistant-send:hover {
-    transform:
-        scale(1.06);
+#ai-assistant-panel #assistant-send:active:not(:disabled) {
+    transform: scale(0.94);
+}
 
-    box-shadow:
-        0 6px 18px
-        rgba(139,92,246,0.35);
+#ai-assistant-panel #assistant-send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 
-#ai-assistant-panel #assistant-send:active {
-    transform:
-        scale(0.94);
-}
-
-
-/* =========================================================
+/* ---------------------------------------------------------
    FOCUS ACCESSIBILITY
-   ========================================================= */
+   --------------------------------------------------------- */
 
 #ai-assistant-btn:focus-visible,
 #ai-assistant-panel button:focus-visible,
 #ai-assistant-panel a:focus-visible,
 #ai-assistant-panel input:focus-visible {
     outline:
-        2px solid
-        rgba(6,182,212,0.8);
-
-    outline-offset:
-        3px;
+        2px solid rgba(6,182,212,0.8);
+    outline-offset: 3px;
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    TABLET
-   ========================================================= */
+   --------------------------------------------------------- */
 
 @media (max-width: 900px) {
-
     #ai-assistant-panel {
-        width:
-            min(
-                370px,
-                calc(100vw - 28px)
-            );
-
-        height:
-            min(
-                540px,
-                calc(100dvh - 110px)
-            );
-
-        max-height:
-            calc(100dvh - 110px);
-
-        bottom:
-            calc(
-                72px +
-                30px +
-                env(safe-area-inset-bottom)
-            );
+        width: min(380px, calc(100vw - 28px));
+        height: min(540px, calc(100dvh - 110px));
+        max-height: calc(100dvh - 110px);
     }
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    MOBILE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 @media (max-width: 600px) {
-
     #ai-assistant-btn {
-        left:
-            max(
-                14px,
-                env(safe-area-inset-left)
-            );
-
-        bottom:
-            max(
-                14px,
-                env(safe-area-inset-bottom)
-            );
-
-        width: 60px;
-        height: 60px;
-
-        border-radius: 19px;
+        left: max(14px, env(safe-area-inset-left));
+        right: auto;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
     }
 
+    .assistant-btn-icon {
+        width: 27px;
+        height: 27px;
+        font-size: .9rem;
+    }
 
     #ai-assistant-panel {
-        /*
-         * Full-width floating sheet with
-         * safe horizontal margins.
-         */
-        left:
-            max(
-                10px,
-                env(safe-area-inset-left)
-            );
-
-        right:
-            max(
-                10px,
-                env(safe-area-inset-right)
-            );
-
-        bottom:
-            calc(
-                60px +
-                24px +
-                env(safe-area-inset-bottom)
-            );
-
-        width:
-            auto;
-
-        max-width:
-            none;
-
-        height:
-            min(
-                72dvh,
-                560px
-            );
-
-        max-height:
-            calc(
-                100dvh -
-                96px -
-                env(safe-area-inset-bottom)
-            );
-
-        border-radius:
-            22px;
+        right: max(10px, env(safe-area-inset-right));
+        left: max(10px, env(safe-area-inset-left));
+        bottom: calc(
+            52px + 24px +
+            max(14px, env(safe-area-inset-bottom))
+        );
+        width: auto;
+        max-width: none;
+        height: min(72dvh, 560px);
+        max-height: calc(
+            100dvh - 96px -
+            env(safe-area-inset-bottom)
+        );
+        border-radius: 20px;
     }
 
-
-    #ai-assistant-panel
-    .assistant-header {
-        padding:
-            12px
-            13px;
+    #ai-assistant-panel .assistant-header {
+        padding: 12px 13px;
     }
 
-
-    #ai-assistant-panel
-    .assistant-messages {
-        padding:
-            12px;
+    #ai-assistant-panel .assistant-messages {
+        padding: 12px;
     }
 
-
-    #ai-assistant-panel
-    .msg {
-        max-width:
-            91%;
+    #ai-assistant-panel .msg {
+        max-width: 91%;
     }
 
-
-    #ai-assistant-panel
-    .assistant-chips {
-        flex-wrap:
-            nowrap;
-
-        overflow-x:
-            auto;
-
-        overflow-y:
-            hidden;
-
-        max-height:
-            58px;
-
-        scrollbar-width:
-            none;
+    #ai-assistant-panel .assistant-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-height: 58px;
+        scrollbar-width: none;
     }
 
-
-    #ai-assistant-panel
-    .assistant-chips::-webkit-scrollbar {
-        display:
-            none;
+    #ai-assistant-panel .assistant-chips::-webkit-scrollbar {
+        display: none;
     }
 
-
-    #ai-assistant-panel
-    .assist-chip {
-        white-space:
-            nowrap;
+    #ai-assistant-panel .assist-chip {
+        white-space: nowrap;
     }
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    SMALL PHONES
-   ========================================================= */
+   --------------------------------------------------------- */
 
 @media (max-width: 400px) {
-
     #ai-assistant-panel {
         left: 8px;
         right: 8px;
-
-        bottom:
-            calc(
-                58px +
-                18px +
-                env(safe-area-inset-bottom)
-            );
-
-        height:
-            min(
-                74dvh,
-                520px
-            );
-
-        max-height:
-            calc(
-                100dvh -
-                82px -
-                env(safe-area-inset-bottom)
-            );
-
-        border-radius:
-            19px;
+        bottom: calc(50px + 18px + env(safe-area-inset-bottom));
+        height: min(74dvh, 520px);
+        max-height: calc(100dvh - 82px - env(safe-area-inset-bottom));
+        border-radius: 19px;
     }
 
-
-    #ai-assistant-panel
-    .assistant-messages {
-        padding:
-            10px;
+    #ai-assistant-panel .assistant-messages {
+        padding: 10px;
     }
 
-
-    #ai-assistant-panel
-    .msg-bubble {
-        padding:
-            9px
-            11px;
-
-        font-size:
-            0.82rem;
+    #ai-assistant-panel .msg-bubble {
+        padding: 9px 11px;
+        font-size: 0.82rem;
     }
 
-
-    #ai-assistant-panel
-    .assistant-input-row {
-        padding:
-            8px;
+    #ai-assistant-panel .assistant-input-row {
+        padding: 8px;
     }
 
-
-    #ai-assistant-panel
-    #assistant-input {
-        height:
-            38px;
-
-        line-height:
-            38px;
+    #ai-assistant-panel #assistant-input {
+        height: 38px;
+        line-height: 38px;
     }
 
-
-    #ai-assistant-panel
-    #assistant-send {
-        flex-basis:
-            38px;
-
-        width:
-            38px;
-
-        height:
-            38px;
-
-        min-width:
-            38px;
+    #ai-assistant-panel #assistant-send {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
     }
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    VERY SHORT DESKTOP SCREENS
-   ========================================================= */
+   --------------------------------------------------------- */
 
-@media
-    (min-width: 601px)
-    and (max-height: 650px) {
-
+@media (min-width: 601px) and (max-height: 650px) {
     #ai-assistant-panel {
-        height:
-            calc(
-                100dvh -
-                105px
-            );
-
-        max-height:
-            calc(
-                100dvh -
-                105px
-            );
+        height: calc(100dvh - 105px);
+        max-height: calc(100dvh - 105px);
     }
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    REDUCED MOTION
-   ========================================================= */
+   --------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-
     #ai-assistant-btn,
     #ai-assistant-panel,
     #ai-assistant-panel *,
     #ai-assistant-panel .status-dot,
-    #ai-assistant-panel .typing-dot,
-    #ai-assistant-panel .assistant-typing span {
-        animation:
-            none !important;
-
-        transition:
-            none !important;
-    }
-
-}
-/* ==========================================================================
-   DIGITAL LIBRARY SECTION & TABS
-   ========================================================================== */
+    #ai-assistant-panel .typing-dot {
+        animation: none !important;
+        transition: none !important;
+  }
+/* ============================================================================= */
 .library-tabs {
     display: flex;
     justify-content: center;
@@ -1903,4 +1142,5 @@
     border-color: #10b981 !important;
     color: #10b981 !important;
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+}
 }
