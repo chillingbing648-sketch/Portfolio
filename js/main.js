@@ -22,6 +22,7 @@ import { initTerminal } from './terminal.js';
 import { initSearch } from './search.js';
 import { initLibrary } from './library.js';
 import { initAICompanion } from './ai-companion.js';
+import { initPitchModal } from './pitch-idea.js';
 
 // ── State ──────────────────────────────────────────────────────────────────────
 let _appInitialized = false;
@@ -100,6 +101,7 @@ function initOptionalModules() {
         ['terminal',           initTerminal],
         ['search',             initSearch],
         ['ai-companion',       initAICompanion],
+        ['pitch-modal',        initPitchModal],
         ['hover-targets',      bindHoverTargets],
         ['music-toggle',       initMusicToggle]
     ];

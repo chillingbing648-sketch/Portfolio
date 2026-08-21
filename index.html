@@ -531,7 +531,7 @@
             <h3>Ready to collaborate?</h3>
             <p>I'm open to internships, freelance projects, and exciting opportunities that push the boundaries of what's possible.</p>
             <div class="obs-btns">
-                <a href="mailto:harshdubey.works@gmail.com" class="btn btn-primary">Start a Conversation ✉</a>
+                <button type="button" class="btn btn-primary pitch-idea-trigger">Pitch an Idea <span aria-hidden="true">↗</span></button>
                 <a href="Harsh_Resume.pdf" download class="btn btn-secondary">Resume ↓</a>
             </div>
         </div>
@@ -600,6 +600,55 @@
         </footer>
     </div>
 </section>
+
+<!-- PITCH AN IDEA MODAL -->
+<div class="pitch-modal" id="pitch-modal" role="dialog" aria-modal="true" aria-labelledby="pitch-modal-title" aria-hidden="true">
+    <div class="pitch-modal-backdrop" data-pitch-close></div>
+    <div class="pitch-modal-panel">
+        <button type="button" class="pitch-modal-close" data-pitch-close aria-label="Close pitch an idea dialog">&times;</button>
+        <div class="pitch-modal-kicker">Project intake</div>
+        <h2 id="pitch-modal-title">Let's make the first move.</h2>
+        <div class="pitch-progress" aria-label="Pitch progress">
+            <span class="pitch-progress-step active" data-progress-step="1">01</span><span class="pitch-progress-line"></span>
+            <span class="pitch-progress-step" data-progress-step="2">02</span><span class="pitch-progress-line"></span>
+            <span class="pitch-progress-step" data-progress-step="3">03</span>
+        </div>
+        <form id="pitch-form" novalidate>
+            <fieldset class="pitch-step active" data-pitch-step="1">
+                <legend>What are we building?</legend>
+                <div class="pitch-choice-grid">
+                    <button type="button" class="pitch-choice" data-project-type="E-Commerce">🛒 E-Commerce</button>
+                    <button type="button" class="pitch-choice" data-project-type="Web App">🌐 Web App</button>
+                    <button type="button" class="pitch-choice" data-project-type="UI/UX">🎨 UI/UX</button>
+                    <button type="button" class="pitch-choice" data-project-type="AI Tool">🤖 AI Tool</button>
+                    <button type="button" class="pitch-choice" data-project-type="Other">✨ Other...</button>
+                </div>
+                <div class="pitch-custom-type" aria-hidden="true">
+                    <label for="pitch-custom-input">Tell me what you have in mind...</label>
+                    <input id="pitch-custom-input" type="text" maxlength="80" autocomplete="off" disabled>
+                </div>
+                <button type="button" class="pitch-next btn btn-primary" data-next-step="2">Continue <span aria-hidden="true">→</span></button>
+            </fieldset>
+            <fieldset class="pitch-step" data-pitch-step="2" disabled>
+                <legend>Drop a quick summary of your idea</legend>
+                <textarea id="pitch-summary" rows="3" maxlength="500" placeholder="e.g., An AI-powered dashboard for tracking local event attendance..."></textarea>
+                <div class="pitch-step-actions">
+                    <button type="button" class="pitch-back btn btn-ghost" data-prev-step="1">Back</button>
+                    <button type="button" class="pitch-next btn btn-primary" data-next-step="3">Choose where to talk <span aria-hidden="true">→</span></button>
+                </div>
+            </fieldset>
+            <fieldset class="pitch-step" data-pitch-step="3" disabled>
+                <legend>Where should we talk?</legend>
+                <div class="pitch-connect-grid">
+                    <button type="button" class="pitch-connect whatsapp" data-platform="whatsapp"><span aria-hidden="true">🟢</span> WhatsApp</button>
+                    <button type="button" class="pitch-connect instagram" data-platform="instagram"><span aria-hidden="true">📸</span> Instagram</button>
+                    <button type="button" class="pitch-connect discord" data-platform="discord"><span aria-hidden="true">👾</span> Discord</button>
+                </div>
+                <button type="button" class="pitch-back btn btn-ghost" data-prev-step="2">Back</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════
      AETHER AI COMPANION
