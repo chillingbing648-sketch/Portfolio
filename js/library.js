@@ -65,11 +65,15 @@ function renderTabs(container) {
     { id: 'books', label: '📖 Books' }
   ];
 
-  container.innerHTML = categories.map(cat => `
-    <button class="library-tab ${cat.id === activeCategory ? 'active' : ''}" data-cat="${cat.id}">
-      ${cat.label}
-    </button>
-  `).join('');
+  container.innerHTML = `
+    <div class="library-tabs-dock">
+      ${categories.map(cat => `
+        <button class="library-tab ${cat.id === activeCategory ? 'active' : ''}" data-cat="${cat.id}">
+          ${cat.label}
+        </button>
+      `).join('')}
+    </div>
+  `;
 
   container.querySelectorAll('.library-tab').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -90,24 +94,26 @@ function renderGrid(grid) {
     <article class="library-card glass-panel ${item.currentlyReading ? 'currently-reading' : ''}">
       ${item.currentlyReading ? `
         <div class="reading-now-badge">
-          <span class="status-dot-green" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4"></span>
+          <span class="badge-dot"></span>
           Reading Now (${item.progress}%)
         </div>
       ` : ''}
-      <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem">
-        <div style="font-size:2rem;line-height:1;flex-shrink:0">${item.icon}</div>
-        <div>
-          <h4 style="font-size:1.15rem;font-weight:700;margin-bottom:0.2rem">${item.title}</h4>
-          <div style="font-size:0.85rem;color:var(--accent-cyan);font-weight:600">${item.author}</div>
+
+      <div class="library-card-header">
+        <div class="library-card-icon" aria-hidden="true">${item.icon}</div>
+        <div class="library-card-meta">
+          <h4 class="library-card-title">${item.title}</h4>
+          <div class="library-card-author">${item.author}</div>
         </div>
       </div>
-      <p style="color:var(--text-muted);font-size:0.92rem;line-height:1.7;flex-grow:1;margin-bottom:1rem">
-        ${item.notes}
-      </p>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto">
-        <span style="font-size:0.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:600">${item.category}</span>
-        <span style="font-size:0.82rem;font-weight:700;color:${item.currentlyReading ? '#06b6d4' : 'var(--text-muted)'}">${item.status}</span>
+
+      <p class="library-card-notes">${item.notes}</p>
+
+      <div class="library-card-footer">
+        <span class="library-card-category">${item.category}</span>
+        <span class="library-card-status ${item.currentlyReading ? 'reading' : 'completed'}">${item.status}</span>
       </div>
+
       ${item.currentlyReading ? `
         <div class="reading-progress-track">
           <div class="reading-progress-bar" style="width:${item.progress}%"></div>
