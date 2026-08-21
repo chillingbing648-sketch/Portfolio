@@ -21,7 +21,6 @@ import { initAnimations, initNeuralCanvas, initObservatoryCanvas } from './anima
 import { initTerminal } from './terminal.js';
 import { initSearch } from './search.js';
 import { initLibrary } from './library.js';
-import { initContactInteractions } from './contact.js';
 import { initAICompanion } from './ai-companion.js';
 
 // ── State ──────────────────────────────────────────────────────────────────────
@@ -95,7 +94,6 @@ function initOptionalModules() {
         ['projects',           initProjects],
         ['timeline',           initTimeline],
         ['library',            initLibrary],
-        ['contact',            initContactInteractions],
         ['animations',         initAnimations],
         ['neural-canvas',      initNeuralCanvas],
         ['observatory-canvas', initObservatoryCanvas],

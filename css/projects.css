@@ -3,8 +3,22 @@
    ========================================================================== */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
+    justify-content: center;
+    align-items: stretch;
+}
+
+@media (min-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .projects-grid .project-card:last-child {
+        grid-column: 1 / -1;
+        width: min(100%, calc((100% - 5rem) / 3));
+        justify-self: center;
+    }
 }
 
 .project-card {
