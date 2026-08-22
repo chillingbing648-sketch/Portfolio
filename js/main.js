@@ -38,26 +38,24 @@ async function bootstrap() {
     if (_appInitialized) return;
     _appInitialized = true;
 
-    // STEP 0: Disable browser scroll restoration before anything else
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
-    // STEP 1: Environment theme (synchronous, safe)
     try { initEnvironmentTheme(); } catch (e) { log('Theme init skipped: ' + e.message, 'warn'); }
 
-    // STEP 2: Start loader IMMEDIATELY — zero dependencies
     log('Bootstrap started');
-    initLoader();
 
-    // STEP 3: Load component HTML (non-blocking, Promise.allSettled — never rejects)
+    // STEP 3: Wait for HTML components to inject into DOM completely
     await loadComponents();
 
-    // STEP 4: Listen for loader:complete before initializing optional modules
+    // STEP 4: Register before starting the loader so synchronous completion is handled
     document.addEventListener('loader:complete', () => {
         log('loader:complete received — initializing modules');
         initOptionalModules();
     });
+
+    initLoader();
 }
 
 // ── Component Loader ───────────────────────────────────────────────────────────
@@ -75,7 +73,6 @@ async function loadComponents() {
                 log(`Component loaded: ${src}`);
             } catch (err) {
                 log(`Component failed (non-critical): ${src}`, 'warn');
-                // Do NOT rethrow — one missing component must not break startup
             }
         })
     );
@@ -114,54 +111,80 @@ function initOptionalModules() {
             }
         } catch (err) {
             log(`Module: ${name} ✗ — ${err.message}`, 'warn');
-            // Portfolio still works without any single module
         }
     });
 }
 
-// ── Ambient Music Toggle ───────────────────────────────────────────────────────
+// ── Ambient Music Toggle (MP3 Audio Player) ────────────────────────────────────
 function initMusicToggle() {
     const btn = document.getElementById('musicToggle');
-    const label = document.getElementById('music-label');
-    if (!btn) return;
+    if (!btn) {
+        console.error('[AETHER] Button #musicToggle missing from DOM.');
+        return;
+    }
+    log('Music toggle initialized');
 
-    let ctx = null, gainNode = null, oscillators = [];
+    const audioUrl = new URL('../assets/audio/Interstellar.mp3', import.meta.url).href;
+    let audioContext = null;
+    let gainNode = null;
+    let sourceNode = null;
+    let audioBuffer = null;
+    let loadingPromise = null;
     let playing = false;
 
-    function startAmbient() {
-        ctx = new (window.AudioContext || window.webkitAudioContext)();
-        gainNode = ctx.createGain();
-        gainNode.gain.setValueAtTime(0, ctx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 2);
-        gainNode.connect(ctx.destination);
+    btn.addEventListener('click', async () => {
+        const iconEl = btn.querySelector('.music-icon');
+        const label = document.getElementById('music-label');
+        if (!playing) {
+            try {
+                if (!audioContext) {
+                    audioContext = new AudioContext();
+                    gainNode = audioContext.createGain();
+                    gainNode.gain.value = 0.6;
+                    gainNode.connect(audioContext.destination);
+                }
 
-        [60, 64, 67, 71].forEach((semitone, i) => {
-            const osc = ctx.createOscillator();
-            const freq = 220 * Math.pow(2, semitone / 12);
-            osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            osc.type = 'sine';
-            osc.connect(gainNode);
-            osc.start(ctx.currentTime + i * 0.5);
-            oscillators.push(osc);
-        });
-    }
+                await audioContext.resume();
 
-    function stopAmbient() {
-        if (gainNode) gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
-        setTimeout(() => {
-            oscillators.forEach(o => { try { o.stop(); } catch(e) {} });
-            oscillators = [];
-            ctx?.close();
-            ctx = null;
-        }, 1600);
-    }
+                if (!audioBuffer) {
+                    loadingPromise ||= fetch(audioUrl)
+                        .then((response) => {
+                            if (!response.ok) throw new Error(`Audio request failed: ${response.status}`);
+                            return response.arrayBuffer();
+                        })
+                        .then((buffer) => audioContext.decodeAudioData(buffer));
+                    audioBuffer = await loadingPromise;
+                }
 
-    btn.addEventListener('click', () => {
-        playing = !playing;
-        btn.querySelector('.music-icon').textContent = playing ? '🔊' : '🔇';
-        if (label) label.textContent = playing ? 'Ambient On' : 'Ambient Sound';
-        btn.setAttribute('aria-pressed', String(playing));
-        playing ? startAmbient() : stopAmbient();
+                sourceNode = audioContext.createBufferSource();
+                sourceNode.buffer = audioBuffer;
+                sourceNode.loop = true;
+                sourceNode.connect(gainNode);
+                sourceNode.start();
+                playing = true;
+                if (iconEl) iconEl.textContent = '🔊';
+                if (label) label.textContent = 'Ambient On';
+                btn.setAttribute('aria-pressed', 'true');
+                console.log('[AETHER] Interstellar Audio: PLAYING');
+            } catch (err) {
+                console.error('[AETHER] Audio play blocked or failed:', err);
+                loadingPromise = null;
+                if (iconEl) iconEl.textContent = '🔇';
+                if (label) label.textContent = 'Ambient Sound';
+                btn.setAttribute('aria-pressed', 'false');
+            }
+        } else {
+            playing = false;
+            if (sourceNode) {
+                sourceNode.stop();
+                sourceNode.disconnect();
+                sourceNode = null;
+            }
+            if (iconEl) iconEl.textContent = '🔇';
+            if (label) label.textContent = 'Ambient Sound';
+            btn.setAttribute('aria-pressed', 'false');
+            console.log('[AETHER] Interstellar Audio: PAUSED');
+        }
     });
 }
 
