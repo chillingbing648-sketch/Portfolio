@@ -83,8 +83,22 @@
 /* Experience Cards */
 .experience-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
+    justify-content: center;
+    align-items: stretch;
+}
+
+@media (min-width: 993px) {
+    .experience-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .experience-grid .exp-card:last-child {
+        grid-column: 1 / -1;
+        width: min(100%, calc((100% - 2.5rem) / 2));
+        justify-self: center;
+    }
 }
 
 .exp-card {

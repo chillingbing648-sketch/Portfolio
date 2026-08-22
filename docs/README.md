@@ -239,7 +239,7 @@ Curiosity is the default state. Discipline is how things ship. Calculated risk i
 | ◆ GitHub | [chillingbing648-sketch](https://github.com/chillingbing648-sketch) |
 | ◆ LinkedIn | [harsh-dubey-640a68389](https://www.linkedin.com/in/harsh-dubey-640a68389/) |
 | ◆ Resume | [Harsh_Resume.pdf](https://github.com/chillingbing648-sketch/Portfolio/raw/main/Harsh_Resume.pdf) |
-| ◆ Email | harshitd585@gmail.com |
+| ◆ Email | harshdubey.works@gmail.com |
 
 ---
 

@@ -385,6 +385,26 @@
                     <span class="resp-chip" role="listitem">Decision Making</span>
                 </div>
             </article>
+
+            <article class="exp-card glass-panel">
+                <div class="exp-header">
+                    <div class="exp-logo" aria-hidden="true">⚜️</div>
+                    <div class="exp-title-box">
+                        <h3>Chief Minister</h3>
+                        <div class="exp-org">Student Parliament Initiative — Career Katta, Government of Maharashtra &amp; MITSC</div>
+                    </div>
+                </div>
+                <p class="exp-desc">Served as Chief Minister of the Student Parliament initiative, leading student representatives, coordinating leadership activities, and driving initiatives focused on student development, civic engagement, and collaborative decision-making.</p>
+                <div class="exp-responsibilities" role="list" aria-label="Responsibilities">
+                    <span class="resp-chip" role="listitem">Student Leadership</span>
+                    <span class="resp-chip" role="listitem">Civic Engagement</span>
+                    <span class="resp-chip" role="listitem">Team Coordination</span>
+                    <span class="resp-chip" role="listitem">Strategic Planning</span>
+                    <span class="resp-chip" role="listitem">Public Speaking</span>
+                    <span class="resp-chip" role="listitem">Student Development</span>
+                    <span class="resp-chip" role="listitem">Decision Making</span>
+                </div>
+            </article>
         </div>
     </div>
 </section>
@@ -446,19 +466,19 @@
                 Actively open for freelance projects, internships, and global opportunities. Let's discuss how curiosity, AI, and modern engineering can scale your next idea.
             </p>
             <div style="display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap">
-                <button class="btn btn-primary btn-copy-email" data-email="harshitd585@gmail.com"><span>Copy Email</span> <span aria-hidden="true">📋</span></button>
+                <a href="mailto:harshdubey.works@gmail.com?subject=Project%20inquiry%20for%20Harsh" class="btn btn-primary"><span>Start a Conversation</span> <span aria-hidden="true">↗</span></a>
                 <a href="Harsh_Resume.pdf" download class="btn btn-secondary">Download Resume ↓</a>
             </div>
         </div>
 
         <div class="contact-info-list">
-            <a href="mailto:harshitd585@gmail.com" class="contact-card-interactive" aria-label="Email Harsh Dubey">
+            <a href="mailto:harshdubey.works@gmail.com" class="contact-card-interactive" aria-label="Email Harsh Dubey">
                 <div class="contact-icon-box">
                     <svg class="social-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </div>
                 <div>
                     <div style="font-size:0.8rem;color:var(--text-muted);font-weight:500">Email</div>
-                    <div style="font-weight:600">harshitd585@gmail.com</div>
+                    <div style="font-weight:600">harshdubey.works@gmail.com</div>
                 </div>
             </a>
             <a href="tel:+919321521258" class="contact-card-interactive" aria-label="Call Harsh Dubey">
@@ -511,7 +531,7 @@
             <h3>Ready to collaborate?</h3>
             <p>I'm open to internships, freelance projects, and exciting opportunities that push the boundaries of what's possible.</p>
             <div class="obs-btns">
-                <a href="mailto:harshitd585@gmail.com" class="btn btn-primary">Start a Conversation ✉</a>
+                <button type="button" class="btn btn-primary pitch-idea-trigger">Pitch an Idea <span aria-hidden="true">↗</span></button>
                 <a href="Harsh_Resume.pdf" download class="btn btn-secondary">Resume ↓</a>
             </div>
         </div>
@@ -548,7 +568,7 @@
                 <span class="constellation-label">LinkedIn</span>
             </a>
             <div class="constellation-connector" aria-hidden="true"></div>
-            <a href="mailto:harshitd585@gmail.com" class="constellation-node" role="listitem" aria-label="Send email">
+            <a href="mailto:harshdubey.works@gmail.com" class="constellation-node" role="listitem" aria-label="Send email">
                 <div class="constellation-orb">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </div>
@@ -581,6 +601,108 @@
     </div>
 </section>
 
+<!-- PITCH AN IDEA MODAL -->
+<div class="pitch-modal" id="pitch-modal" role="dialog" aria-modal="true" aria-labelledby="pitch-modal-title" aria-hidden="true">
+    <div class="pitch-modal-backdrop" data-pitch-close></div>
+    <div class="pitch-modal-panel">
+        <button type="button" class="pitch-modal-close" data-pitch-close aria-label="Close pitch an idea dialog">&times;</button>
+        <div class="pitch-modal-kicker">Project intake</div>
+        <h2 id="pitch-modal-title">Let's make the first move.</h2>
+        <div class="pitch-progress" aria-label="Pitch progress">
+            <span class="pitch-progress-step active" data-progress-step="1">01</span><span class="pitch-progress-line"></span>
+            <span class="pitch-progress-step" data-progress-step="2">02</span><span class="pitch-progress-line"></span>
+            <span class="pitch-progress-step" data-progress-step="3">03</span>
+        </div>
+        <form id="pitch-form" novalidate>
+            <fieldset class="pitch-step active" data-pitch-step="1">
+                <legend>What are we building?</legend>
+                <div class="pitch-choice-grid">
+                    <button type="button" class="pitch-choice" data-project-type="E-Commerce">🛒 E-Commerce</button>
+                    <button type="button" class="pitch-choice" data-project-type="Web App">🌐 Web App</button>
+                    <button type="button" class="pitch-choice" data-project-type="UI/UX">🎨 UI/UX</button>
+                    <button type="button" class="pitch-choice" data-project-type="AI Tool">🤖 AI Tool</button>
+                    <button type="button" class="pitch-choice" data-project-type="Other">✨ Other...</button>
+                </div>
+                <div class="pitch-custom-type" aria-hidden="true">
+                    <label for="pitch-custom-input">Tell me what you have in mind...</label>
+                    <input id="pitch-custom-input" type="text" maxlength="80" autocomplete="off" disabled>
+                </div>
+                <button type="button" class="pitch-next btn btn-primary" data-next-step="2">Continue <span aria-hidden="true">→</span></button>
+            </fieldset>
+            <fieldset class="pitch-step" data-pitch-step="2" disabled>
+                <legend>Drop a quick summary of your idea</legend>
+                <textarea id="pitch-summary" rows="3" maxlength="500" placeholder="e.g., An AI-powered dashboard for tracking local event attendance..."></textarea>
+                <div class="pitch-step-actions">
+                    <button type="button" class="pitch-back btn btn-ghost" data-prev-step="1">Back</button>
+                    <button type="button" class="pitch-next btn btn-primary" data-next-step="3">Choose where to talk <span aria-hidden="true">→</span></button>
+                </div>
+            </fieldset>
+            <fieldset class="pitch-step" data-pitch-step="3" disabled>
+                <legend>Where should we talk?</legend>
+                <div class="pitch-connect-grid">
+                    <button type="button" class="pitch-connect whatsapp" data-platform="whatsapp"><span aria-hidden="true">🟢</span> WhatsApp</button>
+                    <button type="button" class="pitch-connect instagram" data-platform="instagram"><span aria-hidden="true">📸</span> Instagram</button>
+                    <button type="button" class="pitch-connect discord" data-platform="discord"><span aria-hidden="true">👾</span> Discord</button>
+                </div>
+                <button type="button" class="pitch-back btn btn-ghost" data-prev-step="2">Back</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     AETHER AI COMPANION
+═══════════════════════════════════════════════════════════════ -->
+<button id="ai-assistant-btn" aria-label="Open Aether AI Companion" aria-expanded="false" aria-controls="ai-assistant-panel">
+    <div class="aether-eyes-container" aria-hidden="true">
+        <div class="aether-eye left-eye"><span class="aether-pupil"></span></div>
+        <div class="aether-eye right-eye"><span class="aether-pupil"></span></div>
+    </div>
+</button>
+
+<div id="ai-assistant-panel" role="complementary" aria-label="Aether AI Companion" aria-hidden="true">
+    <!-- Header -->
+    <div class="assistant-header">
+        <div class="assistant-avatar" aria-hidden="true">
+            <div class="aether-eyes-container" aria-hidden="true">
+                <div class="aether-eye left-eye"><span class="aether-pupil"></span></div>
+                <div class="aether-eye right-eye"><span class="aether-pupil"></span></div>
+            </div>
+        </div>
+        <div class="assistant-header-info">
+            <h4>Aether</h4>
+            <div class="assistant-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                Portfolio Companion
+            </div>
+        </div>
+        <div class="assistant-header-actions">
+            <button class="assistant-clear-btn" title="Clear conversation" aria-label="Clear conversation history">↺</button>
+            <button class="assistant-close-btn" aria-label="Close Aether">✕</button>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="assistant-messages" aria-live="polite" aria-label="Conversation messages"></div>
+
+    <!-- Quick Prompts -->
+    <div class="assistant-chips" role="group" aria-label="Quick prompts">
+        <button class="assist-chip" data-prompt="Tell me about projects">Projects</button>
+        <button class="assist-chip" data-prompt="What skills does he have?">Skills</button>
+        <button class="assist-chip" data-prompt="Tell me about his experience">Experience</button>
+        <button class="assist-chip" data-prompt="How to contact?">Contact</button>
+        <button class="assist-chip" data-prompt="Tell me about Harsh">About</button>
+    </div>
+
+    <!-- Input -->
+    <div class="assistant-input-row">
+        <input type="text" id="assistant-input" placeholder="Ask about Harsh's portfolio…" autocomplete="off" spellcheck="false" maxlength="300" aria-label="Type your question">
+        <button id="assistant-send" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+    </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════
      DEVELOPER TERMINAL
 ═══════════════════════════════════════════════════════════════ -->
@@ -602,38 +724,6 @@
             <input type="text" id="terminal-input" autocomplete="off" spellcheck="false"
                    aria-label="Terminal command input" placeholder="type a command… (help · projects · skills · open attendify)">
         </div>
-    </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     AI ASSISTANT WIDGET
-═══════════════════════════════════════════════════════════════ -->
-<button id="ai-assistant-btn" aria-label="Open AI assistant" aria-expanded="false" title="Ask me anything">✦</button>
-<div id="ai-assistant-panel" role="complementary" aria-label="AI Assistant">
-    <div class="assistant-header">
-        <div class="assistant-avatar" aria-hidden="true">✦</div>
-        <div class="assistant-header-info">
-            <h4>Aether AI</h4>
-            <div class="assistant-status">
-                <span class="status-dot" aria-hidden="true"></span>
-                Online — Ask me anything
-            </div>
-        </div>
-        <button class="assistant-close-btn" aria-label="Close AI assistant">✕</button>
-    </div>
-    <div class="assistant-messages">
-        <div class="msg ai">
-            <div class="msg-bubble">Hello! I'm Aether, Harsh's AI companion. Ask me about his projects, skills, or how to get in touch. ✦</div>
-        </div>
-    </div>
-    <div class="assistant-chips" role="group" aria-label="Quick questions">
-        <button class="assist-chip">Tell me about projects</button>
-        <button class="assist-chip">What skills does he have?</button>
-        <button class="assist-chip">How to contact?</button>
-    </div>
-    <div class="assistant-input-row">
-        <input type="text" id="assistant-input" placeholder="Ask anything…" aria-label="Ask AI assistant">
-        <button id="assistant-send" aria-label="Send message">↑</button>
     </div>
 </div>
 

@@ -448,7 +448,7 @@ export function initTerminal() {
                         ['success',   '  ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═════╝ '],
                         ['success',   ''],
                         ['highlight', '  ✦ REQUEST ACCEPTED BY THE UNIVERSE ✦'],
-                        ['info',      '  harshitd585@gmail.com — +91 9321521258'],
+                        ['info',      '  harshdubey.works@gmail.com — +91 9321521258'],
                         ['separator', '══════════════════════════════════════════════════════'],
                     ]);
                     triggerHireAnimation();
@@ -511,7 +511,7 @@ export function initTerminal() {
                     ['response',  '  You found the terminal. You\'re clearly someone who'],
                     ['response',  '  explores beyond the surface.'],
                     ['info',      '  Harsh would love to build something with you.'],
-                    ['info',      '  → harshitd585@gmail.com'],
+                    ['info',      '  → harshdubey.works@gmail.com'],
                     ['separator', '─────────────────────────────────────────────────────────'],
                 ]);
                 break;
