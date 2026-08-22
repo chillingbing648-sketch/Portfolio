@@ -116,74 +116,85 @@ function initOptionalModules() {
 }
 
 // ── Ambient Music Toggle (MP3 Audio Player) ────────────────────────────────────
+const musicState = {
+    audioUrl: new URL('../assets/audio/Interstellar.mp3', import.meta.url).href,
+    audioContext: null,
+    gainNode: null,
+    audioBuffer: null,
+    loadingPromise: null,
+    sourceNode: null,
+    playing: false,
+    operation: 0
+};
+
 function initMusicToggle() {
     const btn = document.getElementById('musicToggle');
     if (!btn) {
         console.error('[AETHER] Button #musicToggle missing from DOM.');
         return;
     }
+    if (btn.dataset.musicInitialized === 'true') return;
+    btn.dataset.musicInitialized = 'true';
     log('Music toggle initialized');
 
-    const audioUrl = new URL('../assets/audio/Interstellar.mp3', import.meta.url).href;
-    let audioContext = null;
-    let gainNode = null;
-    let sourceNode = null;
-    let audioBuffer = null;
-    let loadingPromise = null;
-    let playing = false;
-
     btn.addEventListener('click', async () => {
+        const operation = ++musicState.operation;
         const iconEl = btn.querySelector('.music-icon');
         const label = document.getElementById('music-label');
-        if (!playing) {
-            try {
-                if (!audioContext) {
-                    audioContext = new AudioContext();
-                    gainNode = audioContext.createGain();
-                    gainNode.gain.value = 0.6;
-                    gainNode.connect(audioContext.destination);
-                }
-
-                await audioContext.resume();
-
-                if (!audioBuffer) {
-                    loadingPromise ||= fetch(audioUrl)
-                        .then((response) => {
-                            if (!response.ok) throw new Error(`Audio request failed: ${response.status}`);
-                            return response.arrayBuffer();
-                        })
-                        .then((buffer) => audioContext.decodeAudioData(buffer));
-                    audioBuffer = await loadingPromise;
-                }
-
-                sourceNode = audioContext.createBufferSource();
-                sourceNode.buffer = audioBuffer;
-                sourceNode.loop = true;
-                sourceNode.connect(gainNode);
-                sourceNode.start();
-                playing = true;
-                if (iconEl) iconEl.textContent = '🔊';
-                if (label) label.textContent = 'Ambient On';
-                btn.setAttribute('aria-pressed', 'true');
-                console.log('[AETHER] Interstellar Audio: PLAYING');
-            } catch (err) {
-                console.error('[AETHER] Audio play blocked or failed:', err);
-                loadingPromise = null;
-                if (iconEl) iconEl.textContent = '🔇';
-                if (label) label.textContent = 'Ambient Sound';
-                btn.setAttribute('aria-pressed', 'false');
-            }
-        } else {
-            playing = false;
-            if (sourceNode) {
-                sourceNode.stop();
-                sourceNode.disconnect();
-                sourceNode = null;
+        if (musicState.playing || musicState.sourceNode) {
+            musicState.playing = false;
+            if (musicState.sourceNode) {
+                musicState.sourceNode.stop();
+                musicState.sourceNode.disconnect();
+                musicState.sourceNode = null;
             }
             if (iconEl) iconEl.textContent = '🔇';
             if (label) label.textContent = 'Ambient Sound';
             btn.setAttribute('aria-pressed', 'false');
             console.log('[AETHER] Interstellar Audio: PAUSED');
+            return;
+        }
+
+        try {
+            if (!musicState.audioContext) {
+                musicState.audioContext = new AudioContext();
+                musicState.gainNode = musicState.audioContext.createGain();
+                musicState.gainNode.gain.value = 0.6;
+                musicState.gainNode.connect(musicState.audioContext.destination);
+            }
+
+            await musicState.audioContext.resume();
+
+            if (!musicState.audioBuffer) {
+                musicState.loadingPromise ||= fetch(musicState.audioUrl)
+                    .then((response) => {
+                        if (!response.ok) throw new Error(`Audio request failed: ${response.status}`);
+                        return response.arrayBuffer();
+                    })
+                    .then((buffer) => musicState.audioContext.decodeAudioData(buffer));
+                musicState.audioBuffer = await musicState.loadingPromise;
+            }
+
+            if (operation !== musicState.operation) return;
+
+            musicState.sourceNode = musicState.audioContext.createBufferSource();
+            musicState.sourceNode.buffer = musicState.audioBuffer;
+            musicState.sourceNode.loop = true;
+            musicState.sourceNode.connect(musicState.gainNode);
+            musicState.sourceNode.start();
+            musicState.playing = true;
+            if (iconEl) iconEl.textContent = '🔊';
+            if (label) label.textContent = 'Ambient On';
+            btn.setAttribute('aria-pressed', 'true');
+            console.log('[AETHER] Interstellar Audio: PLAYING');
+        } catch (err) {
+            console.error('[AETHER] Audio play blocked or failed:', err);
+            musicState.loadingPromise = null;
+            musicState.playing = false;
+            musicState.sourceNode = null;
+            if (iconEl) iconEl.textContent = '🔇';
+            if (label) label.textContent = 'Ambient Sound';
+            btn.setAttribute('aria-pressed', 'false');
         }
     });
 }
