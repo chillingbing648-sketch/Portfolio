@@ -194,13 +194,18 @@ Portfolio/
 > ⚠️ Uses ES Modules and `fetch()` for JSON data. Do not open `index.html` directly via `file://` — it will throw CORS errors.
 
 ```bash
-# Option 1 — Python
+# Option 1 — Vite Development Server (Recommended)
+npm run dev
+# → http://localhost:5173
+
+# Option 2 — Production Build & Preview
+npm run build
+npm run preview
+# → http://localhost:4173
+
+# Option 3 — Python / Static Server
 python -m http.server 8000
 # → http://localhost:8000
-
-# Option 2 — Node.js
-npx serve .
-# → http://localhost:3000
 ```
 
 Or: open the project in VS Code → right-click `index.html` → **Open with Live Server**.

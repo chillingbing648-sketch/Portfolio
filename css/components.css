@@ -1294,3 +1294,11 @@
     42% { transform: scale(1.3); }
     70% { transform: scale(1); }
 }
+
+/* ── Work / Experience Description ── */
+.exp-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}

@@ -30,7 +30,7 @@ const FALLBACK_SKILLS = [
       {"name": "Node.js", "icon": "🟩"},
       {"name": "Java", "icon": "☕"},
       {"name": "Express.js", "icon": "🚀"},
-      {"name": "React","icon": "⚛️"},
+      {"name": "REST APIs", "icon": "🔗"},
       {"name": "Data Structures", "icon": "🧩"},
       {"name": "MySQL", "icon": "🗄️"},
       {"name": "MongoDB", "icon": "🍃"},
@@ -48,17 +48,16 @@ const FALLBACK_SKILLS = [
       {"name": "AI Agents", "icon": "🤖"}
     ]
   },
- {
-  "category": "DevOps & Architecture",
-  "icon": "🛠️",
-  "items": [
-    {"name": "Git", "icon": "🐙"},
-    {"name": "Vercel", "icon": "▲"},
-    {"name": "GitHub Pages", "icon": "📄"},
-    {"name": "GitHub Actions", "icon": "⚙️"},
-    {"name": "CI/CD", "icon": "🔧"}
-  ]
-},
+  {
+    "category": "DevOps & Architecture",
+    "icon": "🛠️",
+    "items": [
+      {"name": "Git & GitHub", "icon": "🐙"},
+      {"name": "Vercel", "icon": "▲"},
+      {"name": "Netlify", "icon": "🌐"},
+      {"name": "CI/CD", "icon": "🔧"}
+    ]
+  },
   {
     "category": "Soft Skills",
     "icon": "🧠",

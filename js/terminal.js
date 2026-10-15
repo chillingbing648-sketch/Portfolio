@@ -7,12 +7,14 @@
 import { searchSkills, searchProjects } from './search.js';
 import { setThemeClass } from './theme.js';
 import { openModal } from './projects.js';
+import { calculateRoleMatch } from './aether-match.js';
+import { fetchJson } from './utils.js';
 
 const COMMANDS = [
     'help','whoami','about','projects','skills','experience','education',
     'timeline','library','achievements','resume','github','linkedin','contact','stats',
     'search','history','pwd','date','time','theme','matrix','coffee',
-    'quote','future','origin','clear','exit','open','find'
+    'quote','future','origin','clear','exit','open','find','roles','match'
 ];
 
 const QUOTES = [
@@ -244,7 +246,7 @@ export function initTerminal() {
                     ['highlight', '  NAVIGATION'],
                     ['response',  '  about · projects · skills · experience · education · timeline · contact'],
                     ['highlight', '  ACTIONS'],
-                    ['response',  '  resume · github · linkedin · open &lt;project&gt; · find &lt;skill&gt; · search &lt;query&gt;'],
+                    ['response',  '  resume · github · linkedin · open &lt;project&gt; · find &lt;skill&gt; · search &lt;query&gt; · roles · match &lt;role&gt;'],
                     ['highlight', '  SYSTEM'],
                     ['response',  '  help · whoami · stats · history · pwd · date · time · theme &lt;name&gt; · clear · exit'],
                     ['highlight', '  CREATIVE'],
@@ -260,7 +262,7 @@ export function initTerminal() {
                     ['success',   '  Harsh Dubey'],
                     ['response',  '  AI Developer · Creative Engineer · Student'],
                     ['response',  '  📍 Mumbai, India'],
-                    ['response',  '  🎓 BSc IT · Thakur College · GPA 9.1'],
+                    ['response',  '  🎓 BSc IT · Thakur College · CGPA 9.5'],
                     ['response',  '  ⚡ Specialising in AI integration & cinematic web experiences'],
                     ['response',  '  🏆 Hackathon Winner · Top 5% Competitor · Debate Champion'],
                     ['separator', '─────────────────────────────────────────────────────────'],
@@ -313,7 +315,7 @@ export function initTerminal() {
                     ['highlight', '  ACHIEVEMENTS'],
                     ['success',   '  🏆  IntraCollegiate Debate — 1st Place'],
                     ['success',   '  📊  PR Head · 2,000+ attendees · 1,000+ registrations'],
-                    ['success',   '  🎓  Academic Excellence — GPA 9.1'],
+                    ['success',   '  🎓  Academic Excellence — CGPA 9.5'],
                     ['success',   '  🥇  Hackathon First Prize — Sustainable Shopping AI'],
                     ['success',   '  ⭐  Top 5% of 500 competitors — Real-Time Chatbot'],
                     ['separator', '─────────────────────────────────────────────────────────'],
@@ -350,7 +352,7 @@ export function initTerminal() {
                     ['info',      `  Uptime      : ${Math.floor(Math.random() * 8000 + 1000)}ms`],
                     ['info',      '  Projects    : 4 shipped'],
                     ['info',      '  Skills      : 35+ technologies'],
-                    ['info',      '  GPA         : 9.1 / 10'],
+                    ['info',      '  CGPA        : 9.5 / 10'],
                     ['info',      '  FPS         : 60–120 ✓'],
                     ['info',      '  Lighthouse  : 92+ ✓'],
                     ['info',      '  Awwwards    : Pending submission 👀'],
@@ -455,6 +457,54 @@ export function initTerminal() {
                 } else {
                     appendLine('error', `  Unknown project "${args}". Options: kaamkaagaz, attendify, continuity, walle`);
                 }
+                break;
+
+            case 'roles':
+                (async () => {
+                    const rolesData = await fetchJson('data/roles.json', []);
+                    appendBlock([
+                        ['separator', '─────────────────────────────────────────────────────────'],
+                        ['highlight', '  VERIFIED TARGET ROLES (Deterministic Matching Engine)'],
+                        ...rolesData.map(r => ['info', `  • ${r.title} [id: ${r.id}]`]),
+                        ['response',  '  Evaluate fit: match &lt;role-id&gt; (e.g. match fullstack)'],
+                        ['separator', '─────────────────────────────────────────────────────────'],
+                    ]);
+                })();
+                break;
+
+            case 'match':
+                if (!args) {
+                    appendLine('error', '  Usage: match &lt;role-id&gt; (type "roles" to list all options)');
+                    break;
+                }
+                (async () => {
+                    const [roles, skills, projects, experience] = await Promise.all([
+                        fetchJson('data/roles.json', []),
+                        fetchJson('data/skills.json', []),
+                        fetchJson('data/projects.json', []),
+                        fetchJson('data/experience.json', [])
+                    ]);
+                    const query = args.toLowerCase().trim();
+                    const targetRole = roles.find(r => r.id.toLowerCase().includes(query) || r.title.toLowerCase().includes(query));
+                    if (!targetRole) {
+                        appendLine('error', `  Role "${args}" not recognized. Type "roles" to view available roles.`);
+                        return;
+                    }
+                    const result = calculateRoleMatch(targetRole, { skills, projects, experience });
+                    if (!result) {
+                        appendLine('error', '  Could not calculate role match.');
+                        return;
+                    }
+                    appendBlock([
+                        ['separator', '─────────────────────────────────────────────────────────'],
+                        ['highlight', `  ROLE MATCH: ${targetRole.title}`],
+                        ['success',   `  Fit Score: ${result.score}% verified portfolio evidence`],
+                        ['info',      `  Matched Skills (${result.matchedSkills.length}): ${result.matchedSkills.join(', ') || 'None'}`],
+                        ...(result.missingSkills.length ? [['response',  `  Unverified/Pending: ${result.missingSkills.join(', ')}`]] : []),
+                        ['info',      `  Project Evidence: ${result.matchingProjects.map(p => `${p.title} (${p.signals.join(', ')})`).join(' · ') || 'None'}`],
+                        ['separator', '─────────────────────────────────────────────────────────'],
+                    ]);
+                })();
                 break;
 
             case 'clear':
