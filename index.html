@@ -35,12 +35,19 @@
     <meta name="twitter:image" content="https://harshportfolio404.netlify.app/Photo.jpeg">
     <meta name="twitter:image:alt" content="Harsh Dubey — AI Developer and Creative Engineer">
 
-    <!-- Preconnect & Fonts -->
+    <!-- Preconnect & Asynchronous Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    </noscript>
+
+    <!-- Preload Critical LCP Asset -->
+    <link rel="preload" as="image" href="Photo.jpeg" type="image/jpeg" fetchpriority="high">
 
     <!-- CDN Libraries (deferred to eliminate parser blocking) -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -377,7 +384,7 @@
         <div class="hero-portrait-wrapper">
             <div class="hero-floating-container" id="heroPortrait">
                 <div class="portrait-frame glass-panel">
-                    <img src="Photo.jpeg" alt="Harsh Dubey — AI Developer and Creative Engineer in Mumbai" class="portrait-img" loading="eager" fetchpriority="high" width="899" height="1599">
+                    <img src="Photo.jpeg" alt="Harsh Dubey — AI Developer and Creative Engineer in Mumbai" class="portrait-img" loading="eager" fetchpriority="high" decoding="async" width="899" height="1599">
                     <div class="portrait-rim-light" aria-hidden="true"></div>
                 </div>
                 <div class="holo-badge badge-1" aria-hidden="true"><span>⚡</span> <span>AI Developer</span></div>

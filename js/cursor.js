@@ -51,6 +51,42 @@ export function initCursor() {
     let orbY = mouseY;
 
     let animationFrame = null;
+    let isRunning = false;
+
+    // Smooth orb interpolation with idle convergence sleep
+    const renderCursor = () => {
+        if (document.hidden) {
+            isRunning = false;
+            animationFrame = null;
+            return;
+        }
+
+        const dx = mouseX - orbX;
+        const dy = mouseY - orbY;
+
+        // When orb converges to cursor target or in reduced-motion, sleep the animation loop
+        if (prefersReducedMotion || (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1)) {
+            orbX = mouseX;
+            orbY = mouseY;
+            cursorOrb.style.transform = `translate3d(${orbX}px, ${orbY}px, 0)`;
+            isRunning = false;
+            animationFrame = null;
+            return;
+        }
+
+        orbX += dx * 0.14;
+        orbY += dy * 0.14;
+
+        cursorOrb.style.transform = `translate3d(${orbX}px, ${orbY}px, 0)`;
+        animationFrame = requestAnimationFrame(renderCursor);
+    };
+
+    const startLoop = () => {
+        if (!isRunning) {
+            isRunning = true;
+            animationFrame = requestAnimationFrame(renderCursor);
+        }
+    };
 
     const handleMouseMove = (event) => {
         mouseX = event.clientX;
@@ -65,29 +101,27 @@ export function initCursor() {
             ambientGlow.style.transform =
                 `translate3d(${mouseX}px, ${mouseY}px, 0)`;
         }
+
+        startLoop();
     };
 
     window.addEventListener("mousemove", handleMouseMove, {
         passive: true
     });
 
-    // Smooth orb interpolation
-    const renderCursor = () => {
-        if (prefersReducedMotion) {
-            orbX = mouseX;
-            orbY = mouseY;
-        } else {
-            orbX += (mouseX - orbX) * 0.14;
-            orbY += (mouseY - orbY) * 0.14;
+    const handleVisibilityChange = () => {
+        if (!document.hidden) {
+            startLoop();
+        } else if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+            isRunning = false;
         }
-
-        cursorOrb.style.transform =
-            `translate3d(${orbX}px, ${orbY}px, 0)`;
-
-        animationFrame = requestAnimationFrame(renderCursor);
     };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    renderCursor();
+    // Initial positioning
+    startLoop();
 
     const removeListeners = bindHoverTargets({
         cursorOrb,
@@ -97,10 +131,13 @@ export function initCursor() {
     // Cleanup function
     cursorCleanup = () => {
         window.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
 
         if (animationFrame) {
             cancelAnimationFrame(animationFrame);
+            animationFrame = null;
         }
+        isRunning = false;
 
         removeListeners?.();
 

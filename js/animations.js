@@ -265,6 +265,19 @@ export function initNeuralCanvas() {
         draw();
     }
 
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        } else {
+            if (isVisible && !prefersReducedMotion && !animId) {
+                draw();
+            }
+        }
+    });
+
     window.addEventListener('resize', () => {
         canvas.width = parent.offsetWidth;
         canvas.height = parent.offsetHeight;
@@ -353,4 +366,17 @@ export function initObservatoryCanvas() {
         isVisible = true;
         drawObservatory();
     }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        } else {
+            if (isVisible && !prefersReducedMotion && !animId) {
+                drawObservatory();
+            }
+        }
+    });
 }

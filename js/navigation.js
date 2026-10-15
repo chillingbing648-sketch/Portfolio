@@ -12,13 +12,62 @@ export function initNavigation() {
         navbar.style.transform = '';
         navbar.style.opacity = '1';
         navbar.style.visibility = 'visible';
+    }
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY > 60;
+    // Active nav link & navbar scroll state with rAF throttling & cached offsets
+    const sections = document.querySelectorAll('section[id]');
+    const navA = document.querySelectorAll('.nav-links a');
+
+    let sectionPositions = [];
+    const measureSections = () => {
+        sectionPositions = Array.from(sections).map(s => ({
+            id: s.id,
+            top: s.offsetTop
+        }));
+    };
+
+    if (sections.length) {
+        measureSections();
+        window.addEventListener('resize', measureSections, { passive: true });
+    }
+
+    let ticking = false;
+    const updateScrollState = () => {
+        const scrollY = window.scrollY;
+
+        // Update navbar scrolled status
+        if (navbar) {
+            const scrolled = scrollY > 60;
             navbar.classList.toggle('scrolled', scrolled);
             navbar.classList.toggle('navbar--scrolled', scrolled);
-        }, { passive: true });
-    }
+        }
+
+        // Update active nav link based on cached section offsets
+        if (sectionPositions.length && navA.length) {
+            let current = '';
+            for (let i = 0; i < sectionPositions.length; i++) {
+                if (scrollY >= sectionPositions[i].top - 200) {
+                    current = sectionPositions[i].id;
+                }
+            }
+            navA.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        }
+
+        ticking = false;
+    };
+
+    const onScroll = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateScrollState);
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Initial evaluation
+    updateScrollState();
 
     if (menuBtn && navLinks) {
         const closeMenu = () => {
@@ -78,18 +127,4 @@ export function initNavigation() {
         });
     }
 
-    // Active nav link on scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navA = document.querySelectorAll('.nav-links a');
-    if (sections.length && navA.length) {
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(s => {
-                if (window.scrollY >= s.offsetTop - 200) current = s.id;
-            });
-            navA.forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-            });
-        }, { passive: true });
-    }
 }
