@@ -21,17 +21,59 @@ export function initNavigation() {
     }
 
     if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('active');
-            menuBtn.textContent = isOpen ? '✕' : '☰';
-            menuBtn.setAttribute('aria-expanded', String(isOpen));
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
+        const closeMenu = () => {
+            if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuBtn.textContent = '☰';
                 menuBtn.setAttribute('aria-expanded', 'false');
+            }
+        };
+
+        const openMenu = () => {
+            navLinks.classList.add('active');
+            menuBtn.textContent = '✕';
+            menuBtn.setAttribute('aria-expanded', 'true');
+            navLinks.querySelector('a')?.focus();
+        };
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.contains('active') ? closeMenu() : openMenu();
+        });
+
+        // Close when clicking outside of navbar
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && !navbar.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenu();
+                menuBtn.focus();
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetHref = link.getAttribute('href');
+                if (targetHref && targetHref.startsWith('#')) {
+                    const targetEl = document.querySelector(targetHref);
+                    if (targetEl) {
+                        e.preventDefault();
+                        closeMenu();
+                        if (window.lenis) {
+                            window.lenis.scrollTo(targetEl, { offset: -80 });
+                        } else {
+                            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        try { history.pushState(null, '', targetHref); } catch (_) {}
+                    }
+                } else {
+                    closeMenu();
+                }
             });
         });
     }

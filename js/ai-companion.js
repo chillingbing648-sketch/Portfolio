@@ -40,13 +40,13 @@ const PORTFOLIO = {
 
     projects: [
         {
-            name: 'Psychology Study Platform',
-            description: 'An interactive, AI-powered learning system with dynamic flashcards, intelligent quizzes, and smart study guide generation — designed for deep cognitive retention.',
-            tech: ['HTML/CSS/JS', 'Claude AI API', 'Prompt Engineering'],
-            highlights: ['AI-powered adaptive learning', 'Dynamic flashcards & quizzes', 'Personalized study guides'],
-            details: 'Built to solve passive studying. Uses Claude AI API for adaptive flashcard generation and quiz evaluation without heavy framework overhead.',
-            github: 'https://github.com/chillingbing648-sketch/Psych-Study.git',
-            live: 'https://chillingbing648-sketch.github.io/Psych-Study/'
+            name: 'KaamKaagaz',
+            description: 'A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.',
+            tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Static Export'],
+            highlights: ['Multilingual civic-tech guidance (English, Hindi, Marathi)', 'University admissions hub & portal wayfinding', 'Privacy-first client-side persistent checklists'],
+            details: 'Engineered with Next.js 15 App Router, React 19, and TypeScript to demystify complex government bureaucracy and higher-education admissions. Features deterministic client-side conversational search and zero-tracking local checklists.',
+            github: 'https://github.com/chillingbing648-sketch/KaamKaagaz.git',
+            live: 'https://chillingbing648-sketch.github.io/KaamKaagaz/'
         },
         {
             name: 'Attendify',
@@ -208,7 +208,7 @@ const RESPONSES = {
         }
         switch (_lastTopic) {
             case 'projects':
-                return `Harsh has shipped 4+ key projects including **Psychology Study Platform** (AI flashcards), **Attendify** (C++/Node logistics), **Continuity** (Legacy Vault), and **WALL-E** (Mental Health Companion). Which one would you like to explore further?`;
+                return `Harsh has shipped 4+ key projects including **KaamKaagaz** (Civic Tech & Admissions), **Attendify** (C++/Node logistics), **Continuity** (Legacy Vault), and **WALL-E** (Mental Health Companion). Which one would you like to explore further?`;
             case 'skills':
                 return `Harsh's core strength is bridging creative web development (Three.js, WebGL, GSAP) with AI integration (Claude API, OpenAI APIs, Prompt Engineering) and solid full-stack engineering (Node.js, Express, Java).`;
             case 'experience':

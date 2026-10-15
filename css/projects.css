@@ -26,6 +26,17 @@
     flex-direction: column;
     height: 100%;
     cursor: pointer;
+    border-radius: var(--radius-md);
+}
+
+.project-card:focus-visible {
+    outline: none;
+}
+
+.project-card:focus-visible .project-card-inner {
+    border-color: var(--accent-cyan);
+    box-shadow: var(--shadow-glass), 0 0 25px rgba(6, 182, 212, 0.45);
+    transform: translateY(-4px);
 }
 
 .project-card-inner {

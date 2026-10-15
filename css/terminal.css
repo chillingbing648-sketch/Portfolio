@@ -40,37 +40,88 @@
     transform: scale(1) translateY(0);
 }
 
+.terminal-window.terminal-maximized {
+    max-width: 96vw;
+    width: 96vw;
+    max-height: 94vh;
+    height: 94vh;
+}
+
+.terminal-window.terminal-maximized .terminal-body {
+    max-height: calc(94vh - 120px);
+}
+
 .terminal-titlebar {
     display: flex;
     align-items: center;
-    padding: 0.9rem 1.2rem;
+    padding: 0.75rem 1.2rem;
     background: rgba(255,255,255,0.03);
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    gap: 0.6rem;
+    gap: 0.8rem;
+}
+
+.terminal-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
 }
 
 .term-dot {
-    width: 12px; height: 12px;
+    width: 13px; height: 13px;
     border-radius: 50%;
     cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.term-dot-red { background: rgba(255,95,87,0.8); }
-.term-dot-yellow { background: rgba(255,189,46,0.8); }
-.term-dot-green { background: rgba(40,201,64,0.8); }
+.term-dot:hover {
+    transform: scale(1.15);
+}
+
+.term-dot:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+}
+
+.term-dot-red { background: rgba(255,95,87,0.9); }
+.term-dot-yellow { background: rgba(255,189,46,0.9); }
+.term-dot-green { background: rgba(40,201,64,0.9); }
 
 .terminal-title-text {
-    margin-left: 0.6rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.45);
 }
 
 .terminal-shortcut-hint {
     margin-left: auto;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.3);
+}
+
+.terminal-close-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.terminal-close-action:hover,
+.terminal-close-action:focus-visible {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #ffffff;
 }
 
 .terminal-body {

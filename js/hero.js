@@ -89,6 +89,9 @@ function initTypewriter() {
 }
 
 function init3DTilt() {
+    const isTouch = window.matchMedia?.('(hover: none), (pointer: coarse)')?.matches;
+    if (isTouch) return;
+
     const portraitWrapper = document.querySelector('.hero-portrait-wrapper');
     const portraitContainer = document.getElementById('heroPortrait');
     const rimLight = document.querySelector('.portrait-rim-light');
@@ -108,6 +111,10 @@ function init3DTilt() {
     });
 
     portraitWrapper.addEventListener('mouseleave', () => {
-        portraitContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+        portraitContainer.style.transform = '';
+        if (rimLight) {
+            rimLight.style.setProperty('--mouse-x', '50%');
+            rimLight.style.setProperty('--mouse-y', '50%');
+        }
     });
 }

@@ -67,15 +67,17 @@ function initSectionAnimations() {
     );
 
     // Projects — clip-path reveal
-    gsap.fromTo('.project-card',
-        { opacity: 0, clipPath: 'inset(0 100% 0 0)', scale: 0.97 },
-        {
-            opacity: 1, clipPath: 'inset(0 0% 0 0)', scale: 1,
-            stagger: { each: 0.15, from: 'start' },
-            ease: 'power4.inOut', duration: 1,
-            scrollTrigger: { trigger: '#projects', start: 'top 75%' }
-        }
-    );
+    if (document.querySelectorAll('.project-card').length) {
+        gsap.fromTo('.project-card',
+            { opacity: 0, clipPath: 'inset(0 100% 0 0)', scale: 0.97 },
+            {
+                opacity: 1, clipPath: 'inset(0 0% 0 0)', scale: 1,
+                stagger: { each: 0.15, from: 'start' },
+                ease: 'power4.inOut', duration: 1,
+                scrollTrigger: { trigger: '#projects', start: 'top 75%' }
+            }
+        );
+    }
 
     // Section titles — morphing blur reveal
     gsap.utils.toArray('.section-title').forEach(title => {
@@ -102,14 +104,16 @@ function initSectionAnimations() {
     });
 
     // Skills categories stagger
-    gsap.fromTo('.skill-category',
-        { opacity: 0, x: -40 },
-        {
-            opacity: 1, x: 0,
-            stagger: 0.14, duration: 0.9, ease: 'expo.out',
-            scrollTrigger: { trigger: '#about .skills-wrapper', start: 'top 75%' }
-        }
-    );
+    if (document.querySelectorAll('.skill-category').length) {
+        gsap.fromTo('.skill-category',
+            { opacity: 0, x: -40 },
+            {
+                opacity: 1, x: 0,
+                stagger: 0.14, duration: 0.9, ease: 'expo.out',
+                scrollTrigger: { trigger: '#about .skills-wrapper', start: 'top 75%' }
+            }
+        );
+    }
 
     // Observatory content
     gsap.fromTo('.obs-headline',
@@ -166,14 +170,16 @@ function initExperienceCards() {
         }
     );
 
-    gsap.fromTo('.achievement-card',
-        { opacity: 0, x: 40 },
-        {
-            opacity: 1, x: 0,
-            stagger: 0.14, duration: 0.9, ease: 'expo.out',
-            scrollTrigger: { trigger: '.achievements-grid', start: 'top 80%' }
-        }
-    );
+    if (document.querySelectorAll('.achievement-card').length) {
+        gsap.fromTo('.achievement-card',
+            { opacity: 0, x: 40 },
+            {
+                opacity: 1, x: 0,
+                stagger: 0.14, duration: 0.9, ease: 'expo.out',
+                scrollTrigger: { trigger: '.achievements-grid', start: 'top 80%' }
+            }
+        );
+    }
 }
 
 // ── Observatory SVG Signature ─────────────────────────────────────────────────
@@ -199,14 +205,20 @@ export function initNeuralCanvas() {
     canvas.width = parent.offsetWidth;
     canvas.height = parent.offsetHeight;
 
-    const nodes = Array.from({ length: 40 }, () => ({
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    const nodes = Array.from({ length: 30 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25
     }));
 
+    let isVisible = true;
+    let animId = null;
+
     function draw() {
+        if (!isVisible) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         nodes.forEach(n => {
             n.x += n.vx; n.y += n.vy;
@@ -221,7 +233,7 @@ export function initNeuralCanvas() {
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
-                    ctx.strokeStyle = `rgba(139,92,246,${0.3 * (1 - dist / 100)})`;
+                    ctx.strokeStyle = `rgba(139,92,246,${0.25 * (1 - dist / 100)})`;
                     ctx.lineWidth = 0.8;
                     ctx.stroke();
                 }
@@ -229,17 +241,34 @@ export function initNeuralCanvas() {
 
             ctx.beginPath();
             ctx.arc(a.x, a.y, 2, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(139,92,246,0.5)';
+            ctx.fillStyle = 'rgba(139,92,246,0.45)';
             ctx.fill();
         });
 
-        requestAnimationFrame(draw);
+        if (!prefersReducedMotion) {
+            animId = requestAnimationFrame(draw);
+        }
     }
-    draw();
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(([entry]) => {
+            isVisible = entry.isIntersecting;
+            if (isVisible && !prefersReducedMotion && !animId) {
+                draw();
+            } else if (!isVisible && animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        }, { threshold: 0.05 });
+        observer.observe(parent || canvas);
+    } else {
+        draw();
+    }
 
     window.addEventListener('resize', () => {
         canvas.width = parent.offsetWidth;
         canvas.height = parent.offsetHeight;
+        if (prefersReducedMotion) draw();
     }, { passive: true });
 }
 
@@ -248,6 +277,7 @@ export function initObservatoryCanvas() {
     const canvas = document.getElementById('observatory-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    const section = document.getElementById('observatory');
 
     function resize() {
         canvas.width = canvas.offsetWidth;
@@ -256,24 +286,30 @@ export function initObservatoryCanvas() {
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    const stars = Array.from({ length: 200 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    const stars = Array.from({ length: 160 }, () => ({
+        x: Math.random() * (canvas.width || 800),
+        y: Math.random() * (canvas.height || 600),
         r: Math.random() * 1.5 + 0.3,
         opacity: Math.random(),
         speed: Math.random() * 0.004 + 0.001,
         phase: Math.random() * Math.PI * 2
     }));
 
-    const nebulae = Array.from({ length: 5 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+    const nebulae = Array.from({ length: 4 }, () => ({
+        x: Math.random() * (canvas.width || 800),
+        y: Math.random() * (canvas.height || 600),
         r: Math.random() * 200 + 80,
         color: `hsla(${Math.random() * 60 + 240}, 70%, 60%, 0.04)`
     }));
 
     let t = 0;
+    let isVisible = false;
+    let animId = null;
+
     function drawObservatory() {
+        if (!isVisible && !prefersReducedMotion) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Nebulae
@@ -297,7 +333,24 @@ export function initObservatoryCanvas() {
         });
 
         t++;
-        requestAnimationFrame(drawObservatory);
+        if (!prefersReducedMotion) {
+            animId = requestAnimationFrame(drawObservatory);
+        }
     }
-    drawObservatory();
+
+    if ('IntersectionObserver' in window && section) {
+        const observer = new IntersectionObserver(([entry]) => {
+            isVisible = entry.isIntersecting;
+            if (isVisible && !prefersReducedMotion && !animId) {
+                drawObservatory();
+            } else if (!isVisible && animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        }, { threshold: 0.05 });
+        observer.observe(section);
+    } else {
+        isVisible = true;
+        drawObservatory();
+    }
 }

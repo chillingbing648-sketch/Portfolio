@@ -36,13 +36,17 @@ export function initTerminal() {
     const autocomplete = document.getElementById('term-autocomplete');
     if (!overlay || !input || !output) return;
 
+    let previousActiveElement = null;
+
     // ── Open / Close ────────────────────────────────────────────────────────
     function openTerminal() {
         if (isOpen) return;
         isOpen = true;
+        previousActiveElement = document.activeElement;
         overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        setTimeout(() => input.focus(), 350);
+        setTimeout(() => input.focus(), 150);
         if (!output.innerHTML.trim()) printWelcome();
     }
 
@@ -50,15 +54,69 @@ export function initTerminal() {
         if (!isOpen) return;
         isOpen = false;
         overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
         input.value = '';
         clearSuggestions();
+        if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+            previousActiveElement.focus();
+        }
     }
 
     // Trigger sources
     document.getElementById('terminalTrigger')?.addEventListener('click', openTerminal);
+    document.getElementById('mobileTerminalTrigger')?.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('active');
+        const menuBtn = document.getElementById('menuBtn');
+        if (menuBtn) {
+            menuBtn.textContent = '☰';
+            menuBtn.setAttribute('aria-expanded', 'false');
+        }
+        openTerminal();
+    });
+    document.getElementById('terminalCloseBtn')?.addEventListener('click', closeTerminal);
     document.querySelector('#term-close-dot')?.addEventListener('click', closeTerminal);
+    document.querySelector('#term-min-dot')?.addEventListener('click', closeTerminal);
+
+    const maxDot = document.getElementById('term-max-dot');
+    maxDot?.addEventListener('click', () => {
+        const win = overlay.querySelector('.terminal-window');
+        win?.classList.toggle('terminal-maximized');
+    });
+
+    [document.getElementById('term-close-dot'), document.getElementById('term-min-dot')].forEach(dot => {
+        dot?.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                closeTerminal();
+            }
+        });
+    });
+
+    maxDot?.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            overlay.querySelector('.terminal-window')?.classList.toggle('terminal-maximized');
+        }
+    });
+
     overlay.addEventListener('click', e => { if (e.target === overlay) closeTerminal(); });
+
+    // Focus trap inside terminal
+    overlay.addEventListener('keydown', e => {
+        if (e.key !== 'Tab') return;
+        const focusables = overlay.querySelectorAll('button:not([disabled]), [tabindex="0"], input:not([disabled])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    });
 
     document.addEventListener('keydown', e => {
         // Konami code
@@ -382,19 +440,20 @@ export function initTerminal() {
 
             case 'open':
                 const projectMap = {
-                    'psych': 'modal-psych', 'psychology': 'modal-psych',
+                    'kaamkaagaz': 'modal-kaamkaagaz', 'kaagaz': 'modal-kaamkaagaz', 'kaam': 'modal-kaamkaagaz', 'civic': 'modal-kaamkaagaz',
+                    'psych': 'modal-kaamkaagaz', 'psychology': 'modal-kaamkaagaz',
                     'attendify': 'modal-attendify', 'attendance': 'modal-attendify',
-                    'sustainable': 'modal-sustainable', 'shopping': 'modal-sustainable',
-                    'chatbot': 'modal-chatbot', 'chat': 'modal-chatbot'
+                    'sustainable': 'modal-sustainable', 'continuity': 'modal-sustainable', 'vault': 'modal-sustainable',
+                    'chatbot': 'modal-chatbot', 'chat': 'modal-chatbot', 'walle': 'modal-chatbot', 'wall-e': 'modal-chatbot'
                 };
-                if (!args) { appendLine('error', '  Usage: open &lt;psych|attendify|sustainable|chatbot&gt;'); break; }
+                if (!args) { appendLine('error', '  Usage: open &lt;kaamkaagaz|attendify|continuity|walle&gt;'); break; }
                 const modalId = projectMap[args.toLowerCase()];
                 if (modalId) {
                     appendLine('success', `  ↗ Opening case study: ${args}`);
                     closeTerminal();
                     setTimeout(() => openModal(modalId), 350);
                 } else {
-                    appendLine('error', `  Unknown project "${args}". Options: psych, attendify, sustainable, chatbot`);
+                    appendLine('error', `  Unknown project "${args}". Options: kaamkaagaz, attendify, continuity, walle`);
                 }
                 break;
 

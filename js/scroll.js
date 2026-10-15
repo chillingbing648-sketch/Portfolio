@@ -29,6 +29,8 @@ export function initScroll() {
         touchMultiplier: 2
     });
 
+    window.lenis = lenis;
+
     /*
      * ---------------------------------------------------------
      * SINGLE LENIS ANIMATION LOOP

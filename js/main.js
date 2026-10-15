@@ -166,6 +166,7 @@ function initMusicToggle() {
             await musicState.audioContext.resume();
 
             if (!musicState.audioBuffer) {
+                if (label) label.textContent = 'Loading audio...';
                 musicState.loadingPromise ||= fetch(musicState.audioUrl)
                     .then((response) => {
                         if (!response.ok) throw new Error(`Audio request failed: ${response.status}`);

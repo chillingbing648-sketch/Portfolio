@@ -132,7 +132,12 @@ export function bindHoverTargets({
         ".contact-card-interactive",
         ".social-card-item",
         ".project-card",
-        ".constellation-node"
+        ".constellation-node",
+        ".loader-skip-btn",
+        ".library-tab",
+        ".nav-mobile-terminal-btn",
+        ".terminal-close-action",
+        ".term-dot"
     ].join(",");
 
     const hoverTargets = document.querySelectorAll(hoverSelector);

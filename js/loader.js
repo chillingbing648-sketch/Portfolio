@@ -26,6 +26,15 @@ export function initLoader() {
 
     _loaderDone = false;
 
+    if (window.__skipRequested) {
+        forceExitLoader('early-skip');
+        return;
+    }
+
+    window.addEventListener('loader:request-skip', () => {
+        if (!_loaderDone) forceExitLoader('user-skip');
+    }, { once: true });
+
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -53,9 +62,39 @@ export function initLoader() {
     }
 
     /*
+     * Accessibility & Search Crawlers: instantly release if user prefers reduced motion or is a search bot
+     */
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    const isSearchBot = /bot|googlebot|bingbot|crawler|spider|lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (prefersReducedMotion || isSearchBot) {
+        forceExitLoader(isSearchBot ? 'crawler' : 'reduced-motion');
+        return;
+    }
+
+    /*
+     * Interactive Skip Handlers (Click or Escape key)
+     */
+    const skipBtn = document.getElementById('loaderSkipBtn');
+    const handleKeydownSkip = (e) => {
+        if (e.key === 'Escape' && !_loaderDone) {
+            window.removeEventListener('keydown', handleKeydownSkip);
+            forceExitLoader('user-escape');
+        }
+    };
+    window.addEventListener('keydown', handleKeydownSkip);
+
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            window.removeEventListener('keydown', handleKeydownSkip);
+            forceExitLoader('user-skip');
+        }, { once: true });
+    }
+
+    /*
      * Hard safety ceiling.
      */
     _timeoutId = setTimeout(() => {
+        window.removeEventListener('keydown', handleKeydownSkip);
         forceExitLoader('timeout');
     }, LOADER_TIMEOUT);
 
@@ -300,6 +339,8 @@ export function forceExitLoader(reason) {
         );
 
     if (loader) {
+        loader.classList.add('dismissed');
+        loader.style.pointerEvents = 'none';
         loader.style.transition =
             'opacity 0.3s ease';
 
@@ -393,6 +434,9 @@ function runLoaderExit() {
     if (!loaderEl) {
         return;
     }
+
+    loaderEl.classList.add('dismissed');
+    loaderEl.style.pointerEvents = 'none';
 
     if (
         typeof gsap !== 'undefined'

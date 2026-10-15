@@ -10,7 +10,7 @@
     --border-glass-bright: rgba(139, 92, 246, 0.35);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    --text-dim: #64748b;
+    --text-dim: #8898aa;
     --accent-primary: #8b5cf6;
     --accent-secondary: #3b82f6;
     --accent-cyan: #06b6d4;
@@ -29,6 +29,14 @@
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-main: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Focus and Accessibility Tokens */
+    --focus-ring: 0 0 0 3px rgba(6, 182, 212, 0.45);
+    --focus-outline: 2px solid rgba(6, 182, 212, 0.85);
+    --focus-offset: 3px;
+    --touch-min: 44px;
+    --nav-height: 70px;
+    --scroll-margin: 5.5rem;
 
     /* Easing Tokens */
     --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);

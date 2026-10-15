@@ -89,14 +89,14 @@ function renderSkills(container, data) {
     container.innerHTML = data.map(cat => `
         <div class="skill-category">
             <div class="skill-category-header">
-                <span class="skill-category-icon">${cat.icon}</span>
+                <span class="skill-category-icon" aria-hidden="true">${cat.icon}</span>
                 <h4>${cat.category}</h4>
-                <div class="skill-cat-line"></div>
+                <div class="skill-cat-line" aria-hidden="true"></div>
             </div>
-            <div class="skill-tags">
+            <div class="skill-tags" role="list" aria-label="${cat.category} skills">
                 ${cat.items.map(item => `
-                    <div class="skill-capsule" data-skill="${item.name.toLowerCase()}" title="${item.name} · Core Stack Capability">
-                        <span class="skill-icon">${item.icon}</span>${item.name}
+                    <div class="skill-capsule" role="listitem" tabindex="0" data-skill="${item.name.toLowerCase()}" title="${item.name} · Core Stack Capability" aria-label="${item.name}">
+                        <span class="skill-icon" aria-hidden="true">${item.icon}</span>${item.name}
                     </div>
                 `).join('')}
             </div>
@@ -106,6 +106,8 @@ function renderSkills(container, data) {
 
 function initMagneticCapsules() {
     if (typeof gsap === 'undefined') return;
+    const isTouch = window.matchMedia?.('(hover: none), (pointer: coarse)')?.matches;
+    if (isTouch) return;
 
     document.querySelectorAll('.skill-capsule').forEach(cap => {
         cap.addEventListener('mousemove', e => {

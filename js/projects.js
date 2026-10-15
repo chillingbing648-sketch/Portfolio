@@ -8,22 +8,22 @@ import { bindHoverTargets } from './cursor.js';
 
 const FALLBACK = [
   {
-    id: 'modal-psych', number: '01 / 04', title: 'Psychology Study Platform',
-    accentGradient: 'linear-gradient(90deg,#8b5cf6,#06b6d4)',
-    tech: ['HTML/CSS/JS','Claude AI API','Prompt Engineering'],
-    description: 'An AI-powered learning system with dynamic flashcards, intelligent quizzes, and smart study guide generation — designed for deep cognitive retention.',
-    github: 'https://github.com/chillingbing648-sketch/Psych-Study.git',
-    live: 'https://chillingbing648-sketch.github.io/Psych-Study/',
+    id: 'modal-kaamkaagaz', number: '01 / 04', title: 'KaamKaagaz — Civic Tech & Admissions Platform',
+    accentGradient: 'linear-gradient(90deg,#c8561b,#f59e0b)',
+    tech: ['Next.js 15','React 19','TypeScript','Tailwind CSS'],
+    description: 'A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.',
+    github: 'https://github.com/chillingbing648-sketch/KaamKaagaz.git',
+    live: 'https://chillingbing648-sketch.github.io/KaamKaagaz/',
     award: null,
     caseStudy: {
-      heroGradient:'linear-gradient(135deg,#1a0533,#0a1a40,#021520)',
-      story:'Built during late-night study sessions fueled by one question: What if studying psychology wasn\'t painful? Most digital study tools were static, repetitive, and cognitively flat.',
-      problem:'Traditional flashcards don\'t adapt to a student\'s current knowledge state. Students review what they already know, wasting time and losing retention.',
-      architecture:'Integrated Claude AI API as an intelligent tutor layer. The system dynamically generates contextual flashcards, creates adaptive quizzes, and produces personalized study guides.',
-      stack:['HTML5 / CSS3 / JS','Claude AI API','Prompt Engineering','Local Storage','Fetch API'],
-      challenges:'Optimizing API call latency while maintaining smooth UX. Designing prompts that consistently produced structured, educationally valid output.',
-      impact:'Transformed passive study into active AI-guided learning. Demonstrated that a single developer with AI tools can build what traditionally requires a full product team.',
-      lessons:'AI can transform passive consumption into active engagement. Prompt design is as critical as code design.'
+      heroGradient:'linear-gradient(135deg,#1c0e08,#2a140a,#0d1520)',
+      story:'Government paperwork and university admissions in India are rarely difficult because the forms themselves are complex — the real friction is deciphering scattered requirements across outdated portals. Having managed university admissions logistics firsthand as an IT Specialist at University of Mumbai, I saw hundreds of students overwhelmed by contradictory requirements. I built KaamKaagaz to turn that anxiety into a clean, transparent roadmap from question to official submission.',
+      problem:'Critical guidance for essential documents and higher-education admissions is fragmented across disconnected portals, laden with bureaucratic jargon, and inaccessible in regional languages.',
+      architecture:'Architected with Next.js 15 (App Router), React 19, and TypeScript as a static-exported, zero-dependency civic engine. Features a deterministic, privacy-first client-side conversational search engine that normalizes Hinglish/Hindi queries without remote API latency or data tracking.',
+      stack:['Next.js 15','React 19','TypeScript 5.6','Tailwind CSS 4','Static Export','localStorage','GitHub Actions'],
+      challenges:'Structuring complex, multi-stage bureaucratic workflows into unambiguous state machines while ensuring 100% data privacy by keeping checklist data strictly in local storage.',
+      impact:'Empowered students and citizens with self-serve clarity across essential government documentation and higher-education admission portals.',
+      lessons:'Civic technology must prioritize trust, transparency, and accessibility over algorithmic obscurity. When you design for clarity, you remove real-world friction for thousands.'
     }
   },
   {
@@ -46,20 +46,22 @@ const FALLBACK = [
     }
   },
   {
-    id: 'modal-sustainable', number: '03 / 04', title: 'Sustainable Shopping Assistant',
+    id: 'modal-sustainable', number: '03 / 04', title: 'Continuity - Financial Sustainability Vault',
     accentGradient: 'linear-gradient(90deg,#10b981,#06b6d4)',
-    tech: ['AI Integration','Full-Stack','Data Analysis'],
-    description: 'An intelligent assistant driving eco-friendly purchasing decisions through real-time data analysis. Awarded First Prize in a renowned Tech Hackathon.',
-    github: null, live: 'https://chillingbing648-sketch.github.io/MENSWARE/',
+    tech: ['AI Integration','React','Data Analysis'],
+    description: 'Continuity is a secure digital legacy platform that brings wills, investments, assets, estates, and important documents into one trusted place — with controlled access for the people who matter most.',
+    github: 'https://github.com/chillingbing648-sketch/Continuity.git',
+    live: 'https://chillingbing648-sketch.github.io/Continuity/',
+    award: null,
     caseStudy: {
       heroGradient:'linear-gradient(135deg,#001a0e,#001520,#0a1a0a)',
-      story:'A hackathon brief: solve a real-world problem in 24 hours. Most teams built dashboards. We built an intelligence layer.',
-      problem:'Consumer purchasing decisions are made with minimal environmental context. The gap between intention and action is massive.',
-      architecture:'AI-powered shopping assistant that analyzes products in real time, surfaces sustainability metrics, and recommends eco-friendly alternatives.',
-      stack:['AI Integration','Full-Stack','Data Analysis','Responsive Design'],
-      challenges:'Building a production-quality AI product in 24 hours. Sourcing and normalizing sustainability data in real time.',
-      impact:'🏆 First Prize out of all competing teams. Validated the concept that AI can bridge the intention-action gap in sustainable consumer behavior.',
-      lessons:'Pressure is a filter — it reveals true engineering capability. UX clarity often matters more than technical complexity.'
+      story:'A secure digital legacy platform designed to bring wills, investments, assets, estates, and important documents together in one trusted place. Continuity focuses on making personal legacies organized, accessible, and securely shareable with the people who matter most.',
+      problem:'Important financial and legacy information is often scattered across documents, accounts, institutions, and personal records. Families may struggle to know what exists, where it is, or how to access it when it matters most.',
+      architecture:'Built a centralized digital platform that enables users to organize assets, investments, wills, estates, and critical documents, while providing secure, role-based access and family notifications for controlled information sharing.',
+      stack:['Full-Stack','Secure Data Management','Access Control','Responsive Design'],
+      challenges:'Designing a system that balances accessibility with privacy and security. Creating a simple experience for managing complex financial and legacy information while ensuring that sensitive data is shared only with the right people.',
+      impact:'Created a unified digital space for managing personal legacy and financial information, helping individuals stay organized while giving trusted family members the right access when needed.',
+      lessons:'The best digital systems simplify complexity without compromising trust. Continuity was built around the idea that preserving a legacy is not just about storing information, but ensuring it reaches the right people at the right time.'
     }
   },
   {
@@ -67,7 +69,8 @@ const FALLBACK = [
     accentGradient: 'linear-gradient(90deg,#ec4899,#8b5cf6)',
     tech: ['AI Integration','Mood Tracking','Guided Journaling'],
     description: 'A supportive AI companion for mood check-ins, guided journaling, and reflective conversations — designed to encourage healthier daily habits with clear, user-first boundaries.',
-    github: null, live: null,
+    github: 'https://github.com/chillingbing648-sketch/WALL-E.git',
+    live: 'https://chillingbing648-sketch.github.io/WALL-E/',
     award: null,
     caseStudy: {
       heroGradient:'linear-gradient(135deg,#1a0520,#0d0530,#200520)',
@@ -83,6 +86,7 @@ const FALLBACK = [
 ];
 
 let currentModal = null;
+let lastFocusedTrigger = null;
 
 export async function initProjects() {
     const grid = document.getElementById('projects-grid');
@@ -98,7 +102,7 @@ export async function initProjects() {
 
 function renderProjectCards(grid, data) {
     grid.innerHTML = data.map(p => `
-        <div class="project-card reveal-item" data-modal="${p.id}">
+        <div class="project-card" data-modal="${p.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open case study for ${p.title}">
             <div class="project-card-inner">
                 <div class="project-accent" style="background:${p.accentGradient}"></div>
                 ${p.award ? `<div class="award-badge">${p.award}</div>` : ''}
@@ -109,9 +113,9 @@ function renderProjectCards(grid, data) {
                     ${p.tech.map(t => `<span class="tech-badge">${t}</span>`).join('')}
                 </div>
                 <div class="project-links">
-                    ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">GitHub ↗</a>` : ''}
-                    ${p.live ? `<a href="${p.live}" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">Live Demo ↗</a>` : ''}
-                    <button class="project-case-btn" data-modal="${p.id}">Case Study</button>
+                    ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()" aria-label="View source code on GitHub for ${p.title}">GitHub ↗</a>` : ''}
+                    ${p.live ? `<a href="${p.live}" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()" aria-label="View live deployment for ${p.title}">Live Demo ↗</a>` : ''}
+                    <button class="project-case-btn" data-modal="${p.id}" type="button" aria-label="Read case study for ${p.title}">Case Study</button>
                 </div>
             </div>
         </div>
@@ -241,27 +245,66 @@ function initCardInteractivity() {
         });
     });
 
-    // Card & button click → open modal
+    // Card & button click / keyboard → open modal
     document.querySelectorAll('[data-modal]').forEach(trigger => {
         trigger.addEventListener('click', e => {
             e.stopPropagation();
             const id = trigger.dataset.modal;
-            openModal(id);
+            openModal(id, trigger);
+        });
+
+        trigger.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const id = trigger.dataset.modal;
+                openModal(id, trigger);
+            }
         });
     });
 }
 
-export function openModal(id) {
+function handleModalKeydown(e) {
+    if (e.key === 'Escape') {
+        if (currentModal) closeModal(currentModal);
+        return;
+    }
+    if (e.key === 'Tab' && currentModal) {
+        const focusables = Array.from(currentModal.querySelectorAll('button:not([disabled]), [tabindex="0"], a[href]'))
+            .filter(el => el.offsetParent !== null);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
+}
+
+export function openModal(id, trigger) {
     const overlay = document.getElementById(id + '-overlay');
     if (!overlay) return;
+    lastFocusedTrigger = trigger || document.activeElement;
     currentModal = overlay;
     document.body.style.overflow = 'hidden';
     overlay.classList.add('open');
-    overlay.querySelector('.case-modal')?.focus?.();
+    window.addEventListener('keydown', handleModalKeydown);
+    const closeBtn = overlay.querySelector('.case-modal-close');
+    setTimeout(() => {
+        if (closeBtn) closeBtn.focus();
+        else overlay.querySelector('.case-modal')?.focus();
+    }, 100);
 }
 
 function closeModal(overlay) {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
     currentModal = null;
+    window.removeEventListener('keydown', handleModalKeydown);
+    if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
+        lastFocusedTrigger.focus();
+    }
 }

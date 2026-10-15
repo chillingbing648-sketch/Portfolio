@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/audio/
+
+Sitemap: https://harshportfolio404.netlify.app/sitemap.xml
+Sitemap: https://chillingbing648-sketch.github.io/Portfolio/sitemap.xml

@@ -59,28 +59,69 @@ export async function initLibrary() {
 
 function renderTabs(container) {
   if (!container) return;
-  
+
+  const uniqueCategories = Array.from(new Set(libraryData.map(item => item.category).filter(Boolean)));
   const categories = [
     { id: 'all', label: 'All Resources' },
-    { id: 'books', label: '📖 Books' }
+    ...uniqueCategories.map(cat => ({
+      id: cat,
+      label: cat === 'books' ? '📖 Books' : (cat.charAt(0).toUpperCase() + cat.slice(1))
+    }))
   ];
 
   container.innerHTML = `
-    <div class="library-tabs-dock">
-      ${categories.map(cat => `
-        <button class="library-tab ${cat.id === activeCategory ? 'active' : ''}" data-cat="${cat.id}">
-          ${cat.label}
-        </button>
-      `).join('')}
+    <div class="library-tabs-dock" role="tablist" aria-label="Knowledge Hub filter tabs">
+      ${categories.map(cat => {
+        const isActive = cat.id === activeCategory;
+        return `
+          <button class="library-tab ${isActive ? 'active' : ''}"
+                  role="tab"
+                  id="tab-${cat.id}"
+                  aria-selected="${isActive ? 'true' : 'false'}"
+                  tabindex="${isActive ? '0' : '-1'}"
+                  aria-controls="library-grid"
+                  data-cat="${cat.id}">
+            ${cat.label}
+          </button>
+        `;
+      }).join('')}
     </div>
   `;
 
-  container.querySelectorAll('.library-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeCategory = btn.dataset.cat;
-      container.querySelectorAll('.library-tab').forEach(b => b.classList.toggle('active', b === btn));
-      const grid = document.getElementById('library-grid');
-      if (grid) renderGrid(grid);
+  const tabs = Array.from(container.querySelectorAll('.library-tab'));
+
+  const selectTab = (btn) => {
+    activeCategory = btn.dataset.cat;
+    tabs.forEach(b => {
+      const isCurrent = b === btn;
+      b.classList.toggle('active', isCurrent);
+      b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      b.setAttribute('tabindex', isCurrent ? '0' : '-1');
+    });
+    btn.focus();
+    const grid = document.getElementById('library-grid');
+    if (grid) renderGrid(grid);
+  };
+
+  tabs.forEach((btn, index) => {
+    btn.addEventListener('click', () => selectTab(btn));
+
+    btn.addEventListener('keydown', (e) => {
+      let targetIndex = null;
+      if (e.key === 'ArrowRight') {
+        targetIndex = (index + 1) % tabs.length;
+      } else if (e.key === 'ArrowLeft') {
+        targetIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (e.key === 'Home') {
+        targetIndex = 0;
+      } else if (e.key === 'End') {
+        targetIndex = tabs.length - 1;
+      }
+
+      if (targetIndex !== null) {
+        e.preventDefault();
+        selectTab(tabs[targetIndex]);
+      }
     });
   });
 }

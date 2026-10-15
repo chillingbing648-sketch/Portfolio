@@ -1,23 +1,23 @@
 [
   {
-    "id": "modal-psych",
+    "id": "modal-kaamkaagaz",
     "number": "01 / 04",
-    "title": "Psychology Study Platform",
+    "title": "KaamKaagaz — Civic Tech & Admissions Platform",
     "award": null,
-    "accentGradient": "linear-gradient(90deg, #8b5cf6, #06b6d4)",
-    "tech": ["HTML/CSS/JS", "Claude AI API", "Prompt Engineering"],
-    "description": "An interactive, AI-powered learning system with dynamic flashcards, intelligent quizzes, and smart study guide generation — designed for deep cognitive retention.",
-    "github": "https://github.com/chillingbing648-sketch/Psych-Study.git",
-    "live": "https://chillingbing648-sketch.github.io/Psych-Study/",
+    "accentGradient": "linear-gradient(90deg, #c8561b, #f59e0b)",
+    "tech": ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
+    "description": "A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.",
+    "github": "https://github.com/chillingbing648-sketch/KaamKaagaz.git",
+    "live": "https://chillingbing648-sketch.github.io/KaamKaagaz/",
     "caseStudy": {
-      "heroGradient": "linear-gradient(135deg, #1a0533, #0a1a40, #021520)",
-      "story": "Built during late-night study sessions fueled by one question: What if studying psychology wasn't painful? Most digital study tools were static, repetitive, and cognitively flat. I wanted something that adapted to how humans actually learn.",
-      "problem": "Traditional flashcards don't adapt to a student's current knowledge state. Students review what they already know, wasting time and losing retention. There was no intelligent study companion that understood context.",
-      "architecture": "Integrated Claude AI API as an intelligent tutor layer. The system dynamically generates contextual flashcards, creates adaptive quizzes based on previous answer patterns, and produces personalized study guides. Built entirely with vanilla HTML/CSS/JS — proof that powerful AI experiences don't require heavy frameworks.",
-      "stack": ["HTML5 / CSS3 / JS", "Claude AI API", "Prompt Engineering", "Local Storage", "Fetch API"],
-      "challenges": "Optimizing API call latency while maintaining a smooth UX. Designing prompts that consistently produced structured, educationally valid output. Building an adaptive scoring system without a backend — using client-side state management exclusively.",
-      "impact": "Transformed passive study into active AI-guided learning. Demonstrated that a single developer with AI tools can build what would traditionally require a full product team.",
-      "lessons": "AI can transform passive consumption into active engagement. Prompt design is as critical as code design. Simplicity of stack ≠ simplicity of product."
+      "heroGradient": "linear-gradient(135deg, #1c0e08, #2a140a, #0d1520)",
+      "story": "Government paperwork and university admissions in India are rarely difficult because the forms themselves are complex — the real friction is deciphering scattered requirements across outdated portals: 'What do I need? Which document counts? Where do I apply? What could go wrong?' Having managed university admissions logistics firsthand as an IT Specialist at University of Mumbai, I saw hundreds of students and citizens overwhelmed by contradictory requirements. I built KaamKaagaz to turn that anxiety into a clean, transparent roadmap from question to official submission.",
+      "problem": "Critical guidance for essential documents (income certificates, domicile, caste validity, PAN) and admissions (FYJC, CET Cell/CAP, Mumbai University Samarth, MahaDBT) is fragmented across disconnected portals, laden with bureaucratic jargon, and inaccessible in regional languages. Users risk missed deadlines, rejected applications, or falling prey to unauthorized middlemen.",
+      "architecture": "Architected with Next.js 15 (App Router), React 19, and TypeScript as a static-exported, zero-dependency civic engine deployed via GitHub Actions. Features a deterministic, privacy-first client-side conversational search engine that normalizes natural Hinglish/Hindi queries without remote API latency or data tracking. Built with structured process models, persistent local browser checklists (localStorage), and localized schemas across English, हिन्दी, and मराठी.",
+      "stack": ["Next.js 15", "React 19", "TypeScript 5.6", "Tailwind CSS 4", "Static Export", "localStorage", "GitHub Actions"],
+      "challenges": "Structuring complex, multi-stage bureaucratic workflows and admission pathways into unambiguous state machines. Designing an instant conversational search matcher that handles Hinglish and regional terminology deterministically on the client without external backend costs. Guaranteeing 100% data privacy by never transmitting sensitive citizen checklist data to any third-party server.",
+      "impact": "Empowered students and citizens with self-serve clarity across essential government documentation and higher-education admission portals. Eliminated guesswork through localized requirement roadmaps, fee and timeline disclosures, common mistake alerts, and direct links to authoritative verification sources.",
+      "lessons": "Civic technology must prioritize trust, transparency, and accessibility over algorithmic obscurity. Simple, deterministic client-side architecture often serves citizens far better and more reliably than fragile hosted microservices. When you design for clarity, you remove real-world friction for thousands."
     }
   },
   {

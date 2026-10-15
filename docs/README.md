@@ -103,7 +103,7 @@ harsh@universe:~$ help
 | Command | Action |
 |---|---|
 | `about` · `projects` · `skills` · `contact` | Navigate to section |
-| `open <project>` | Open case study (`psych` · `attendify` · `sustainable` · `chatbot`) |
+| `open <project>` | Open case study (`kaamkaagaz` · `attendify` · `continuity` · `walle`) |
 | `find <skill>` | Highlight matching skill capsule |
 | `search <query>` | Search across skills and projects |
 | `theme <name>` | Switch palette: `morning` · `afternoon` · `sunset` · `night` · `matrix` |
