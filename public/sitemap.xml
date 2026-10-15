@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://harshportfolio404.netlify.app/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://harshportfolio404.netlify.app/Photo.jpeg</image:loc>
+      <image:title>Harsh Dubey — AI Developer &amp; Creative Engineer</image:title>
+      <image:caption>Harsh Dubey — AI-Powered Developer &amp; Creative Full-Stack Engineer based in Mumbai, India</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://chillingbing648-sketch.github.io/Portfolio/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

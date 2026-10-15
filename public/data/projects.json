@@ -1,0 +1,85 @@
+[
+  {
+    "id": "modal-kaamkaagaz",
+    "number": "01 / 04",
+    "title": "KaamKaagaz — Civic Tech & Admissions Platform",
+    "award": null,
+    "accentGradient": "linear-gradient(90deg, #c8561b, #f59e0b)",
+    "tech": ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
+    "description": "A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.",
+    "github": "https://github.com/chillingbing648-sketch/KaamKaagaz.git",
+    "live": "https://chillingbing648-sketch.github.io/KaamKaagaz/",
+    "caseStudy": {
+      "heroGradient": "linear-gradient(135deg, #1c0e08, #2a140a, #0d1520)",
+      "story": "Government paperwork and university admissions in India are rarely difficult because the forms themselves are complex — the real friction is deciphering scattered requirements across outdated portals: 'What do I need? Which document counts? Where do I apply? What could go wrong?' Having managed university admissions logistics firsthand as an IT Specialist at University of Mumbai, I saw hundreds of students and citizens overwhelmed by contradictory requirements. I built KaamKaagaz to turn that anxiety into a clean, transparent roadmap from question to official submission.",
+      "problem": "Critical guidance for essential documents (income certificates, domicile, caste validity, PAN) and admissions (FYJC, CET Cell/CAP, Mumbai University Samarth, MahaDBT) is fragmented across disconnected portals, laden with bureaucratic jargon, and inaccessible in regional languages. Users risk missed deadlines, rejected applications, or falling prey to unauthorized middlemen.",
+      "architecture": "Architected with Next.js 15 (App Router), React 19, and TypeScript as a static-exported, zero-dependency civic engine deployed via GitHub Actions. Features a deterministic, privacy-first client-side conversational search engine that normalizes natural Hinglish/Hindi queries without remote API latency or data tracking. Built with structured process models, persistent local browser checklists (localStorage), and localized schemas across English, हिन्दी, and मराठी.",
+      "stack": ["Next.js 15", "React 19", "TypeScript 5.6", "Tailwind CSS 4", "Static Export", "localStorage", "GitHub Actions"],
+      "challenges": "Structuring complex, multi-stage bureaucratic workflows and admission pathways into unambiguous state machines. Designing an instant conversational search matcher that handles Hinglish and regional terminology deterministically on the client without external backend costs. Guaranteeing 100% data privacy by never transmitting sensitive citizen checklist data to any third-party server.",
+      "impact": "Empowered students and citizens with self-serve clarity across essential government documentation and higher-education admission portals. Eliminated guesswork through localized requirement roadmaps, fee and timeline disclosures, common mistake alerts, and direct links to authoritative verification sources.",
+      "lessons": "Civic technology must prioritize trust, transparency, and accessibility over algorithmic obscurity. Simple, deterministic client-side architecture often serves citizens far better and more reliably than fragile hosted microservices. When you design for clarity, you remove real-world friction for thousands."
+    }
+  },
+  {
+    "id": "modal-attendify",
+    "number": "02 / 04",
+    "title": "Attendify — Attendance Platform",
+    "award": null,
+    "accentGradient": "linear-gradient(90deg, #3b82f6, #8b5cf6)",
+    "tech": ["C++", "Node.js", "JSON"],
+    "description": "A highly organized web-based platform for structured attendance data tracking. Engineered with a clean UI to manage real-time attendance logistics seamlessly.",
+    "github": "https://github.com/chillingbing648-sketch/Attendify.git",
+    "live": "https://preview--vivid-web-transform.lovable.app/",
+    "caseStudy": {
+      "heroGradient": "linear-gradient(135deg, #06103a, #120d3a, #0d1530)",
+      "story": "A problem I experienced firsthand every semester — no clean, fast way to track attendance across multiple subjects with different thresholds. Manual spreadsheets were fragile, app solutions were bloated. I built the tool I needed.",
+      "problem": "Students need to maintain minimum attendance percentages (typically 75%) across 5–8 subjects simultaneously. No lightweight tool existed to track this, project future attendance, and alert when thresholds were at risk.",
+      "architecture": "Built a web-based attendance tracking system with C++ core logic for attendance calculations, wrapped with a Node.js API layer and a clean JSON data store. The frontend provides a real-time dashboard showing each subject's current percentage, future projections, and 'safe to skip' calculations.",
+      "stack": ["C++", "Node.js", "JSON Data Store", "REST API", "HTML/CSS/JS"],
+      "challenges": "Integrating C++ core processing with Node.js async API handling. Keeping user state synced across browser restarts without authentication friction.",
+      "impact": "Eliminated spreadsheet dependency for attendance tracking. Real-time percentage updates and future projections give students clear visibility of their academic standing.",
+      "lessons": "The simplest ideas often create the most value. Build what you need — it will likely help others too. Bridging compiled languages with web UIs is powerful."
+    }
+  },
+  {
+    "id": "modal-sustainable",
+    "number": "03 / 04",
+    "title": "Continuity - Financial Sustainability Vault",
+    "accentGradient": "linear-gradient(90deg, #10b981, #06b6d4)",
+    "tech": ["AI Integration", "React", "Data Analysis"],
+    "description": "Continuity is a secure digital legacy platform that brings wills, investments, assets, estates, and important documents into one trusted place—with controlled access for the people who matter most."
+,
+    "github": "https://github.com/chillingbing648-sketch/Continuity.git",
+    "live": "https://chillingbing648-sketch.github.io/Continuity/",
+    "caseStudy": {
+      "heroGradient": "linear-gradient(135deg, #001a0e, #001520, #0a1a0a)",
+      "story": "A secure digital legacy platform designed to bring wills, investments, assets, estates, and important documents together in one trusted place. Continuity focuses on making personal legacies organized, accessible, and securely shareable with the people who matter most.",
+      "problem": "Important financial and legacy information is often scattered across documents, accounts, institutions, and personal records. Families may struggle to know what exists, where it is, or how to access it when it matters most.",
+      "architecture": "Built a centralized digital platform that enables users to organize assets, investments, wills, estates, and critical documents, while providing secure, role-based access and family notifications for controlled information sharing.",
+      "stack": ["Full-Stack", "Secure Data Management", "Access Control", "Responsive Design"],
+     "challenges": "Designing a system that balances accessibility with privacy and security. Creating a simple experience for managing complex financial and legacy information while ensuring that sensitive data is shared only with the right people.",
+      "impact": "Created a unified digital space for managing personal legacy and financial information, helping individuals stay organized while giving trusted family members the right access when needed.",
+      "lessons": "The best digital systems simplify complexity without compromising trust. Continuity was built around the idea that preserving a legacy is not just about storing information, but ensuring it reaches the right people at the right time."
+}
+  },
+  {
+    "id": "modal-chatbot",
+    "number": "04 / 04",
+    "title": "WALL-E — Mental Health AI Companion App",
+    "accentGradient": "linear-gradient(90deg, #ec4899, #8b5cf6)",
+    "tech": ["AI Integration", "Mood Tracking", "Guided Journaling"],
+    "description": "A supportive AI companion for mood check-ins, guided journaling, and reflective conversations — designed to encourage healthier daily habits with clear, user-first boundaries.",
+    "github": "https://github.com/chillingbing648-sketch/WALL-E.git",
+    "live": "https://chillingbing648-sketch.github.io/WALL-E/",
+    "caseStudy": {
+      "heroGradient": "linear-gradient(135deg, #1a0520, #0d0530, #200520)",
+      "story": "WALL-E began with a simple idea: create a calm, private space where a person can pause, reflect, and build a more consistent emotional check-in habit.",
+      "problem": "Daily stress is easy to overlook until it compounds. People need a low-friction way to capture how they feel, reflect on patterns, and find supportive prompts without replacing professional care.",
+      "architecture": "Built as a responsive AI companion experience with guided check-ins, journal prompts, mood history, and contextual conversation flows. The product keeps personal reflection at the center and makes support resources easy to access when needed.",
+      "stack": ["JavaScript", "AI Integration", "Local Storage", "Responsive Design"],
+      "challenges": "Designing language that feels supportive without making clinical claims, protecting the privacy of personal reflections, and making the experience clear about its limits.",
+      "impact": "Created a gentler daily reflection experience that helps users notice patterns and make space for intentional self-care.",
+      "lessons": "Empathy must shape every interaction. Mental-health-related tools need clear boundaries, privacy-first decisions, and easy access to professional support."
+    }
+  }
+]

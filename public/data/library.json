@@ -1,0 +1,35 @@
+[
+  {
+    "id": "book-ddia",
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "category": "books",
+    "status": "Reading",
+    "currentlyReading": true,
+    "progress": 72,
+    "icon": "📖",
+    "notes": "Deep dive into distributed systems, data encoding, replication, and consensus algorithms."
+  },
+  {
+    "id": "book-clean-code",
+    "title": "Clean Code & Refactoring",
+    "author": "Robert C. Martin",
+    "category": "books",
+    "status": "Completed",
+    "currentlyReading": false,
+    "progress": 100,
+    "icon": "📘",
+    "notes": "Fundamental principles of software craft, readability, and maintainable architecture."
+  },
+  {
+    "id": "book-tfas",
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "category": "books",
+    "status": "Completed",
+    "currentlyReading": false,
+    "progress": 100,
+    "icon": "🧠",
+    "notes": "System 1 vs System 2 thinking, cognitive biases, and strategic decision making."
+  }
+]
