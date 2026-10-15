@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -10,6 +11,12 @@ export default defineConfig({
     sourcemap: false,
     emptyOutDir: true,
     target: 'es2020',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        projects: resolve(__dirname, 'projects/index.html')
+      }
+    }
   },
   server: {
     port: 5173,
