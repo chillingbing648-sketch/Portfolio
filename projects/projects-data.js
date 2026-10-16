@@ -1,6 +1,6 @@
 /**
  * AETHER ARCHIVE — CENTRALIZED PROJECT REGISTRY
- * Verified Project Data Source for all 17 public repositories of chillingbing648-sketch
+ * Verified Project Data Source for all 16 public repositories of chillingbing648-sketch
  *
  * Schema:
  * - id: unique slug
@@ -410,11 +410,12 @@ export const PROJECTS_DATA = [
     id: 'my-little-universe',
     name: 'My-Little-Universe',
     title: 'My-Little-Universe — Pure CSS Planetary Mechanics',
-    description: 'A private cinematic interactive solar system and memory keepsake crafted entirely with pure CSS 3D transforms and keyframe mechanics.',
+    description: 'A cinematic interactive solar system crafted entirely with pure CSS 3D transforms and keyframe mechanics.',
     technologies: ['CSS3 3D Transforms', 'Keyframe Animations', 'HTML5', 'Audio Integration'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/My-Little-Universe',
     liveUrl: 'https://chillingbing648-sketch.github.io/My-Little-Universe/',
-    previewImage: 'generic',
+    previewImage: 'my-little-universe',
+    artworkKey: 'my-little-universe',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/My-Little-Universe/main/README.md',
     featured: false,
     category: 'creative',
@@ -434,33 +435,6 @@ export const PROJECTS_DATA = [
     }
   },
   {
-    id: 'only-for-her',
-    name: 'Only-For-Her',
-    title: 'Only-For-Her — Romantic Interactive Journey',
-    description: 'An intimate interactive web keepsake and anniversary narrative weaving together photographs, personal reflections, and custom music.',
-    technologies: ['React', 'CSS3', 'Interactive Storytelling', 'Audio Elements'],
-    sourceUrl: 'https://github.com/chillingbing648-sketch/Only-For-Her',
-    liveUrl: 'https://chillingbing648-sketch.github.io/Only-For-Her/',
-    previewImage: 'generic',
-    readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/Only-For-Her/main/README.md',
-    featured: false,
-    category: 'creative',
-    categoryLabel: 'Creative & Systems',
-    language: 'CSS',
-    sizeKb: 79986,
-    updatedAt: '2026-10-14T05:17:08Z',
-    stars: 0,
-    forks: 0,
-    caseStudy: {
-      story: 'Crafted as a custom digital anniversary celebration, weaving together photographs, reflections, and milestones into an interactive timeline.',
-      problem: 'Standard social media tributes lack privacy, permanence, and bespoke creative engineering.',
-      architecture: 'Built with smooth chapter reveals, atmospheric particle drift, and interactive keepsake elements.',
-      challenges: 'Crafting heartfelt micro-interactions that feel warm and respectful without visual clutter.',
-      impact: 'A cherished personal digital creation exemplifying code as a medium for emotional expression.',
-      lessons: 'Software engineering is at its most powerful when it touches human hearts and commemorates meaningful milestones.'
-    }
-  },
-  {
     id: 'rcgsc',
     name: 'RCGSC',
     title: 'RCGSC — Community Services Platform',
@@ -468,7 +442,8 @@ export const PROJECTS_DATA = [
     technologies: ['React', 'JavaScript', 'Responsive UI', 'Component Architecture'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/RCGSC',
     liveUrl: 'https://chillingbing648-sketch.github.io/RCGSC/',
-    previewImage: 'generic',
+    previewImage: 'rcgsc',
+    artworkKey: 'rcgsc',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/RCGSC/main/README.md',
     featured: false,
     category: 'web',
@@ -495,7 +470,8 @@ export const PROJECTS_DATA = [
     technologies: ['JavaScript', 'Sports Analytics', 'Interactive UI', 'HTML5'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/BenchWarmers',
     liveUrl: null, // Note: Previous Vercel link 404s; strictly verified
-    previewImage: 'generic',
+    previewImage: 'benchwarmers',
+    artworkKey: 'benchwarmers',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/BenchWarmers/main/README.md',
     featured: false,
     category: 'web',
@@ -518,11 +494,12 @@ export const PROJECTS_DATA = [
     id: 'mensware',
     name: 'MENSWARE',
     title: 'MENSWARE — Men\'s Accessories Storefront & API',
-    description: 'A full-stack men\'s accessories e-commerce platform with an Express and MongoDB commerce API, customer authentication, and cart workflows.',
+    description: 'An architectural gothic luxury men\'s accessories storefront and full-stack commerce API with customer authentication, product catalog, and cart workflows.',
     technologies: ['JavaScript', 'Node.js', 'Express', 'MongoDB', 'REST API'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/MENSWARE',
-    liveUrl: null, // Full-stack backend repository; no live deployment
-    previewImage: 'generic',
+    liveUrl: 'https://chillingbing648-sketch.github.io/MENSWARE/',
+    previewImage: 'mensware',
+    artworkKey: 'mensware',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/MENSWARE/main/README.md',
     featured: false,
     category: 'web',
@@ -533,12 +510,12 @@ export const PROJECTS_DATA = [
     stars: 0,
     forks: 0,
     caseStudy: {
-      story: 'An exploration into production-oriented e-commerce backend engineering, featuring authenticated sessions, inventory management, and checkout flows.',
-      problem: 'Building robust commerce backends requires handling concurrent shopping carts, stock levels, order validation, and secure authentication.',
-      architecture: 'Developed with Node.js, Express, and MongoDB, providing a RESTful API layer for customer management, product querying, and order processing.',
-      challenges: 'Structuring MongoDB data schemas for scalable product variations and secure token-based user authentication.',
-      impact: 'Showcased full-stack commercial backend architecture and database modeling for retail systems.',
-      lessons: 'E-commerce dependability hinges on rigorous schema validation and idempotent transaction processing.'
+      story: 'An exploration into architectural gothic luxury commerce and production-oriented backend engineering, featuring an editorial storefront, authenticated sessions, inventory management, and checkout flows.',
+      problem: 'Building bespoke editorial retail experiences requires marrying high-concept aesthetic design with robust backend cart state and order processing.',
+      architecture: 'Developed with Node.js, Express, and MongoDB, providing a RESTful API layer and an editorial storefront for curated fine timepieces and handcrafted leathers.',
+      challenges: 'Structuring MongoDB data schemas for scalable product variations and secure token-based user authentication while delivering a fast editorial storefront.',
+      impact: 'Showcased full-stack commercial backend architecture, database modeling, and editorial storefront design for retail systems.',
+      lessons: 'E-commerce dependability hinges on rigorous schema validation, elegant client ergonomics, and idempotent transaction processing.'
     }
   },
   {
@@ -549,7 +526,8 @@ export const PROJECTS_DATA = [
     technologies: ['HTML5', 'CSS3', 'Responsive Layout', 'Semantic Web'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/Pawfect-care',
     liveUrl: null, // Static web project; no live deployment
-    previewImage: 'generic',
+    previewImage: 'pawfect-care',
+    artworkKey: 'pawfect-care',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/Pawfect-care/main/README.md',
     featured: false,
     category: 'web',

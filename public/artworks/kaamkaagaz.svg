@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 640" role="img" aria-label="KaamKaagaz product architecture overview">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8f5f0"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d96b2b"/>
+      <stop offset="100%" stop-color="#a84416"/>
+    </linearGradient>
+    <filter id="ds"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#475569" flood-opacity=".11"/></filter>
+  </defs>
+  <rect width="1500" height="640" rx="30" fill="#fcfbf8"/>
+  <text x="90" y="72" font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="800" fill="#c8561b" letter-spacing="3">THE PRODUCT MAP</text>
+  <text x="90" y="122" font-family="Inter,system-ui,sans-serif" font-size="36" font-weight="900" fill="#0f172a">From “Mujhe kya chahiye?” to “Ab kya karna hai?”</text>
+
+  <g filter="url(#ds)">
+    <rect x="90" y="180" width="260" height="300" rx="24" fill="url(#paper)" stroke="#e2e6eb"/>
+    <text x="120" y="225" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#526071" letter-spacing="2">01 / DISCOVER</text>
+    <text x="120" y="270" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="900" fill="#0f172a">Ask naturally</text>
+    <text x="120" y="308" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#526071">“Mujhe PAN banana hai”</text>
+    <rect x="120" y="350" width="200" height="48" rx="14" fill="#fdf5ee" stroke="#f2d6c4"/>
+    <text x="220" y="381" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="800" fill="#a84416">Search + match</text>
+  </g>
+
+  <path d="M365 330 H470" stroke="#c8561b" stroke-width="4" stroke-linecap="round"/><path d="M455 316 l16 14 -16 14" fill="none" stroke="#c8561b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#ds)">
+    <rect x="490" y="180" width="260" height="300" rx="24" fill="url(#paper)" stroke="#e2e6eb"/>
+    <text x="520" y="225" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#526071" letter-spacing="2">02 / UNDERSTAND</text>
+    <text x="520" y="270" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="900" fill="#0f172a">See the process</text>
+    <text x="520" y="309" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#526071">Documents · steps · fees</text>
+    <text x="520" y="338" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#526071">timelines · mistakes · FAQs</text>
+    <rect x="520" y="372" width="200" height="48" rx="14" fill="#0f172a"/>
+    <text x="620" y="403" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="800" fill="#fff">Official sources</text>
+  </g>
+
+  <path d="M765 330 H870" stroke="#c8561b" stroke-width="4" stroke-linecap="round"/><path d="M855 316 l16 14 -16 14" fill="none" stroke="#c8561b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#ds)">
+    <rect x="890" y="180" width="260" height="300" rx="24" fill="url(#paper)" stroke="#e2e6eb"/>
+    <text x="920" y="225" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#526071" letter-spacing="2">03 / PREPARE</text>
+    <text x="920" y="270" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="900" fill="#0f172a">Get ready</text>
+    <text x="920" y="309" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#526071">Personal checklist</text>
+    <text x="920" y="338" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#526071">Local browser progress</text>
+    <rect x="920" y="372" width="200" height="48" rx="14" fill="#edf7ed" stroke="#cde4cf"/>
+    <text x="1020" y="403" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="800" fill="#166534">Ready to apply</text>
+  </g>
+
+  <path d="M1165 330 H1270" stroke="#c8561b" stroke-width="4" stroke-linecap="round"/><path d="M1255 316 l16 14 -16 14" fill="none" stroke="#c8561b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#ds)">
+    <rect x="1290" y="180" width="120" height="300" rx="24" fill="url(#orange)"/>
+    <text x="1350" y="260" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="14" font-weight="900" fill="#fff">04</text>
+    <text x="1350" y="304" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="21" font-weight="900" fill="#fff">DO</text>
+    <text x="1350" y="336" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="600" fill="#fff" opacity=".9">Follow the</text>
+    <text x="1350" y="358" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="600" fill="#fff" opacity=".9">official process</text>
+    <path d="M1332 395 h36" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M1350 386 v24" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <text x="90" y="545" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="700" fill="#0f172a">Built as a static Next.js application with structured TypeScript content.</text>
+  <text x="90" y="574" font-family="Inter,system-ui,sans-serif" font-size="15" fill="#526071">Search → Process library → Documents / Steps / Checklist → Official source</text>
+</svg>

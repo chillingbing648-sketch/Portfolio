@@ -260,7 +260,7 @@ export function initTerminal() {
                 appendBlock([
                     ['separator', '─────────────────────────────────────────────────────────'],
                     ['success',   '  Harsh Dubey'],
-                    ['response',  '  AI Developer · Creative Engineer · Student'],
+                    ['response',  '  AI-Powered Developer · Creative Engineer · Student'],
                     ['response',  '  📍 Mumbai, India'],
                     ['response',  '  🎓 BSc IT · Thakur College · CGPA 9.5'],
                     ['response',  '  ⚡ Specialising in AI integration & cinematic web experiences'],

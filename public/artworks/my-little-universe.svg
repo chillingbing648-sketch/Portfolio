@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">The Little Universe — sections preview</title>
+  <desc id="desc">A cinematic dark-universe interface preview showing the project's section destinations as glowing stars connected across a cosmic field.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="8%" r="90%">
+      <stop offset="0%" stop-color="#18213a"/>
+      <stop offset="46%" stop-color="#0d1323"/>
+      <stop offset="100%" stop-color="#080a12"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffe3ad" stop-opacity=".98"/>
+      <stop offset="16%" stop-color="#f2c883" stop-opacity=".75"/>
+      <stop offset="44%" stop-color="#b7aed6" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#b7aed6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" x2="1">
+      <stop offset="0%" stop-color="#b7aed6" stop-opacity=".08"/>
+      <stop offset="50%" stop-color="#f2c883" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#e3b3ae" stop-opacity=".08"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <style>
+      .sans{font-family:Inter,Sora,system-ui,-apple-system,Segoe UI,sans-serif}
+      .serif{font-family:Georgia,"Times New Roman",serif}
+      .label{font-size:17px;fill:#e9ebf2}
+      .meta{font-size:12px;letter-spacing:2px;fill:#777f98}
+      .small{font-size:13px;fill:#9aa1b8}
+      .card{fill:#11172a;fill-opacity:.78;stroke:#e9ebf2;stroke-opacity:.10}
+    </style>
+  </defs>
+
+  <rect width="1600" height="980" rx="34" fill="url(#bg)"/>
+
+  <circle cx="290" cy="180" r="240" fill="#b7aed6" fill-opacity=".07" filter="url(#blur)"/>
+  <circle cx="1320" cy="250" r="280" fill="#e3b3ae" fill-opacity=".055" filter="url(#blur)"/>
+  <circle cx="830" cy="650" r="330" fill="#f2c883" fill-opacity=".035" filter="url(#blur)"/>
+
+  <g fill="#f2c883">
+    <circle cx="106" cy="120" r="2"/><circle cx="184" cy="640" r="1.6"/><circle cx="330" cy="86" r="1.4"/>
+    <circle cx="460" cy="180" r="1.8"/><circle cx="1260" cy="100" r="1.5"/><circle cx="1472" cy="180" r="2"/>
+    <circle cx="1502" cy="650" r="1.4"/><circle cx="1285" cy="790" r="1.7"/><circle cx="1080" cy="860" r="1.3"/>
+    <circle cx="640" cy="840" r="1.5"/><circle cx="90" cy="820" r="1.5"/><circle cx="1430" cy="470" r="1.2"/>
+  </g>
+
+  <text x="86" y="88" class="sans meta">MY LITTLE UNIVERSE</text>
+  <text x="86" y="134" class="serif" font-size="44" fill="#e9ebf2">A little universe, made for one person.</text>
+  <text x="86" y="170" class="sans small">Choose a star. Every destination opens another part of the story.</text>
+
+  <rect x="1228" y="74" width="286" height="50" rx="25" fill="#0c1020" stroke="#e9ebf2" stroke-opacity=".11"/>
+  <circle cx="1260" cy="99" r="7" fill="#ffe3ad"/>
+  <text x="1280" y="105" class="sans" font-size="13" fill="#c6cbd8">11 destinations · one story</text>
+
+  <g stroke="url(#line)" stroke-width="2" fill="none">
+    <path d="M250 340 C420 260 585 285 775 430 C950 555 1110 420 1325 355"/>
+    <path d="M330 600 C500 520 612 560 775 430 C930 310 1095 570 1275 640"/>
+    <path d="M775 430 C755 555 750 675 820 800"/>
+    <path d="M470 730 C590 650 635 520 775 430"/>
+  </g>
+
+  <circle cx="775" cy="430" r="170" fill="url(#core)" opacity=".65" filter="url(#glow)"/>
+  <circle cx="775" cy="430" r="94" fill="#0b1020" stroke="#f2c883" stroke-opacity=".26"/>
+  <circle cx="775" cy="430" r="76" fill="none" stroke="#b7aed6" stroke-opacity=".22" stroke-dasharray="3 8"/>
+  <circle cx="775" cy="430" r="38" fill="#12182a" stroke="#ffe3ad" stroke-opacity=".7"/>
+  <circle cx="775" cy="430" r="9" fill="#ffe3ad"/>
+  <circle cx="775" cy="430" r="28" fill="#f2c883" opacity=".15" filter="url(#soft)"/>
+
+  <text x="775" y="395" text-anchor="middle" class="sans meta">THE HEART</text>
+  <text x="775" y="430" text-anchor="middle" class="serif" font-size="28" fill="#e9ebf2">Our Universe</text>
+  <text x="775" y="459" text-anchor="middle" class="sans small">Everything lives here.</text>
+
+  <g>
+    <g transform="translate(96 250)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#f2c883"/><circle cx="27" cy="30" r="18" fill="#f2c883" opacity=".10"/>
+      <text x="50" y="36" class="sans label">The Beginning</text><text x="50" y="59" class="sans small">timeline of moments</text>
+    </g>
+    <g transform="translate(375 185)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#b7aed6"/><circle cx="27" cy="30" r="18" fill="#b7aed6" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Memory Museum</text><text x="50" y="59" class="sans small">stories worth keeping</text>
+    </g>
+    <g transform="translate(1110 215)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#e3b3ae"/><circle cx="27" cy="30" r="18" fill="#e3b3ae" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Things Unsaid</text><text x="50" y="59" class="sans small">the little truths</text>
+    </g>
+    <g transform="translate(1305 340)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#ffe3ad"/><circle cx="27" cy="30" r="18" fill="#ffe3ad" opacity=".10"/>
+      <text x="50" y="36" class="sans label">A Letter</text><text x="50" y="59" class="sans small">written just for you</text>
+    </g>
+    <g transform="translate(1135 560)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#b7aed6"/><circle cx="27" cy="30" r="18" fill="#b7aed6" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Open When...</text><text x="50" y="59" class="sans small">letters for certain days</text>
+    </g>
+    <g transform="translate(945 735)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#e3b3ae"/><circle cx="27" cy="30" r="18" fill="#e3b3ae" opacity=".10"/>
+      <text x="50" y="36" class="sans label">The Future</text><text x="50" y="59" class="sans small">things not done yet</text>
+    </g>
+    <g transform="translate(625 795)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#f2c883"/><circle cx="27" cy="30" r="18" fill="#f2c883" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Final Reveal</text><text x="50" y="59" class="sans small">where it all lands</text>
+    </g>
+    <g transform="translate(360 690)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#b7aed6"/><circle cx="27" cy="30" r="18" fill="#b7aed6" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Soundtrack</text><text x="50" y="59" class="sans small">songs that feel like us</text>
+    </g>
+    <g transform="translate(150 555)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#e3b3ae"/><circle cx="27" cy="30" r="18" fill="#e3b3ae" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Surprise Me</text><text x="50" y="59" class="sans small">unexpected little things</text>
+    </g>
+    <g transform="translate(440 490)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#ffe3ad"/><circle cx="27" cy="30" r="18" fill="#ffe3ad" opacity=".10"/>
+      <text x="50" y="36" class="sans label">The Quiz</text><text x="50" y="59" class="sans small">how well do you know us?</text>
+    </g>
+    <g transform="translate(890 430)">
+      <rect class="card" width="235" height="84" rx="20"/>
+      <circle cx="27" cy="30" r="7" fill="#f2c883"/><circle cx="27" cy="30" r="18" fill="#f2c883" opacity=".10"/>
+      <text x="50" y="36" class="sans label">Universe</text><text x="50" y="59" class="sans small">the section map</text>
+    </g>
+  </g>
+
+  <rect x="86" y="900" width="1428" height="1" fill="#e9ebf2" fill-opacity=".08"/>
+  <text x="86" y="936" class="sans small">Interactive React experience</text>
+  <text x="1514" y="936" text-anchor="end" class="sans small">Vite · CSS · GitHub Pages</text>
+</svg>
