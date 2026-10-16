@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aether Archive — The Complete Projects Universe | Harsh Dubey</title>
-    <meta name="description" content="Every idea leaves a trace. Explore the complete archive of AI tools, civic applications, creative experiments, and web platforms built by Harsh Dubey.">
+    <title>Aether Archive — The Living Project Universe | Harsh Dubey</title>
+    <meta name="description" content="Every idea leaves a trace. Explore an original spatial 3D universe of AI tools, civic technology, web architectures, and interactive digital experiments built by Harsh Dubey.">
     <meta name="author" content="Harsh Dubey">
     <meta name="theme-color" content="#030308">
 
     <!-- Open Graph & Twitter Meta -->
-    <meta property="og:title" content="Aether Archive — The Complete Projects Universe">
-    <meta property="og:description" content="Every idea leaves a trace. Explore all repositories, live demos, and case studies by Harsh Dubey.">
+    <meta property="og:title" content="Aether Archive — The Living Project Universe">
+    <meta property="og:description" content="Every idea leaves a trace. Spatial 3D project carousel, dynamic atmospheric environments, and verified public repositories by Harsh Dubey.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://harshportfolio404.netlify.app/projects/">
     <meta property="og:image" content="../Photo.jpeg">
@@ -36,16 +36,25 @@
 </head>
 <body class="archive-body">
     <!-- Accessible Skip Link -->
-    <a href="#archive-main" class="skip-link">Skip to Archive Content</a>
+    <a href="#universe-content" class="skip-link">Skip to Universe Carousel</a>
 
-    <!-- Ambient Cosmic Backdrop -->
-    <div class="archive-glow-backdrop" aria-hidden="true">
-        <div class="glow-orb glow-orb-1"></div>
-        <div class="glow-orb glow-orb-2"></div>
-        <div class="glow-grid"></div>
+    <!-- Dynamic Atmosphere Engine Backdrop (Dual-Layer Seamless Optical Cross-Fade) -->
+    <div class="archive-atmosphere" id="archiveAtmosphere" aria-hidden="true">
+        <div class="atmosphere-layer layer-a active" id="atmosphereLayerA">
+            <div class="bloom-orb bloom-primary"></div>
+            <div class="bloom-orb bloom-secondary"></div>
+            <div class="bloom-orb bloom-deep"></div>
+        </div>
+        <div class="atmosphere-layer layer-b" id="atmosphereLayerB">
+            <div class="bloom-orb bloom-primary"></div>
+            <div class="bloom-orb bloom-secondary"></div>
+            <div class="bloom-orb bloom-deep"></div>
+        </div>
+        <div class="atmosphere-grid"></div>
+        <canvas class="atmosphere-canvas" id="atmosphereCanvas"></canvas>
     </div>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation Header -->
     <header class="archive-header" role="banner">
         <div class="archive-header-inner">
             <a href="../" class="archive-back-link" aria-label="Return to Aether Portfolio">
@@ -56,7 +65,7 @@
             <div class="archive-brand">
                 <span class="archive-brand-monogram">HD</span>
                 <span class="archive-brand-slash">/</span>
-                <span class="archive-brand-title">ARCHIVE</span>
+                <span class="archive-brand-title">AETHER ARCHIVE</span>
                 <span class="archive-live-pill" id="syncStatusPill" title="Sync status with GitHub API">
                     <span class="sync-dot" id="syncDot" aria-hidden="true"></span>
                     <span id="syncText">Syncing...</span>
@@ -73,164 +82,216 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main id="archive-main" class="archive-container">
-        <!-- Hero Section -->
-        <section class="archive-hero" aria-labelledby="archive-title">
-            <div class="archive-eyebrow">
-                <span class="eyebrow-line" aria-hidden="true"></span>
-                <span>SYSTEM REGISTRY // 2026</span>
-            </div>
-            <h1 class="archive-title" id="archive-title">Aether Archive</h1>
-            <p class="archive-tagline">“Every idea leaves a trace.”</p>
-            <p class="archive-description">
-                A complete chronological inventory of artificial intelligence companions, civic technology platforms, web architectures, and interactive digital experiments engineered by Harsh Dubey.
-            </p>
+    <!-- Main Container -->
+    <main id="universe-content" class="archive-main-universe">
 
-            <!-- Metrics Bar -->
-            <div class="archive-metrics-grid" role="region" aria-label="Archive Statistics">
-                <div class="metric-card">
-                    <span class="metric-val" id="statTotalRepos">17</span>
-                    <span class="metric-label">Total Repositories</span>
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 01: THE LIVING PROJECT UNIVERSE (CUSTOM 3D CAROUSEL)
+        ═══════════════════════════════════════════════════════════════ -->
+        <section class="universe-hero-section" aria-label="Aether Archive Spatial Carousel">
+            
+            <!-- Hero Title & Positioning -->
+            <div class="universe-hero-header">
+                <div class="universe-eyebrow">
+                    <span class="eyebrow-orbit-dot" aria-hidden="true"></span>
+                    <span>SYSTEM REGISTRY // 2026 • SPATIAL ARCHIVE</span>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-val" id="statLiveDemos">8</span>
-                    <span class="metric-label">Live Deployments</span>
+                <h1 class="universe-hero-title">Aether Archive</h1>
+                <p class="universe-hero-tagline">“Every idea leaves a trace.”</p>
+            </div>
+
+            <!-- Active Project Telemetry HUD -->
+            <div class="carousel-hud" id="carouselHud" role="region" aria-live="polite" aria-label="Active Project Information">
+                <div class="hud-meta-row">
+                    <span class="hud-badge-index" id="hudIndex">01 / 09</span>
+                    <span class="hud-badge-category" id="hudCategory">Civic & Education</span>
+                    <span class="hud-badge-status" id="hudStatus">Flagship Architecture</span>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-val" id="statCoreStacks">4</span>
-                    <span class="metric-label">Primary Ecosystems</span>
+                <h2 class="hud-title" id="hudTitle">KaamKaagaz — Civic Tech & Admissions Platform</h2>
+                <p class="hud-description" id="hudDesc">
+                    A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.
+                </p>
+                <div class="hud-tech-row" id="hudTechRow" aria-label="Key Technologies">
+                    <!-- Populated dynamically -->
                 </div>
-                <div class="metric-card">
-                    <span class="metric-val" id="statStatus">Active</span>
-                    <span class="metric-label">Registry State</span>
+            </div>
+
+            <!-- 3D Spatial Carousel Stage Viewport -->
+            <div class="carousel-stage-container" id="carouselStageContainer">
+                <!-- Flanking click targets for fast mouse navigation -->
+                <button type="button" class="stage-nav-zone zone-left" id="zoneLeft" aria-label="Navigate to previous project"></button>
+                <button type="button" class="stage-nav-zone zone-right" id="zoneRight" aria-label="Navigate to next project"></button>
+
+                <!-- The 3D Track hosting the spatial cards -->
+                <div class="carousel-track" id="carouselTrack" role="region" aria-roledescription="3D Carousel" aria-label="Project Orbit Cards">
+                    <!-- 3D Project cards rendered dynamically via archive.js -->
                 </div>
+            </div>
+
+            <!-- Carousel Deck Controls & Orbital Pagination -->
+            <div class="carousel-deck-controls" role="toolbar" aria-label="Carousel navigation controls">
+                <button type="button" class="deck-btn prev-btn" id="carouselPrevBtn" aria-label="Previous project (Left arrow)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                    <span>Prev</span>
+                </button>
+
+                <!-- Orbital Progress Dots & Title Indicators -->
+                <div class="orbital-progress-wrapper" id="orbitalProgressWrapper" role="tablist" aria-label="Direct project selection">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <button type="button" class="deck-btn next-btn" id="carouselNextBtn" aria-label="Next project (Right arrow)">
+                    <span>Next</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+
+            <!-- Active Project Direct Actions -->
+            <div class="carousel-action-dock" id="carouselActionDock">
+                <button type="button" class="btn btn-primary action-inspect-btn" id="inspectActiveBtn">
+                    <span class="btn-sparkle" aria-hidden="true">✦</span>
+                    <span>Inspect Deep Story & Architecture</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary action-demo-btn" id="demoActiveBtn">
+                    <span>Live Preview</span>
+                    <span aria-hidden="true">↗</span>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary action-gh-btn" id="ghActiveBtn">
+                    <span>Source Code</span>
+                    <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+
+            <!-- Interaction Hints -->
+            <div class="carousel-hints-bar" aria-hidden="true">
+                <span class="hint-pill"><kbd>←</kbd> <kbd>→</kbd> Keyboard Navigate</span>
+                <span class="hint-dot">·</span>
+                <span class="hint-pill">👆 Drag / Swipe to Orbit</span>
+                <span class="hint-dot">·</span>
+                <span class="hint-pill">🖱️ Mouse Wheel Slide</span>
+                <span class="hint-dot">·</span>
+                <span class="hint-pill"><kbd>Enter</kbd> Deep Story</span>
             </div>
         </section>
 
-        <!-- Discovery & Controls Bar -->
-        <section class="archive-controls" aria-label="Archive Search and Filters">
-            <div class="controls-top-row">
-                <!-- Search Input -->
-                <div class="archive-search-box">
-                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <input type="text" id="archiveSearchInput" placeholder="Search by name, technology, tag, or keyword… (Press '/' to focus)" aria-label="Search repositories" autocomplete="off" spellcheck="false">
-                    <button type="button" id="archiveSearchClear" class="search-clear-btn" aria-label="Clear search query" hidden>✕</button>
-                    <kbd class="search-shortcut-hint" aria-hidden="true">/</kbd>
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 02: COMPLETE REPOSITORY DIRECTORY (ALL 17 REPOSITORIES)
+        ═══════════════════════════════════════════════════════════════ -->
+        <section class="archive-directory-section" id="directorySection" aria-labelledby="directoryHeading">
+            <div class="directory-section-header">
+                <div class="directory-title-wrap">
+                    <span class="directory-accent" aria-hidden="true">❖</span>
+                    <h2 id="directoryHeading" class="directory-title">Repository Directory</h2>
+                    <span class="directory-count-badge" id="directoryResultsCount">Showing 17 repositories</span>
                 </div>
+                <p class="directory-subtitle">Search, filter, and explore the complete ledger of all public software, architectures, and experiments.</p>
+            </div>
 
-                <!-- Sort & View Controls -->
-                <div class="controls-right-group">
-                    <div class="sort-selector-wrap">
-                        <label for="archiveSortSelect" class="sr-only">Sort projects by</label>
-                        <select id="archiveSortSelect" aria-label="Sort repositories">
-                            <option value="curated">Sort: Curated Focus</option>
-                            <option value="recent">Sort: Most Recently Updated</option>
-                            <option value="name">Sort: Alphabetical (A–Z)</option>
-                            <option value="size">Sort: Repository Size</option>
-                        </select>
+            <!-- Controls: Search, Sort, Filters, View Mode -->
+            <div class="directory-controls-bar">
+                <div class="controls-search-row">
+                    <div class="directory-search-box">
+                        <svg class="search-svg-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" id="directorySearchInput" placeholder="Search by name, technology, tag, or keyword… (Press '/' to focus)" aria-label="Search repositories" autocomplete="off" spellcheck="false">
+                        <button type="button" id="directorySearchClear" class="search-clear-btn" aria-label="Clear search input" hidden>✕</button>
+                        <kbd class="search-kbd-hint" aria-hidden="true">/</kbd>
                     </div>
 
-                    <div class="view-toggle-wrap" role="group" aria-label="Display View">
-                        <button type="button" class="view-toggle-btn active" data-view="grid" aria-label="Grid card view" title="Grid View">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                        </button>
-                        <button type="button" class="view-toggle-btn" data-view="table" aria-label="Ledger table view" title="Table View">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"/></svg>
-                        </button>
+                    <div class="controls-actions-group">
+                        <div class="sort-dropdown-wrap">
+                            <label for="directorySortSelect" class="sr-only">Sort projects</label>
+                            <select id="directorySortSelect" aria-label="Sort repositories">
+                                <option value="curated">Sort: Curated Focus</option>
+                                <option value="recent">Sort: Most Recently Updated</option>
+                                <option value="name">Sort: Alphabetical (A–Z)</option>
+                                <option value="size">Sort: Repository Size</option>
+                            </select>
+                        </div>
+
+                        <div class="view-mode-toggle" role="group" aria-label="Display View Mode">
+                            <button type="button" class="view-btn active" data-view="grid" aria-label="Grid card view" title="Grid View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                            </button>
+                            <button type="button" class="view-btn" data-view="table" aria-label="Ledger table view" title="Table View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"/></svg>
+                            </button>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Filter Category Chips -->
+                <div class="directory-filter-chips" role="tablist" aria-label="Filter repositories by category">
+                    <button type="button" class="filter-chip active" data-category="all" role="tab" aria-selected="true">
+                        <span>All Artifacts</span>
+                        <span class="chip-count" id="countAll">17</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-category="featured" role="tab" aria-selected="false">
+                        <span>Featured Universe</span>
+                        <span class="chip-count" id="countFeatured">11</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-category="ai" role="tab" aria-selected="false">
+                        <span>AI &amp; Intelligence</span>
+                        <span class="chip-count" id="countAi">3</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-category="web" role="tab" aria-selected="false">
+                        <span>Web Platforms</span>
+                        <span class="chip-count" id="countWeb">6</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-category="civic" role="tab" aria-selected="false">
+                        <span>Civic &amp; Education</span>
+                        <span class="chip-count" id="countCivic">2</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-category="creative" role="tab" aria-selected="false">
+                        <span>Creative &amp; Systems</span>
+                        <span class="chip-count" id="countCreative">6</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Filter Categories -->
-            <div class="filter-chips-row" role="tablist" aria-label="Filter repositories by category">
-                <button type="button" class="filter-chip active" data-category="all" role="tab" aria-selected="true">
-                    <span>All Artifacts</span>
-                    <span class="chip-count" id="countAll">17</span>
-                </button>
-                <button type="button" class="filter-chip" data-category="featured" role="tab" aria-selected="false">
-                    <span>Featured Flagships</span>
-                    <span class="chip-count" id="countFeatured">4</span>
-                </button>
-                <button type="button" class="filter-chip" data-category="ai" role="tab" aria-selected="false">
-                    <span>AI & Intelligence</span>
-                    <span class="chip-count" id="countAi">4</span>
-                </button>
-                <button type="button" class="filter-chip" data-category="web" role="tab" aria-selected="false">
-                    <span>Web Platforms</span>
-                    <span class="chip-count" id="countWeb">6</span>
-                </button>
-                <button type="button" class="filter-chip" data-category="civic" role="tab" aria-selected="false">
-                    <span>Civic & Education</span>
-                    <span class="chip-count" id="countCivic">2</span>
-                </button>
-                <button type="button" class="filter-chip" data-category="creative" role="tab" aria-selected="false">
-                    <span>Creative & Systems</span>
-                    <span class="chip-count" id="countCreative">4</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Featured Flagships Section -->
-        <section class="featured-universe-section" id="featuredSection" aria-labelledby="featuredHeading">
-            <div class="section-subheading">
-                <span class="subheading-accent" aria-hidden="true">✦</span>
-                <h2 id="featuredHeading">Flagship Architectures</h2>
-                <span class="subheading-meta">In-depth case studies & high-impact systems</span>
-            </div>
-            <div class="featured-cards-grid" id="featuredCardsContainer">
-                <!-- Dynamically rendered via archive.js -->
-            </div>
-        </section>
-
-        <!-- Complete Repository Directory -->
-        <section class="all-projects-section" id="allProjectsSection" aria-labelledby="allHeading">
-            <div class="section-subheading">
-                <span class="subheading-accent" aria-hidden="true">❖</span>
-                <h2 id="allHeading">Repository Directory</h2>
-                <span class="subheading-meta" id="directoryResultsCount">Showing 17 repositories</span>
+            <!-- View 1: Interactive Grid Cards View -->
+            <div class="directory-grid-container active" id="directoryGridContainer">
+                <!-- Dynamically populated via archive.js -->
             </div>
 
-            <!-- Grid View Container -->
-            <div class="projects-grid-view active" id="projectsGridContainer">
-                <!-- Dynamically rendered via archive.js -->
-            </div>
-
-            <!-- Ledger Table View Container -->
-            <div class="projects-table-view" id="projectsTableContainer" hidden>
-                <table class="archive-table" aria-label="Complete repository ledger">
+            <!-- View 2: Ledger Data Table View -->
+            <div class="directory-table-container" id="directoryTableContainer" hidden>
+                <table class="directory-table" aria-label="Repository ledger table">
                     <thead>
                         <tr>
-                            <th scope="col">Project</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Tech Stack</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Project Artifact</th>
+                            <th scope="col">Domain</th>
+                            <th scope="col">Core Technologies</th>
+                            <th scope="col">Language</th>
                             <th scope="col">Updated</th>
-                            <th scope="col" class="table-actions-col">Links</th>
+                            <th scope="col" class="table-actions-header">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="projectsTableBody">
-                        <!-- Dynamically rendered via archive.js -->
+                    <tbody id="directoryTableBody">
+                        <!-- Dynamically populated via archive.js -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Empty Search State -->
-            <div class="archive-empty-state" id="archiveEmptyState" hidden>
-                <div class="empty-icon" aria-hidden="true">🔭</div>
+            <!-- Empty Search Results State -->
+            <div class="directory-empty-state" id="directoryEmptyState" hidden>
+                <div class="empty-icon-wrap" aria-hidden="true">🔭</div>
                 <h3>No matching repositories found</h3>
-                <p>No projects match your current filter query. Try searching for different keywords, languages, or reset the filters.</p>
-                <button type="button" class="btn btn-secondary" id="resetFiltersBtn">Reset Filters</button>
+                <p>No projects match your current search query or category filters. Try searching for different keywords or reset filters.</p>
+                <button type="button" class="btn btn-secondary" id="resetFiltersBtn">Reset All Filters</button>
             </div>
         </section>
     </main>
 
-    <!-- Project Detail Modal / Case Study Drawer -->
+    <!-- ═══════════════════════════════════════════════════════════════
+         PROJECT DETAIL MODAL & CASE STUDY VIEWER
+    ═══════════════════════════════════════════════════════════════ -->
     <div class="archive-modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalProjectTitle" aria-hidden="true">
         <div class="archive-modal-backdrop" id="modalBackdrop"></div>
         <div class="archive-modal-panel">
             <button type="button" class="archive-modal-close" id="modalCloseBtn" aria-label="Close project details window">✕</button>
 
+            <!-- Modal Header -->
             <div class="modal-header">
                 <div class="modal-badge-row">
                     <span class="modal-category-badge" id="modalCategory">Category</span>
@@ -240,10 +301,17 @@
                 <p class="modal-description" id="modalProjectDesc">Project Description</p>
             </div>
 
-            <div class="modal-body" id="modalProjectContent">
-                <!-- Case Study Details dynamically populated -->
+            <!-- Authentic SVG Artwork Banner -->
+            <div class="modal-artwork-wrapper" id="modalArtworkWrapper">
+                <!-- Dynamically populated with high-res SVG composition -->
             </div>
 
+            <!-- Case Study Sections -->
+            <div class="modal-body" id="modalProjectContent">
+                <!-- Deep case study details dynamically populated -->
+            </div>
+
+            <!-- Action Buttons Footer -->
             <div class="modal-footer" id="modalProjectActions">
                 <!-- Action buttons dynamically populated -->
             </div>
@@ -255,7 +323,7 @@
         <div class="archive-footer-inner">
             <div class="footer-left">
                 <a href="../" class="footer-return-link">← Return to Aether Main Portfolio</a>
-                <p class="footer-tagline">Designed &amp; Built with precision by Harsh Dubey © 2026</p>
+                <p class="footer-tagline">Designed &amp; Handcrafted with precision by Harsh Dubey © 2026</p>
             </div>
             <div class="footer-right">
                 <span>Mumbai, India</span>
