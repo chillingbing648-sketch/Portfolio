@@ -16,10 +16,9 @@ const FB_ACHIEVEMENTS = [
     id: 'debate',
     badge: '1st Place Gold',
     category: 'Oratory & Dialectic',
-    title: 'IntraCollegiate Debate Winner',
+    title: 'Intra-Collegiate Debate Winner',
     proof: 'Unanimous Jury Decision',
-    description: 'Won first place for rigorous arguments, research, and persuasive cross-examination.',
-    skills: ['Critical Thinking', 'Rhetorical Synthesis', 'Cross-Examination', 'Decisive Articulation']
+    description: 'Won first place through rigorous research, persuasive arguments, and decisive cross-examination.'
   },
   {
     id: 'pr-head',
@@ -32,17 +31,15 @@ const FB_ACHIEVEMENTS = [
       { val: '2,000+', label: 'Footfall' },
       { val: '1,000+', label: 'Registrations' },
       { val: '40+', label: 'Colleges' }
-    ],
-    skills: ['Omni-channel Outreach', 'Stakeholder Diplomacy', 'Team Leadership', 'Crisis Logistics']
+    ]
   },
   {
     id: 'academic',
     badge: 'Academic Distinction',
     category: 'BSc Information Technology',
-    title: 'Academic Excellence',
+    title: 'Academic Excellence & Leadership',
     proof: '9.50 CGPA · Top 1% Merit',
-    description: 'Maintained a 9.50 CGPA while contributing to student leadership and campus initiatives.',
-    skills: ['Computer Science Rigor', 'Data Structures', 'Discipline & Synthesis', 'Civic Leadership']
+    description: 'Maintained a 9.50 CGPA while contributing to student leadership and campus initiatives.'
   }
 ];
 
@@ -159,15 +156,6 @@ function renderAchievements(grid, data) {
     grid.innerHTML = data.map((a, i) => {
         const motionProofHtml = renderCardMotionProof(a);
 
-        const skillsHtml = Array.isArray(a.skills) ? `
-            <div class="drawer-competencies">
-                <span class="drawer-heading">Competencies Demonstrated</span>
-                <div class="drawer-pills">
-                    ${a.skills.map(skill => `<span class="competency-pill">${skill}</span>`).join('')}
-                </div>
-            </div>
-        ` : '';
-
         return `
             <article class="achievement-card reveal-item"
                      data-id="${a.id || i}"
@@ -194,28 +182,12 @@ function renderAchievements(grid, data) {
                 <!-- Concise Narrative Description -->
                 <p class="achievement-description">${a.description}</p>
 
-                <!-- Credential Inspection Action -->
-                <div class="achievement-footer-action">
-                    <button type="button"
-                            class="achievement-credential-trigger"
-                            aria-expanded="false"
-                            aria-controls="cred-drawer-${a.id || i}">
-                        <span class="credential-btn-text">Verification &amp; Details</span>
-                        <svg class="credential-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="m6 9 6 6 6-6"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Expandable Credential Drawer -->
-                <div class="achievement-credential-drawer" id="cred-drawer-${a.id || i}" aria-hidden="true">
-                    ${skillsHtml}
-                    <div class="achievement-verification-note">
-                        <svg class="verification-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M20 6L9 17l-5-5"/>
-                        </svg>
-                        <span>Verified Institutional Record</span>
-                    </div>
+                <!-- Institutional Verification Strip -->
+                <div class="achievement-verification-strip">
+                    <svg class="verification-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    <span>Verified Institutional Record</span>
                 </div>
             </article>
         `;
@@ -228,28 +200,22 @@ function initAchievementInteractions(grid) {
     const cards = grid.querySelectorAll('.achievement-card');
 
     cards.forEach(card => {
-        // Soft localized pointer response & subtle capped micro-tilt (max ±3.5 degrees)
+        // Refined localized pointer spotlight response (no forced 3D tilt)
         const handlePointerMove = (e) => {
             if (e.pointerType === 'touch') return;
             const rect = card.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width;
             const y = (e.clientY - rect.top) / rect.height;
 
-            const tiltX = ((0.5 - y) * 6).toFixed(2);
-            const tiltY = ((x - 0.5) * 6).toFixed(2);
             const mouseX = (x * 100).toFixed(1);
             const mouseY = (y * 100).toFixed(1);
 
-            card.style.setProperty('--tilt-x', `${tiltX}deg`);
-            card.style.setProperty('--tilt-y', `${tiltY}deg`);
             card.style.setProperty('--mouse-x', `${mouseX}%`);
             card.style.setProperty('--mouse-y', `${mouseY}%`);
             card.style.setProperty('--spotlight-opacity', '1');
         };
 
         const handlePointerLeave = () => {
-            card.style.setProperty('--tilt-x', '0deg');
-            card.style.setProperty('--tilt-y', '0deg');
             card.style.setProperty('--mouse-x', '50%');
             card.style.setProperty('--mouse-y', '50%');
             card.style.setProperty('--spotlight-opacity', '0');
@@ -257,40 +223,6 @@ function initAchievementInteractions(grid) {
 
         card.addEventListener('pointermove', handlePointerMove, { passive: true });
         card.addEventListener('pointerleave', handlePointerLeave, { passive: true });
-
-        // Click & keyboard toggle handler
-        const trigger = card.querySelector('.achievement-credential-trigger');
-        const drawer = card.querySelector('.achievement-credential-drawer');
-        const btnText = trigger?.querySelector('.credential-btn-text');
-
-        if (trigger && drawer) {
-            const toggleDrawer = () => {
-                const isExpanded = card.classList.toggle('is-expanded');
-                trigger.setAttribute('aria-expanded', isExpanded);
-                drawer.setAttribute('aria-hidden', !isExpanded);
-                if (btnText) {
-                    btnText.textContent = isExpanded ? 'Collapse Details' : 'Verification & Details';
-                }
-            };
-
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleDrawer();
-            });
-
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('a') || e.target.closest('button')) return;
-                toggleDrawer();
-            });
-
-            // Keyboard accessibility: Enter or Space on card container toggles drawer
-            card.addEventListener('keydown', (e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && e.target === card) {
-                    e.preventDefault();
-                    toggleDrawer();
-                }
-            });
-        }
     });
 }
 

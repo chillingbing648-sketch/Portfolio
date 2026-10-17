@@ -125,14 +125,27 @@ function initSectionAnimations() {
         }
     );
 
-    gsap.fromTo('.obs-cta-glass',
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-            opacity: 1, y: 0, scale: 1,
-            duration: 1.2, ease: 'expo.out', delay: 0.3,
-            scrollTrigger: { trigger: '#observatory', start: 'top 60%' }
-        }
-    );
+    if (document.querySelector('.obs-collab-card')) {
+        gsap.fromTo('.obs-collab-card',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                duration: 1.0, ease: 'power3.out', delay: 0.2,
+                scrollTrigger: { trigger: '#observatory', start: 'top 65%' }
+            }
+        );
+    }
+
+    if (document.querySelector('.archive-editorial-bridge')) {
+        gsap.fromTo('.archive-editorial-bridge',
+            { opacity: 0, y: 25 },
+            {
+                opacity: 1, y: 0,
+                duration: 1.0, ease: 'power3.out', delay: 0.35,
+                scrollTrigger: { trigger: '.archive-editorial-bridge', start: 'top 85%' }
+            }
+        );
+    }
 
     gsap.fromTo('.constellation-node',
         { opacity: 0, scale: 0, y: 20 },
@@ -172,10 +185,10 @@ function initExperienceCards() {
 
     if (document.querySelectorAll('.achievement-card').length) {
         gsap.fromTo('.achievement-card',
-            { opacity: 0, x: 40 },
+            { opacity: 0, y: 35 },
             {
-                opacity: 1, x: 0,
-                stagger: 0.14, duration: 0.9, ease: 'expo.out',
+                opacity: 1, y: 0,
+                stagger: 0.12, duration: 0.85, ease: 'power3.out',
                 scrollTrigger: { trigger: '.achievements-grid', start: 'top 80%' }
             }
         );

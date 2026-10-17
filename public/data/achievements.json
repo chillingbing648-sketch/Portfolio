@@ -3,10 +3,9 @@
     "id": "debate",
     "badge": "1st Place Gold",
     "category": "Oratory & Dialectic",
-    "title": "IntraCollegiate Debate Winner",
+    "title": "Intra-Collegiate Debate Winner",
     "proof": "Unanimous Jury Decision",
-    "description": "Won first place for rigorous arguments, research, and persuasive cross-examination.",
-    "skills": ["Critical Thinking", "Rhetorical Synthesis", "Cross-Examination", "Decisive Articulation"]
+    "description": "Won first place through rigorous research, persuasive arguments, and decisive cross-examination."
   },
   {
     "id": "pr-head",
@@ -19,16 +18,14 @@
       { "val": "2,000+", "label": "Footfall" },
       { "val": "1,000+", "label": "Registrations" },
       { "val": "40+", "label": "Colleges" }
-    ],
-    "skills": ["Omni-channel Outreach", "Stakeholder Diplomacy", "Team Leadership", "Crisis Logistics"]
+    ]
   },
   {
     "id": "academic",
     "badge": "Academic Distinction",
     "category": "BSc Information Technology",
-    "title": "Academic Excellence",
+    "title": "Academic Excellence & Leadership",
     "proof": "9.50 CGPA · Top 1% Merit",
-    "description": "Maintained a 9.50 CGPA while contributing to student leadership and campus initiatives.",
-    "skills": ["Computer Science Rigor", "Data Structures", "Discipline & Synthesis", "Civic Leadership"]
+    "description": "Maintained a 9.50 CGPA while contributing to student leadership and campus initiatives."
   }
 ]
