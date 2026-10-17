@@ -344,7 +344,23 @@
                 <span class="status-dot-green" aria-hidden="true"></span>
                 <span>Available for Opportunities · Mumbai, India</span>
             </div>
-            <div class="hero-subtitle">Harsh Dubey</div>
+            <div class="hero-subtitle" aria-label="Harsh Dubey">
+                <span class="hero-sig-dot" aria-hidden="true">
+                    <span class="hero-sig-dot-core"></span>
+                    <span class="hero-sig-dot-ring"></span>
+                </span>
+                <span class="hero-sig-content" aria-hidden="true">
+                    <span class="hero-sig-name">
+                        <span class="hero-sig-word"><span class="hero-sig-char">H</span><span class="hero-sig-char">a</span><span class="hero-sig-char">r</span><span class="hero-sig-char">s</span><span class="hero-sig-char">h</span></span><span class="hero-sig-space">&nbsp;</span><span class="hero-sig-word"><span class="hero-sig-char">D</span><span class="hero-sig-char">u</span><span class="hero-sig-char">b</span><span class="hero-sig-char">e</span><span class="hero-sig-char">y</span></span>
+                    </span>
+                    <span class="hero-sig-sheen">
+                        <span class="hero-sig-sheen-text">
+                            <span class="hero-sig-word">Harsh</span><span class="hero-sig-space">&nbsp;</span><span class="hero-sig-word">Dubey</span>
+                        </span>
+                    </span>
+                    <span class="hero-sig-accent-line"></span>
+                </span>
+            </div>
             <h1 class="hero-title" id="hero-heading">
                 <span class="gradient-text">Engineer of Ideas.</span><br>Architect of Possibilities.
             </h1>
@@ -872,49 +888,289 @@
 </main>
 
 <!-- PITCH AN IDEA MODAL -->
-<div class="pitch-modal" id="pitch-modal" role="dialog" aria-modal="true" aria-labelledby="pitch-modal-title" aria-hidden="true">
+<div class="pitch-modal" id="pitch-modal" role="dialog" aria-modal="true" aria-labelledby="pitch-modal-title" aria-describedby="pitch-modal-subtitle" aria-hidden="true">
     <div class="pitch-modal-backdrop" data-pitch-close></div>
     <div class="pitch-modal-panel">
-        <button type="button" class="pitch-modal-close" data-pitch-close aria-label="Close pitch an idea dialog">&times;</button>
-        <div class="pitch-modal-kicker">Project intake</div>
-        <h2 id="pitch-modal-title">Let's make the first move.</h2>
-        <div class="pitch-progress" aria-label="Pitch progress">
-            <span class="pitch-progress-step active" data-progress-step="1">01</span><span class="pitch-progress-line"></span>
-            <span class="pitch-progress-step" data-progress-step="2">02</span><span class="pitch-progress-line"></span>
-            <span class="pitch-progress-step" data-progress-step="3">03</span>
-        </div>
-        <form id="pitch-form" novalidate>
-            <fieldset class="pitch-step active" data-pitch-step="1">
-                <legend>What are we building?</legend>
-                <div class="pitch-choice-grid">
-                    <button type="button" class="pitch-choice" data-project-type="E-Commerce">🛒 E-Commerce</button>
-                    <button type="button" class="pitch-choice" data-project-type="Web App">🌐 Web App</button>
-                    <button type="button" class="pitch-choice" data-project-type="UI/UX">🎨 UI/UX</button>
-                    <button type="button" class="pitch-choice" data-project-type="AI Tool">🤖 AI Tool</button>
-                    <button type="button" class="pitch-choice" data-project-type="Other">✨ Other...</button>
+        <button type="button" class="pitch-modal-close" data-pitch-close aria-label="Close pitch dialog">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        
+        <header class="pitch-modal-header">
+            <div class="pitch-modal-kicker">
+                <span class="pitch-kicker-dot" aria-hidden="true"></span>
+                <span>Project Intake</span>
+            </div>
+            <h2 id="pitch-modal-title" class="pitch-modal-title">Let’s build something remarkable.</h2>
+            <p id="pitch-modal-subtitle" class="pitch-modal-subtitle">
+                A focused collaborative intake from concept to conversation.
+            </p>
+        </header>
+
+        <!-- Step Progress Indicator -->
+        <nav class="pitch-stepper" aria-label="Pitch creation steps" role="tablist">
+            <button type="button" class="pitch-step-indicator active" data-step-target="1" role="tab" aria-selected="true" aria-label="Step 1: Choose Domain">
+                <span class="step-num">01</span>
+                <span class="step-label">Domain</span>
+            </button>
+            <div class="step-track-line" aria-hidden="true"><div class="step-track-fill" id="trackFill1"></div></div>
+            <button type="button" class="pitch-step-indicator" data-step-target="2" role="tab" aria-selected="false" aria-label="Step 2: Describe Idea">
+                <span class="step-num">02</span>
+                <span class="step-label">Concept</span>
+            </button>
+            <div class="step-track-line" aria-hidden="true"><div class="step-track-fill" id="trackFill2"></div></div>
+            <button type="button" class="pitch-step-indicator" data-step-target="3" role="tab" aria-selected="false" aria-label="Step 3: Choose Contact Channel">
+                <span class="step-num">03</span>
+                <span class="step-label">Channel</span>
+            </button>
+            <div class="step-track-line" aria-hidden="true"><div class="step-track-fill" id="trackFill3"></div></div>
+            <button type="button" class="pitch-step-indicator" data-step-target="4" role="tab" aria-selected="false" aria-label="Step 4: Launch Conversation">
+                <span class="step-num">04</span>
+                <span class="step-label">Launch</span>
+            </button>
+        </nav>
+
+        <form id="pitch-form" class="pitch-form" novalidate onsubmit="return false;">
+            <!-- STEP 1: CHOOSE DOMAIN -->
+            <fieldset class="pitch-step-view active" data-pitch-step="1" aria-labelledby="step1-legend">
+                <legend id="step1-legend" class="pitch-step-legend">
+                    <span class="legend-kicker">01 / 04 — DOMAIN</span>
+                    <span class="legend-title">What type of product are we building?</span>
+                    <span class="legend-sub">Choose the core architecture or define your own scope.</span>
+                </legend>
+
+                <div class="pitch-choice-grid" role="radiogroup" aria-label="Product Domain">
+                    <button type="button" class="pitch-choice selected" role="radio" aria-checked="true" data-domain="Web Application">
+                        <div class="choice-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        </div>
+                        <div class="choice-body">
+                            <span class="choice-title">Web Application</span>
+                            <span class="choice-desc">Full-stack, SaaS, or high-performance portal</span>
+                        </div>
+                        <span class="choice-tick" aria-hidden="true">✓</span>
+                    </button>
+
+                    <button type="button" class="pitch-choice" role="radio" aria-checked="false" data-domain="Interactive & 3D">
+                        <div class="choice-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m21.12 6.4-6-3.4a2 2 0 0 0-2 0l-6 3.4a2 2 0 0 0-1 1.7v6.8a2 2 0 0 0 1 1.7l6 3.4a2 2 0 0 0 2 0l6-3.4a2 2 0 0 0 1-1.7V8.1a2 2 0 0 0-1-1.7z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <div class="choice-body">
+                            <span class="choice-title">Interactive &amp; 3D</span>
+                            <span class="choice-desc">WebGL, Canvas, kinetic motion, creative web</span>
+                        </div>
+                        <span class="choice-tick" aria-hidden="true">✓</span>
+                    </button>
+
+                    <button type="button" class="pitch-choice" role="radio" aria-checked="false" data-domain="AI & Intelligence">
+                        <div class="choice-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/></svg>
+                        </div>
+                        <div class="choice-body">
+                            <span class="choice-title">AI &amp; Intelligence</span>
+                            <span class="choice-desc">Smart assistants, LLM tools, workflow automation</span>
+                        </div>
+                        <span class="choice-tick" aria-hidden="true">✓</span>
+                    </button>
+
+                    <button type="button" class="pitch-choice" role="radio" aria-checked="false" data-domain="UI/UX & Systems">
+                        <div class="choice-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg>
+                        </div>
+                        <div class="choice-body">
+                            <span class="choice-title">UI/UX &amp; Systems</span>
+                            <span class="choice-desc">Component libraries, brand elevation, design systems</span>
+                        </div>
+                        <span class="choice-tick" aria-hidden="true">✓</span>
+                    </button>
+
+                    <button type="button" class="pitch-choice choice-span-full" role="radio" aria-checked="false" data-domain="Other">
+                        <div class="choice-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        </div>
+                        <div class="choice-body">
+                            <span class="choice-title">Other / Custom Vision</span>
+                            <span class="choice-desc">Tell me about a unique experiment or bespoke concept</span>
+                        </div>
+                        <span class="choice-tick" aria-hidden="true">✓</span>
+                    </button>
                 </div>
-                <div class="pitch-custom-type" aria-hidden="true">
-                    <label for="pitch-custom-input">Tell me what you have in mind...</label>
-                    <input id="pitch-custom-input" type="text" maxlength="80" autocomplete="off" disabled>
+
+                <div class="pitch-custom-domain" id="pitch-custom-wrap" hidden>
+                    <label for="pitch-custom-input" class="pitch-field-label">Custom Project Domain</label>
+                    <input id="pitch-custom-input" type="text" maxlength="80" placeholder="e.g., Generative Music Instrument, Edge-native API..." autocomplete="off">
                 </div>
-                <button type="button" class="pitch-next btn btn-primary" data-next-step="2">Continue <span aria-hidden="true">→</span></button>
+
+                <div class="pitch-step-footer">
+                    <span class="pitch-footer-hint">Step 1 of 4: Domain Selected</span>
+                    <button type="button" class="btn btn-primary pitch-step-btn" data-next-step="2">
+                        <span>Continue to Concept</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
             </fieldset>
-            <fieldset class="pitch-step" data-pitch-step="2" disabled>
-                <legend>Drop a quick summary of your idea</legend>
-                <textarea id="pitch-summary" rows="3" maxlength="500" placeholder="e.g., An AI-powered dashboard for tracking local event attendance..."></textarea>
-                <div class="pitch-step-actions">
-                    <button type="button" class="pitch-back btn btn-ghost" data-prev-step="1">Back</button>
-                    <button type="button" class="pitch-next btn btn-primary" data-next-step="3">Choose where to talk <span aria-hidden="true">→</span></button>
+
+            <!-- STEP 2: DESCRIBE IDEA -->
+            <fieldset class="pitch-step-view" data-pitch-step="2" disabled aria-labelledby="step2-legend">
+                <legend id="step2-legend" class="pitch-step-legend">
+                    <span class="legend-kicker">02 / 04 — CONCEPT</span>
+                    <span class="legend-title">Tell me about your idea or project</span>
+                    <span class="legend-sub">A brief sentence or two on the core problem, vision, or desired outcome.</span>
+                </legend>
+
+                <div class="pitch-textarea-wrap">
+                    <div class="pitch-textarea-meta">
+                        <label for="pitch-summary" class="pitch-field-label">Idea Summary</label>
+                        <span class="pitch-char-counter" id="pitch-char-counter">0 / 500</span>
+                    </div>
+                    <textarea id="pitch-summary" rows="4" maxlength="500" placeholder="e.g., An offline-first dashboard for student admissions with automated document verification and real-time WhatsApp status notifications..."></textarea>
+                </div>
+
+                <!-- Idea Starter Suggestions -->
+                <div class="pitch-idea-starters" aria-label="Suggested idea prompts">
+                    <span class="starters-label">Suggestions:</span>
+                    <button type="button" class="starter-chip" data-insert="We want to build an MVP prototype with a modern, fast, and responsive interface.">MVP Prototype</button>
+                    <button type="button" class="starter-chip" data-insert="Looking for an interactive 3D WebGL experience to elevate our product launch.">3D Web Launch</button>
+                    <button type="button" class="starter-chip" data-insert="Need a full-stack web application with AI capabilities and clean database architecture.">Full-Stack AI Tool</button>
+                </div>
+
+                <div class="pitch-step-footer has-back">
+                    <button type="button" class="btn btn-ghost pitch-back-btn" data-prev-step="1">
+                        <span aria-hidden="true">←</span>
+                        <span>Back</span>
+                    </button>
+                    <button type="button" class="btn btn-primary pitch-step-btn" data-next-step="3">
+                        <span>Choose Channel</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
                 </div>
             </fieldset>
-            <fieldset class="pitch-step" data-pitch-step="3" disabled>
-                <legend>Where should we talk?</legend>
-                <div class="pitch-connect-grid">
-                    <button type="button" class="pitch-connect whatsapp" data-platform="whatsapp"><span aria-hidden="true">🟢</span> WhatsApp</button>
-                    <button type="button" class="pitch-connect instagram" data-platform="instagram"><span aria-hidden="true">📸</span> Instagram</button>
-                    <button type="button" class="pitch-connect discord" data-platform="discord"><span aria-hidden="true">👾</span> Discord</button>
+
+            <!-- STEP 3: CHOOSE CONTACT CHANNEL -->
+            <fieldset class="pitch-step-view" data-pitch-step="3" disabled aria-labelledby="step3-legend">
+                <legend id="step3-legend" class="pitch-step-legend">
+                    <span class="legend-kicker">03 / 04 — CHANNEL</span>
+                    <span class="legend-title">Where should we connect?</span>
+                    <span class="legend-sub">Select your preferred platform to start the conversation directly.</span>
+                </legend>
+
+                <div class="pitch-channel-cards" role="radiogroup" aria-label="Contact Channel">
+                    <button type="button" class="pitch-channel-card channel-card-wa selected" role="radio" aria-checked="true" data-channel="whatsapp">
+                        <div class="channel-card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/></svg>
+                        </div>
+                        <div class="channel-card-body">
+                            <div class="channel-card-head">
+                                <span class="channel-card-title">WhatsApp</span>
+                                <span class="channel-card-badge">Instant</span>
+                            </div>
+                            <span class="channel-card-desc">Direct mobile chat &amp; voice note</span>
+                            <span class="channel-card-detail">+91 9321521258 · Typically replies within 1–2 hours</span>
+                        </div>
+                        <span class="channel-radio-indicator" aria-hidden="true"></span>
+                    </button>
+
+                    <button type="button" class="pitch-channel-card channel-card-ig" role="radio" aria-checked="false" data-channel="instagram">
+                        <div class="channel-card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </div>
+                        <div class="channel-card-body">
+                            <div class="channel-card-head">
+                                <span class="channel-card-title">Instagram DM</span>
+                                <span class="channel-card-badge">Visual &amp; Direct</span>
+                            </div>
+                            <span class="channel-card-desc">Copies pitch &amp; opens Instagram</span>
+                            <span class="channel-card-detail">@harrshittt87 · Best for casual pitches</span>
+                        </div>
+                        <span class="channel-radio-indicator" aria-hidden="true"></span>
+                    </button>
+
+                    <button type="button" class="pitch-channel-card channel-card-discord" role="radio" aria-checked="false" data-channel="discord">
+                        <div class="channel-card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                        </div>
+                        <div class="channel-card-body">
+                            <div class="channel-card-head">
+                                <span class="channel-card-title">Discord</span>
+                                <span class="channel-card-badge">Developer</span>
+                            </div>
+                            <span class="channel-card-desc">Copies pitch &amp; Discord username</span>
+                            <span class="channel-card-detail">harshit00597 · Async collaboration</span>
+                        </div>
+                        <span class="channel-radio-indicator" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <button type="button" class="pitch-back btn btn-ghost" data-prev-step="2">Back</button>
+
+                <div class="pitch-step-footer has-back">
+                    <button type="button" class="btn btn-ghost pitch-back-btn" data-prev-step="2">
+                        <span aria-hidden="true">←</span>
+                        <span>Back</span>
+                    </button>
+                    <button type="button" class="btn btn-primary pitch-step-btn" data-next-step="4">
+                        <span>Review &amp; Launch</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <!-- STEP 4: LAUNCH CONVERSATION -->
+            <fieldset class="pitch-step-view" data-pitch-step="4" disabled aria-labelledby="step4-legend">
+                <legend id="step4-legend" class="pitch-step-legend">
+                    <span class="legend-kicker">04 / 04 — LAUNCH TRANSMISSION</span>
+                    <span class="legend-title">Ready to launch your pitch</span>
+                    <span class="legend-sub">Review your synthesized pitch brief and transmit via your chosen platform.</span>
+                </legend>
+
+                <!-- Review Synthesis Card -->
+                <div class="pitch-review-card">
+                    <div class="pitch-review-header">
+                        <div class="review-meta-item">
+                            <span class="meta-label">Domain</span>
+                            <span class="meta-value badge-domain" id="pitchReviewDomain">Web Application</span>
+                        </div>
+                        <div class="review-meta-item">
+                            <span class="meta-label">Destination</span>
+                            <span class="meta-value badge-channel" id="pitchReviewChannel">WhatsApp</span>
+                        </div>
+                    </div>
+                    <div class="pitch-preview-box">
+                        <div class="preview-box-bar">
+                            <span class="preview-dot red"></span>
+                            <span class="preview-dot yellow"></span>
+                            <span class="preview-dot green"></span>
+                            <span class="preview-title">pitch_transmission.txt</span>
+                        </div>
+                        <pre class="pitch-message-body" id="pitchPreviewBody"></pre>
+                    </div>
+                </div>
+
+                <!-- Launch Actions -->
+                <div class="pitch-launch-actions">
+                    <button type="button" class="btn btn-primary pitch-launch-btn" id="pitchLaunchBtn">
+                        <span class="launch-btn-icon" id="launchBtnIcon">
+                            <!-- Injected dynamically based on channel -->
+                        </span>
+                        <span id="launchBtnText">Launch on WhatsApp</span>
+                        <span aria-hidden="true">↗</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary pitch-copy-btn" id="pitchCopyBtn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span id="copyBtnText">Copy Pitch Text</span>
+                    </button>
+                </div>
+
+                <!-- Live Status Strip -->
+                <div class="pitch-status-strip" id="pitchStatusStrip" role="status" aria-live="polite">
+                    <span class="pitch-status-dot" aria-hidden="true"></span>
+                    <span class="pitch-status-msg" id="pitchStatusMsg">Typical turnaround within 24 hours · Mumbai, India (IST)</span>
+                </div>
+
+                <div class="pitch-step-footer has-back">
+                    <button type="button" class="btn btn-ghost pitch-back-btn" data-prev-step="3">
+                        <span aria-hidden="true">←</span>
+                        <span>Back to Channel</span>
+                    </button>
+                    <span class="pitch-footer-hint">Ready to transmit</span>
+                </div>
             </fieldset>
         </form>
     </div>

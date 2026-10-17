@@ -619,36 +619,56 @@ function getFilteredAndSortedProjects() {
 function renderGridView(projects) {
     directoryGridContainer.innerHTML = projects.map(p => {
         const langColor = LANG_COLORS[p.language] || LANG_COLORS.Default;
+        const svgArtwork = SVG_ARTWORKS[p.artworkKey]
+            ? SVG_ARTWORKS[p.artworkKey]()
+            : SVG_ARTWORKS.generic(p.name, p.language, p.categoryLabel);
+
         const liveBtn = p.liveUrl
-            ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link" aria-label="Live Preview for ${p.name}"><span>Live Preview</span> <span aria-hidden="true">↗</span></a>`
-            : `<span class="grid-action-link" style="opacity:0.5;cursor:default;"><span>Code Only</span></span>`;
+            ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link grid-action-live" aria-label="Open live demo for ${p.name}"><span>Live Demo</span> <span aria-hidden="true">↗</span></a>`
+            : `<span class="grid-action-pill-muted">Source Only</span>`;
 
         return `
-            <article class="grid-card" data-project-id="${p.id}" tabindex="0" role="button" aria-label="View details for ${p.title}">
-                <div>
-                    <div class="grid-card-header">
-                        <span class="grid-card-category">${p.categoryLabel}</span>
-                        <span class="grid-card-stars">
-                            <span aria-hidden="true">★</span>
-                            <span>${p.stars || 0}</span>
+            <article class="grid-card" data-project-id="${p.id}" tabindex="0" role="article" aria-label="Project: ${p.title}">
+                <div class="grid-card-preview" aria-hidden="true">
+                    ${svgArtwork}
+                    <div class="grid-card-preview-overlay">
+                        <span class="preview-domain-tag">${p.categoryLabel}</span>
+                        <span class="preview-lang-tag">
+                            <span class="preview-lang-dot" style="background-color: ${langColor}"></span>
+                            <span>${p.language}</span>
                         </span>
-                    </div>
-                    <h3 class="grid-card-title">${p.title}</h3>
-                    <p class="grid-card-desc">${p.description}</p>
-                    <div class="grid-card-tech" aria-label="Technologies used">
-                        ${p.technologies.slice(0, 3).map(t => `<span class="grid-tech-tag">${t}</span>`).join('')}
-                        ${p.technologies.length > 3 ? `<span class="grid-tech-tag">+${p.technologies.length - 3}</span>` : ''}
                     </div>
                 </div>
 
-                <div class="grid-card-footer">
-                    <span class="grid-lang-indicator">
-                        <span class="grid-lang-dot" style="background-color: ${langColor}" aria-hidden="true"></span>
-                        <span>${p.language}</span>
-                    </span>
-                    <div class="grid-card-actions" onclick="event.stopPropagation()">
-                        ${liveBtn}
-                        <a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link" aria-label="Source code for ${p.name}"><span>Source Code</span> <span aria-hidden="true">↗</span></a>
+                <div class="grid-card-body">
+                    <div class="grid-card-header">
+                        <span class="grid-card-category">${p.categoryLabel}</span>
+                        <div class="grid-card-stars" aria-label="${p.stars || 0} stars">
+                            <span aria-hidden="true">★</span>
+                            <span>${p.stars || 0}</span>
+                        </div>
+                    </div>
+
+                    <h3 class="grid-card-title">${p.title}</h3>
+                    <p class="grid-card-desc">${p.description}</p>
+
+                    <div class="grid-card-tech" aria-label="Technologies used">
+                        ${p.technologies.slice(0, 3).map(t => `<span class="grid-tech-tag">${t}</span>`).join('')}
+                        ${p.technologies.length > 3 ? `<span class="grid-tech-tag grid-tech-more">+${p.technologies.length - 3}</span>` : ''}
+                    </div>
+
+                    <div class="grid-card-footer">
+                        <button type="button" class="grid-card-story-btn" data-action="story" aria-label="Inspect ${p.title} case study">
+                            <span>Deep Story</span>
+                            <span class="story-arrow" aria-hidden="true">→</span>
+                        </button>
+                        <div class="grid-card-actions">
+                            ${liveBtn}
+                            <a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link grid-action-code" aria-label="Source code for ${p.name}">
+                                <span>Code</span>
+                                <span aria-hidden="true">↗</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -660,11 +680,11 @@ function renderTableView(projects) {
     directoryTableBody.innerHTML = projects.map(p => {
         const langColor = LANG_COLORS[p.language] || LANG_COLORS.Default;
         const liveBtn = p.liveUrl
-            ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link">Live Preview ↗</a>`
-            : `<span class="grid-action-link" style="opacity:0.45;cursor:default;">No Preview</span>`;
+            ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link grid-action-live" aria-label="Open live demo for ${p.name}"><span>Preview</span> <span aria-hidden="true">↗</span></a>`
+            : `<span class="grid-action-pill-muted">Source Only</span>`;
 
         return `
-            <tr data-project-id="${p.id}" tabindex="0" role="button" aria-label="View details for ${p.title}">
+            <tr data-project-id="${p.id}" tabindex="0" role="row" aria-label="View case study for ${p.title}">
                 <td>
                     <div class="table-project-cell">
                         <span class="table-title">${p.title}</span>
@@ -674,7 +694,7 @@ function renderTableView(projects) {
                 <td><span class="table-domain-badge">${p.categoryLabel}</span></td>
                 <td>
                     <div class="grid-card-tech">
-                        ${p.technologies.slice(0, 2).map(t => `<span class="grid-tech-tag">${t}</span>`).join('')}
+                        ${p.technologies.slice(0, 3).map(t => `<span class="grid-tech-tag">${t}</span>`).join('')}
                     </div>
                 </td>
                 <td>
@@ -683,13 +703,14 @@ function renderTableView(projects) {
                         <span>${p.language}</span>
                     </span>
                 </td>
-                <td style="font-family:'JetBrains Mono',monospace;font-size:0.78rem">
+                <td class="table-updated-cell">
                     ${formatTimeAgo(p.updatedAt)}
                 </td>
-                <td class="table-actions-col" onclick="event.stopPropagation()">
+                <td class="table-actions-col">
                     <div class="table-actions-wrap">
+                        <button type="button" class="table-action-story-btn" data-action="story" aria-label="Inspect story for ${p.title}">Story →</button>
                         ${liveBtn}
-                        <a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link">Source Code ↗</a>
+                        <a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="grid-action-link grid-action-code" aria-label="Source code for ${p.name}"><span>Code</span> <span aria-hidden="true">↗</span></a>
                     </div>
                 </td>
             </tr>
@@ -753,9 +774,13 @@ function formatTimeAgo(isoDate) {
 // ═══════════════════════════════════════════════════════════════
 // CASE STUDY & PROJECT DETAIL MODAL
 // ═══════════════════════════════════════════════════════════════
+let modalOpener = null;
+
 function openProjectModal(projectId) {
     const project = allProjects.find(p => p.id === projectId);
     if (!project) return;
+
+    modalOpener = document.activeElement;
 
     modalCategory.textContent = project.categoryLabel;
     modalStatus.textContent = project.featured ? 'Flagship Architecture' : 'Verified Public Repository';
@@ -843,6 +868,9 @@ function closeProjectModal() {
     projectModal.classList.remove('active');
     projectModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (modalOpener && typeof modalOpener.focus === 'function') {
+        modalOpener.focus();
+    }
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -909,25 +937,61 @@ function attachDirectoryEvents() {
         renderDirectory();
     });
 
+    // Delegated click handling: ignore external links, open modal on card or story trigger
     document.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+
+        const storyBtn = e.target.closest('[data-action="story"]');
         const item = e.target.closest('.grid-card, tr[data-project-id]');
-        if (item && !e.target.closest('a')) {
-            const projId = item.dataset.projectId;
-            openProjectModal(projId);
+        if (storyBtn || item) {
+            const targetEl = storyBtn ? storyBtn.closest('[data-project-id]') : item;
+            const projId = targetEl ? targetEl.dataset.projectId : null;
+            if (projId) openProjectModal(projId);
+        }
+    });
+
+    // Keyboard activation (Enter on card or table row)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const activeEl = document.activeElement;
+            if (activeEl && activeEl.matches && activeEl.matches('.grid-card, tr[data-project-id]')) {
+                const projId = activeEl.dataset.projectId;
+                if (projId) openProjectModal(projId);
+            }
         }
     });
 
     modalCloseBtn.addEventListener('click', closeProjectModal);
     modalBackdrop.addEventListener('click', closeProjectModal);
 
+    // Modal focus trap & shortcuts
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && projectModal.classList.contains('active')) {
             closeProjectModal();
+            return;
         }
 
         if (e.key === '/' && document.activeElement !== directorySearchInput && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
             e.preventDefault();
             directorySearchInput.focus();
+        }
+
+        if (e.key === 'Tab' && projectModal.classList.contains('active')) {
+            const focusables = [...projectModal.querySelectorAll('button:not([disabled]), a[href]:not([disabled]), [tabindex="0"]')].filter(el => el.offsetParent !== null);
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
         }
     });
 }
@@ -942,14 +1006,14 @@ async function syncGitHubData() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const repos = await response.json();
 
-        // Explicitly filter out any private or excluded repositories from public ledger
-        const publicRepos = repos.filter(r => !r.name.toLowerCase().includes('her'));
+        // Safely filter out only exact 'her' repository
+        const publicRepos = repos.filter(r => r.name.toLowerCase() !== 'her');
         const repoMap = new Map();
         publicRepos.forEach(repo => {
             repoMap.set(repo.name.toLowerCase(), repo);
         });
 
-        allProjects = allProjects.filter(p => !p.id.includes('her') && !p.name.toLowerCase().includes('her')).map(proj => {
+        allProjects = allProjects.filter(p => p.name.toLowerCase() !== 'her').map(proj => {
             const liveRepo = repoMap.get(proj.name.toLowerCase());
             if (liveRepo) {
                 return {
@@ -965,18 +1029,22 @@ async function syncGitHubData() {
 
         featuredProjects = allProjects.filter(p => p.featured);
 
-        syncDot.className = 'sync-dot synced';
-        syncText.textContent = 'Live GitHub Sync';
-        syncStatusPill.title = `Synced with GitHub API (${publicRepos.length} public repos verified)`;
+        if (syncDot && syncText && syncStatusPill) {
+            syncDot.className = 'sync-dot synced';
+            syncText.textContent = 'Live GitHub Sync';
+            syncStatusPill.title = `Synced with GitHub API (${publicRepos.length} public repos verified)`;
+        }
+
+        updateCarouselLayout(0, false);
+        renderDirectory();
     } catch (err) {
         console.info('Aether Archive: Using verified local registry (GitHub API offline or rate-limited).', err.message);
-        syncDot.className = 'sync-dot offline';
-        syncText.textContent = 'Verified Registry';
-        syncStatusPill.title = 'Serving verified curated local registry';
+        if (syncDot && syncText && syncStatusPill) {
+            syncDot.className = 'sync-dot offline';
+            syncText.textContent = 'Verified Registry';
+            syncStatusPill.title = 'Serving verified curated local registry';
+        }
     }
-
-    renderCarouselCards();
-    renderDirectory();
 }
 
 // ═══════════════════════════════════════════════════════════════

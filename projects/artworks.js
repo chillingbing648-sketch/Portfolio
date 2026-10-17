@@ -473,198 +473,463 @@ export const SVG_ARTWORKS = {
 `,
 
     aerion: () => `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
-<title id="t">AERION Spatial Interface</title>
-<desc id="d">A dark full-screen AERION interface with live spatial matter, a glowing central core, hand landmarks, interaction trails and the minimal HUD.</desc>
-<defs>
-<radialGradient id="b"><stop stop-color="#16283b"/><stop offset=".45" stop-color="#09121d"/><stop offset="1" stop-color="#040608"/></radialGradient>
-<radialGradient id="c"><stop stop-color="#effcff"/><stop offset=".16" stop-color="#8fe7ff" stop-opacity=".95"/><stop offset=".55" stop-color="#78d8ff" stop-opacity=".22"/><stop offset="1" stop-color="#78d8ff" stop-opacity="0"/></radialGradient>
-<filter id="g"><feGaussianBlur stdDeviation="16"/></filter>
-<style>.s{font-family:Inter,ui-sans-serif,system-ui,sans-serif}.m{font-family:"IBM Plex Mono",monospace}</style>
-</defs>
-<rect width="1600" height="900" rx="34" fill="#040608"/>
-<rect x="24" y="24" width="1552" height="852" rx="28" fill="url(#b)" stroke="#fff" stroke-opacity=".08"/>
-<circle cx="805" cy="440" r="245" fill="#74d8ff" opacity=".08" filter="url(#g)"/>
-<!-- HUD -->
-<text x="82" y="92" class="s" font-size="25" font-weight="650" fill="#f2f7ff">AERION</text>
-<text x="82" y="118" class="s" font-size="14" fill="#d8e7f5" opacity=".48">Spatial Interface</text>
-<circle cx="1390" cy="87" r="5" fill="#9feaff"/>
-<text x="1410" y="93" text-anchor="end" class="s" font-size="15" fill="#f2f7ff">Active</text>
-<text x="1410" y="118" text-anchor="end" class="s" font-size="12" fill="#d8e7f5" opacity=".45">Ice Blue</text>
-<!-- central spatial matter -->
-<circle cx="805" cy="440" r="142" fill="none" stroke="#9feaff" stroke-opacity=".55" stroke-width="2"/>
-<ellipse cx="805" cy="440" rx="185" ry="60" fill="none" stroke="#9ca7ff" stroke-opacity=".30" stroke-width="2" transform="rotate(-18 805 440)"/>
-<ellipse cx="805" cy="440" rx="160" ry="52" fill="none" stroke="#d8f8ff" stroke-opacity=".18" stroke-width="1.5" transform="rotate(42 805 440)"/>
-<circle cx="805" cy="440" r="112" fill="url(#c)"/>
-<circle cx="805" cy="440" r="20" fill="#dffbff" opacity=".9" filter="url(#g)"/>
-<circle cx="805" cy="440" r="9" fill="#fff"/>
-<!-- matter -->
-<g fill="#c9f5ff">
-<circle cx="647" cy="402" r="4"/><circle cx="710" cy="282" r="2"/><circle cx="938" cy="470" r="4"/>
-<circle cx="1007" cy="330" r="2"/><circle cx="1030" cy="590" r="3"/><circle cx="560" cy="590" r="2"/>
-<circle cx="1180" cy="390" r="2"/><circle cx="450" cy="520" r="2"/><circle cx="705" cy="650" r="2"/>
-</g>
-<!-- air trail -->
-<path d="M365 605 C510 560 555 465 655 434 S790 430 875 395 S1045 300 1225 240" fill="none" stroke="#8ee8ff" stroke-opacity=".25" stroke-width="15" filter="url(#g)"/>
-<path d="M365 605 C510 560 555 465 655 434 S790 430 875 395 S1045 300 1225 240" fill="none" stroke="#b8f2ff" stroke-opacity=".6" stroke-width="2.2"/>
-<!-- tracked hand -->
-<g fill="none" stroke="#dff9ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
-<path d="M315 548 L292 468 L300 380 L324 316 L342 326 L336 395"/>
-<path d="M336 395 L340 286 L357 250 L372 260 L369 360"/>
-<path d="M369 360 L390 255 L407 226 L424 240 L414 356"/>
-<path d="M414 356 L446 278 L466 259 L480 273 L454 371"/>
-<path d="M454 371 L490 320 L508 312 L520 328 L490 420"/>
-<path d="M315 548 L350 582 L420 596 L484 570 L512 520"/>
-</g>
-<g fill="#aeeeff"><circle cx="315" cy="548" r="7"/><circle cx="340" cy="286" r="6"/><circle cx="390" cy="255" r="6"/><circle cx="446" cy="278" r="6"/><circle cx="490" cy="320" r="6"/><circle cx="414" cy="356" r="6"/></g>
-<!-- pinch interaction -->
-<circle cx="1275" cy="405" r="31" fill="none" stroke="#9feaff" stroke-opacity=".35" stroke-width="2"/>
-<circle cx="1275" cy="405" r="8" fill="#dffbff"/>
-<path d="M1190 490 Q1240 430 1275 405 T1370 370" fill="none" stroke="#dff9ff" stroke-opacity=".6" stroke-width="4" stroke-linecap="round"/>
-<rect x="1310" y="450" width="176" height="44" rx="22" fill="#fff" fill-opacity=".045" stroke="#fff" stroke-opacity=".1"/>
-<circle cx="1332" cy="472" r="4" fill="#9feaff"/>
-<text x="1346" y="477" class="s" font-size="13" fill="#eef7ff">Spatial Lens</text>
-<!-- bottom HUD -->
-<text x="82" y="805" class="m" font-size="11" letter-spacing="1.4" fill="#d8e7f5" opacity=".32">INTERACTION</text>
-<text x="82" y="835" class="s" font-size="19" fill="#f2f7ff">Spatial Core</text>
-<text x="800" y="831" text-anchor="middle" class="m" font-size="11" letter-spacing="1.2" fill="#d8e7f5" opacity=".48">AERION ONLINE</text>
-<rect x="1290" y="790" width="200" height="44" rx="22" fill="#fff" fill-opacity=".045" stroke="#fff" stroke-opacity=".1"/>
-<text x="1312" y="817" class="s" font-size="13" fill="#d8e7f5" opacity=".62">↻ Recenter</text>
-<text x="1414" y="817" class="s" font-size="13" fill="#d8e7f5" opacity=".62">?</text>
-<text x="1435" y="817" class="s" font-size="13" fill="#eef7ff">Gestures</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Aerion Spatial Interface and Matter Lab">
+  <defs>
+    <radialGradient id="ae-bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#0a192f"/>
+      <stop offset="45%" stop-color="#060e1d"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+    <radialGradient id="ae-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#7dd3fc"/>
+      <stop offset="60%" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ae-bloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ae-line" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0.2"/>
+    </linearGradient>
+    <pattern id="ae-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(56, 189, 248, 0.05)" stroke-width="1"/>
+      <circle cx="40" cy="40" r="1" fill="rgba(56, 189, 248, 0.15)"/>
+    </pattern>
+    <filter id="ae-glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#ae-bg)"/>
+  <rect width="1600" height="900" fill="url(#ae-grid)"/>
+  <circle cx="820" cy="450" r="380" fill="url(#ae-bloom)"/>
+  <circle cx="340" cy="500" r="260" fill="rgba(129, 140, 248, 0.08)"/>
+  <circle cx="1300" cy="400" r="280" fill="rgba(56, 189, 248, 0.06)"/>
+
+  <g stroke="rgba(56, 189, 248, 0.14)" stroke-width="1" stroke-dasharray="4 6">
+    <line x1="820" y1="60" x2="820" y2="840"/>
+    <line x1="120" y1="450" x2="1480" y2="450"/>
+    <circle cx="820" cy="450" r="280" fill="none"/>
+    <circle cx="820" cy="450" r="190" fill="none"/>
+    <circle cx="820" cy="450" r="110" fill="none"/>
+  </g>
+
+  <g transform="translate(820, 450)">
+    <ellipse cx="0" cy="0" rx="340" ry="120" fill="none" stroke="rgba(56, 189, 248, 0.45)" stroke-width="2" transform="rotate(-24)"/>
+    <ellipse cx="0" cy="0" rx="320" ry="100" fill="none" stroke="rgba(129, 140, 248, 0.35)" stroke-width="1.8" transform="rotate(38)"/>
+    <ellipse cx="0" cy="0" rx="260" ry="80" fill="none" stroke="rgba(224, 242, 254, 0.25)" stroke-width="1.5" transform="rotate(-58)"/>
+
+    <circle cx="280" cy="-60" r="5" fill="#38bdf8" filter="url(#ae-glow)"/>
+    <circle cx="-240" cy="70" r="4" fill="#818cf8"/>
+    <circle cx="180" cy="110" r="3.5" fill="#e0f2fe"/>
+    <circle cx="-160" cy="-120" r="4.5" fill="#38bdf8"/>
+
+    <circle cx="0" cy="0" r="75" fill="url(#ae-core)"/>
+    <circle cx="0" cy="0" r="24" fill="#ffffff" filter="url(#ae-glow)"/>
+    <circle cx="0" cy="0" r="10" fill="#0369a1"/>
+  </g>
+
+  <g fill="none" stroke="url(#ae-line)" stroke-width="1.5" opacity="0.75">
+    <path d="M 320 540 Q 520 480 820 450 T 1320 380"/>
+    <path d="M 360 480 Q 580 430 820 450 T 1280 440"/>
+    <path d="M 400 620 Q 640 540 820 450 T 1240 520"/>
+  </g>
+
+  <g transform="translate(180, 260)">
+    <g stroke="rgba(186, 230, 253, 0.85)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#ae-glow)">
+      <path d="M 120 340 L 160 300 L 210 290 L 250 310 L 260 350 L 190 380 Z" fill="rgba(56, 189, 248, 0.08)"/>
+      <path d="M 160 300 L 130 250 L 110 200 L 95 160"/>
+      <path d="M 210 290 L 220 220 L 245 150 L 285 90"/>
+      <path d="M 250 310 L 275 240 L 305 180 L 330 130"/>
+      <path d="M 260 350 L 300 295 L 330 250 L 350 210"/>
+      <path d="M 250 375 L 290 345 L 320 315 L 340 285"/>
+      <path d="M 285 90 Q 420 80 640 190" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6 4"/>
+    </g>
+
+    <g fill="#ffffff" stroke="#0284c7" stroke-width="2.5">
+      <circle cx="190" cy="380" r="7"/>
+      <circle cx="160" cy="300" r="5"/><circle cx="130" cy="250" r="5"/><circle cx="110" cy="200" r="5"/><circle cx="95" cy="160" r="7" fill="#38bdf8"/>
+      <circle cx="210" cy="290" r="5"/><circle cx="220" cy="220" r="5"/><circle cx="245" cy="150" r="5"/><circle cx="285" cy="90" r="8" fill="#38bdf8" filter="url(#ae-glow)"/>
+      <circle cx="250" cy="310" r="5"/><circle cx="275" cy="240" r="5"/><circle cx="305" cy="180" r="5"/><circle cx="330" cy="130" r="6"/>
+      <circle cx="260" cy="350" r="5"/><circle cx="300" cy="295" r="5"/><circle cx="330" cy="250" r="5"/><circle cx="350" cy="210" r="6"/>
+      <circle cx="250" cy="375" r="5"/><circle cx="290" cy="345" r="5"/><circle cx="320" cy="315" r="5"/><circle cx="340" cy="285" r="6"/>
+    </g>
+
+    <rect x="295" y="65" width="165" height="26" rx="6" fill="rgba(3, 7, 18, 0.85)" stroke="rgba(56, 189, 248, 0.4)"/>
+    <text x="305" y="82" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">INDEX_TIP // 3D PINCH</text>
+  </g>
+
+  <g transform="translate(1260, 420)">
+    <circle cx="0" cy="0" r="65" fill="rgba(15, 23, 42, 0.85)" stroke="#38bdf8" stroke-width="2" filter="url(#ae-glow)"/>
+    <circle cx="0" cy="0" r="48" fill="none" stroke="rgba(129, 140, 248, 0.5)" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <circle cx="0" cy="0" r="6" fill="#38bdf8"/>
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="0" y1="-30" x2="0" y2="30" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="0" y="95" text-anchor="middle" fill="#e0f2fe" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5">SPATIAL FOCAL RETICLE</text>
+    <text x="0" y="112" text-anchor="middle" fill="rgba(224, 242, 254, 0.55)" font-family="'JetBrains Mono', monospace" font-size="10">DEPTH: -142mm // 60 FPS</text>
+  </g>
+
+  <g transform="translate(70, 75)">
+    <rect x="0" y="0" width="12" height="12" fill="#38bdf8"/>
+    <text x="24" y="11" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="800" letter-spacing="1">AERION</text>
+    <text x="110" y="11" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" letter-spacing="2">// SPATIAL INTERFACE &amp; MATTER LAB</text>
+    <text x="0" y="34" fill="rgba(224, 242, 254, 0.55)" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Real-time kinetic light &amp; gesture physics engine</text>
+  </g>
+
+  <g transform="translate(1120, 65)">
+    <rect x="0" y="0" width="410" height="42" rx="10" fill="rgba(6, 14, 29, 0.85)" stroke="rgba(56, 189, 248, 0.25)"/>
+    <circle cx="20" cy="21" r="4" fill="#34d399" filter="url(#ae-glow)"/>
+    <text x="34" y="25" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">WEBGL SHADER: ACTIVE</text>
+    <text x="210" y="25" fill="rgba(224, 242, 254, 0.5)" font-family="'JetBrains Mono', monospace" font-size="11">|</text>
+    <text x="228" y="25" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">21 LANDMARKS @ 60 FPS</text>
+  </g>
+
+  <g transform="translate(70, 810)">
+    <rect x="0" y="0" width="1460" height="48" rx="12" fill="rgba(6, 14, 29, 0.9)" stroke="rgba(56, 189, 248, 0.22)"/>
+    <text x="24" y="29" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1.5">STACK ARCHITECTURE</text>
+    <circle cx="200" cy="24" r="2.5" fill="rgba(224, 242, 254, 0.3)"/>
+    <text x="220" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">TypeScript</text>
+    <circle cx="315" cy="24" r="2.5" fill="rgba(224, 242, 254, 0.3)"/>
+    <text x="335" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Raw WebGL Shaders</text>
+    <circle cx="495" cy="24" r="2.5" fill="rgba(224, 242, 254, 0.3)"/>
+    <text x="515" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Canvas 2D Particle Grid</text>
+    <circle cx="705" cy="24" r="2.5" fill="rgba(224, 242, 254, 0.3)"/>
+    <text x="725" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Spatial Computing Physics</text>
+    <text x="1436" y="29" text-anchor="end" fill="#818cf8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">ZERO LATENCY INTERACTION ENGINE</text>
+  </g>
 </svg>
 `,
 
     asyouwish: () => `
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
-  <title id="title">As You Wish — Create Freely. Arrange Beautifully. Make It Yours.</title>
-  <desc id="desc">A soft pastel scrapbook-inspired header with notebooks, stars, flowers, bows and a playful creative workspace.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="As You Wish Local-First Infinite Creative Canvas">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFF3F7"/>
-      <stop offset="0.42" stop-color="#EDE7FF"/>
-      <stop offset="0.75" stop-color="#E7F5EE"/>
-      <stop offset="1" stop-color="#FFF4D9"/>
+    <radialGradient id="ay-bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#180c24"/>
+      <stop offset="50%" stop-color="#0e0618"/>
+      <stop offset="100%" stop-color="#06020c"/>
+    </radialGradient>
+    <linearGradient id="ay-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#c084fc"/>
     </linearGradient>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#7A6B83" flood-opacity="0.16"/>
-    </filter>
-    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
-      <circle cx="3" cy="3" r="1.5" fill="#B8AFC8" opacity="0.32"/>
+    <pattern id="ay-canvas-grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="18" r="1.2" fill="rgba(244, 114, 182, 0.12)"/>
     </pattern>
+    <filter id="ay-shadow">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
   </defs>
 
-  <rect width="1600" height="520" rx="36" fill="url(#bg)"/>
-  <rect x="18" y="18" width="1564" height="484" rx="30" fill="url(#dots)" opacity="0.55"/>
+  <rect width="1600" height="900" fill="url(#ay-bg)"/>
+  <rect width="1600" height="900" fill="url(#ay-canvas-grid)"/>
 
-  <g opacity="0.72">
-    <circle cx="135" cy="102" r="72" fill="#FFD7E3"/>
-    <circle cx="1450" cy="112" r="92" fill="#DCD4FF"/>
-    <circle cx="1510" cy="410" r="74" fill="#D8F0E3"/>
+  <circle cx="480" cy="420" r="340" fill="rgba(244, 114, 182, 0.08)"/>
+  <circle cx="1140" cy="500" r="300" fill="rgba(192, 132, 252, 0.08)"/>
+
+  <g transform="translate(70, 60)">
+    <rect x="0" y="0" width="34" height="34" rx="10" fill="rgba(244, 114, 182, 0.15)" stroke="rgba(244, 114, 182, 0.4)"/>
+    <text x="17" y="23" text-anchor="middle" fill="#f472b6" font-size="16">✦</text>
+    <text x="46" y="16" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="17" font-weight="800">AS YOU WISH</text>
+    <text x="46" y="32" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5">LOCAL-FIRST CREATIVE NOTEBOOK</text>
+
+    <g transform="translate(480, 0)">
+      <rect x="0" y="0" width="360" height="40" rx="12" fill="rgba(20, 10, 32, 0.9)" stroke="rgba(255, 255, 255, 0.12)"/>
+      <rect x="6" y="5" width="62" height="30" rx="8" fill="rgba(244, 114, 182, 0.2)" stroke="rgba(244, 114, 182, 0.5)"/>
+      <text x="37" y="24" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700">Select</text>
+      <text x="100" y="24" text-anchor="middle" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Pan</text>
+      <text x="160" y="24" text-anchor="middle" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Note</text>
+      <text x="225" y="24" text-anchor="middle" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Media</text>
+      <text x="290" y="24" text-anchor="middle" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Draw</text>
+    </g>
+
+    <g transform="translate(1120, 0)">
+      <rect x="0" y="0" width="340" height="40" rx="12" fill="rgba(20, 10, 32, 0.9)" stroke="rgba(255, 255, 255, 0.12)"/>
+      <circle cx="20" cy="20" r="4" fill="#34d399"/>
+      <text x="34" y="24" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">ZOOM: 100%</text>
+      <text x="140" y="24" fill="rgba(255, 255, 255, 0.3)">|</text>
+      <text x="160" y="24" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">POS [x: 420, y: -180]</text>
+    </g>
   </g>
 
-  <g transform="translate(92 94) rotate(-7)" filter="url(#shadow)">
-    <rect width="300" height="220" rx="18" fill="#FFFDF9"/>
-    <rect x="0" y="0" width="300" height="48" rx="18" fill="#F3C7D6"/>
-    <circle cx="26" cy="24" r="7" fill="#FFFDF9"/>
-    <circle cx="50" cy="24" r="7" fill="#FFFDF9"/>
-    <circle cx="74" cy="24" r="7" fill="#FFFDF9"/>
-    <text x="28" y="92" font-family="Georgia, serif" font-size="26" fill="#594D62">little ideas</text>
-    <path d="M30 116 C82 101 104 135 154 116 S230 101 270 122" fill="none" stroke="#E7AFC3" stroke-width="5" stroke-linecap="round"/>
-    <path d="M30 154 C78 139 108 172 158 153 S230 140 270 158" fill="none" stroke="#B9CFE0" stroke-width="5" stroke-linecap="round"/>
-    <text x="28" y="194" font-family="cursive" font-size="24" fill="#8B7690">♡ make it yours ♡</text>
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <path d="M 490 320 Q 640 260 820 320" stroke="rgba(244, 114, 182, 0.55)" stroke-dasharray="6 4"/>
+    <path d="M 450 490 Q 560 620 780 610" stroke="rgba(192, 132, 252, 0.55)" stroke-dasharray="6 4"/>
+    <path d="M 1120 380 Q 1240 440 1260 520" stroke="rgba(244, 114, 182, 0.45)"/>
   </g>
 
-  <g transform="translate(1225 255) rotate(7)" filter="url(#shadow)">
-    <rect width="260" height="168" rx="22" fill="#FFFDF9"/>
-    <rect x="16" y="16" width="228" height="112" rx="14" fill="#F0ECFA"/>
-    <circle cx="130" cy="144" r="8" fill="#D7C8E8"/>
-    <path d="M72 82 l22 -22 l18 18 l28 -34 l34 38" fill="none" stroke="#C29AB2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="211" cy="45" r="9" fill="#F4C8D8"/>
+  <g transform="translate(120, 160) rotate(-2.5)" filter="url(#ay-shadow)">
+    <rect x="130" y="-12" width="90" height="24" rx="4" fill="rgba(244, 114, 182, 0.35)" transform="rotate(3 175 0)"/>
+    <rect x="0" y="0" width="380" height="340" rx="18" fill="rgba(24, 14, 38, 0.92)" stroke="rgba(244, 114, 182, 0.35)" stroke-width="1.5"/>
+
+    <g transform="translate(28, 36)">
+      <text x="0" y="16" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1">CANVAS THOUGHT // 01</text>
+      <text x="0" y="48" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="800">Visual Thinking Space</text>
+      <text x="0" y="78" fill="rgba(255, 255, 255, 0.75)" font-family="'Plus Jakarta Sans', sans-serif" font-size="13">
+        “Linear documents force thoughts into rigid corridors.
+      </text>
+      <text x="0" y="98" fill="rgba(255, 255, 255, 0.75)" font-family="'Plus Jakarta Sans', sans-serif" font-size="13">
+        Creativity demands an infinite, living space where
+      </text>
+      <text x="0" y="118" fill="rgba(255, 255, 255, 0.75)" font-family="'Plus Jakarta Sans', sans-serif" font-size="13">
+        ideas cluster organically.”
+      </text>
+
+      <line x1="0" y1="140" x2="324" y2="140" stroke="rgba(255, 255, 255, 0.08)"/>
+
+      <text x="0" y="175" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">CORE PRINCIPLES</text>
+      <circle cx="6" cy="202" r="3" fill="#f472b6"/>
+      <text x="18" y="206" fill="#e2e8f0" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Local-first indexed state (Zustand)</text>
+      <circle cx="6" cy="228" r="3" fill="#f472b6"/>
+      <text x="18" y="232" fill="#e2e8f0" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Infinite pan &amp; zoom coordinate space</text>
+      <circle cx="6" cy="254" r="3" fill="#f472b6"/>
+      <text x="18" y="258" fill="#e2e8f0" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Zero cloud dependency · 100% private</text>
+    </g>
   </g>
 
-  <g transform="translate(1170 82)">
-    <path d="M44 52 C10 8 -18 28 6 62 C20 82 43 71 52 58 C61 71 84 82 98 62 C122 28 94 8 60 52 C54 60 50 60 44 52Z" fill="#EAAFC4"/>
-    <path d="M52 58 C42 91 34 113 20 133" fill="none" stroke="#C48DA8" stroke-width="6" stroke-linecap="round"/>
-    <path d="M52 58 C62 91 70 113 84 133" fill="none" stroke="#C48DA8" stroke-width="6" stroke-linecap="round"/>
+  <g transform="translate(560, 160)" filter="url(#ay-shadow)">
+    <rect x="0" y="0" width="460" height="230" rx="18" fill="rgba(24, 14, 38, 0.92)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+
+    <g transform="translate(28, 28)">
+      <text x="0" y="16" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="15" font-weight="700">Aesthetic Palette &amp; System Mood</text>
+      <text x="0" y="36" fill="rgba(255, 255, 255, 0.5)" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Curated swatches for organic workspace notes</text>
+
+      <g transform="translate(0, 56)">
+        <rect x="0" y="0" width="90" height="90" rx="14" fill="#f472b6"/>
+        <text x="45" y="112" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'JetBrains Mono', monospace" font-size="10">#f472b6</text>
+
+        <rect x="105" y="0" width="90" height="90" rx="14" fill="#c084fc"/>
+        <text x="150" y="112" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'JetBrains Mono', monospace" font-size="10">#c084fc</text>
+
+        <rect x="210" y="0" width="90" height="90" rx="14" fill="#818cf8"/>
+        <text x="255" y="112" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'JetBrains Mono', monospace" font-size="10">#818cf8</text>
+
+        <rect x="315" y="0" width="90" height="90" rx="14" fill="#38bdf8"/>
+        <text x="360" y="112" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'JetBrains Mono', monospace" font-size="10">#38bdf8</text>
+      </g>
+    </g>
   </g>
 
-  <g fill="#9B89C8" opacity="0.85">
-    <path d="M395 78 l7 18 l19 7 l-19 7 l-7 19 l-7-19 l-19-7 l19-7z"/>
-    <path d="M1110 410 l6 15 l16 6 l-16 6 l-6 16 l-6-16 l-16-6 l16-6z"/>
+  <g transform="translate(560, 430)" filter="url(#ay-shadow)">
+    <rect x="0" y="0" width="460" height="330" rx="18" fill="rgba(24, 14, 38, 0.92)" stroke="rgba(192, 132, 252, 0.3)" stroke-width="1.5"/>
+
+    <g transform="translate(28, 28)">
+      <text x="0" y="16" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1">LOCAL ARCHITECTURE SPEC</text>
+      <text x="0" y="44" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="700">Canvas Engine Features</text>
+
+      <g transform="translate(0, 68)">
+        <rect x="0" y="0" width="404" height="42" rx="8" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.08)"/>
+        <circle cx="20" cy="21" r="8" fill="#34d399"/>
+        <path d="M 16 21 L 19 24 L 25 17" fill="none" stroke="#000000" stroke-width="2"/>
+        <text x="38" y="25" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Zustand state synchronization without lag</text>
+      </g>
+
+      <g transform="translate(0, 120)">
+        <rect x="0" y="0" width="404" height="42" rx="8" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.08)"/>
+        <circle cx="20" cy="21" r="8" fill="#34d399"/>
+        <path d="M 16 21 L 19 24 L 25 17" fill="none" stroke="#000000" stroke-width="2"/>
+        <text x="38" y="25" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Trackpad pinch-to-zoom matrix transforms</text>
+      </g>
+
+      <g transform="translate(0, 172)">
+        <rect x="0" y="0" width="404" height="42" rx="8" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.08)"/>
+        <circle cx="20" cy="21" r="8" fill="#34d399"/>
+        <path d="M 16 21 L 19 24 L 25 17" fill="none" stroke="#000000" stroke-width="2"/>
+        <text x="38" y="25" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Draggable card clusters with organic snapping</text>
+      </g>
+
+      <g transform="translate(0, 224)">
+        <rect x="0" y="0" width="404" height="42" rx="8" fill="rgba(244, 114, 182, 0.08)" stroke="rgba(244, 114, 182, 0.3)"/>
+        <circle cx="20" cy="21" r="8" fill="none" stroke="#f472b6" stroke-width="2"/>
+        <circle cx="20" cy="21" r="3" fill="#f472b6"/>
+        <text x="38" y="25" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="600">Export canvas to high-res vector PDF</text>
+      </g>
+    </g>
   </g>
 
-  <g transform="translate(515 84)">
-    <text x="285" y="105" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" fill="#5B5064">As You Wish</text>
-    <text x="285" y="151" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" letter-spacing="5" fill="#8C7F91">CREATE FREELY · ARRANGE BEAUTIFULLY</text>
-    <text x="285" y="197" text-anchor="middle" font-family="cursive" font-size="29" fill="#B07C96">make it yours ♡</text>
+  <g transform="translate(1080, 220) rotate(3)" filter="url(#ay-shadow)">
+    <rect x="110" y="-10" width="80" height="22" rx="4" fill="rgba(192, 132, 252, 0.4)" transform="rotate(-4 150 0)"/>
+    <rect x="0" y="0" width="380" height="260" rx="16" fill="rgba(28, 16, 44, 0.95)" stroke="rgba(244, 114, 182, 0.4)" stroke-width="1.5"/>
+
+    <g transform="translate(28, 32)">
+      <text x="0" y="16" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800" letter-spacing="1.5">ORGANIC CONNECTION</text>
+      <text x="0" y="52" fill="#ffffff" font-family="'Playfair Display', Georgia, serif" font-size="22" font-style="italic">“Create freely.</text>
+      <text x="0" y="82" fill="#ffffff" font-family="'Playfair Display', Georgia, serif" font-size="22" font-style="italic">Arrange beautifully.</text>
+      <text x="0" y="112" fill="url(#ay-pink)" font-family="'Playfair Display', Georgia, serif" font-size="24" font-weight="700">Make it yours.”</text>
+      <text x="0" y="160" fill="rgba(255, 255, 255, 0.65)" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">
+        A private digital garden that never expires,
+      </text>
+      <text x="0" y="180" fill="rgba(255, 255, 255, 0.65)" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">
+        tracks, or locks your data behind a paywall.
+      </text>
+    </g>
   </g>
 
-  <g transform="translate(620 300)" filter="url(#shadow)">
-    <rect x="0" y="0" width="520" height="122" rx="26" fill="#FFFDF9" opacity="0.95"/>
-    <rect x="26" y="25" width="74" height="74" rx="18" fill="#F8D8E3"/>
-    <text x="63" y="75" text-anchor="middle" font-size="38">✎</text>
-    <rect x="116" y="25" width="74" height="74" rx="18" fill="#DDD6F4"/>
-    <text x="153" y="75" text-anchor="middle" font-size="38">✦</text>
-    <rect x="206" y="25" width="74" height="74" rx="18" fill="#D8EEE3"/>
-    <text x="243" y="75" text-anchor="middle" font-size="38">♡</text>
-    <rect x="296" y="25" width="74" height="74" rx="18" fill="#F8E9C9"/>
-    <text x="333" y="75" text-anchor="middle" font-size="38">🧸</text>
-    <text x="400" y="58" font-family="Arial, sans-serif" font-size="18" fill="#6F6477">notebook</text>
-    <text x="400" y="84" font-family="cursive" font-size="21" fill="#A87D94">your tiny universe</text>
-  </g>
-
-  <g fill="#D79DB5">
-    <circle cx="448" cy="388" r="6"/><circle cx="1160" cy="132" r="5"/><circle cx="1380" cy="355" r="7"/>
-  </g>
-  <g stroke="#A98EB6" stroke-width="5" stroke-linecap="round" opacity="0.75">
-    <path d="M455 416 q22 -28 44 0" fill="none"/>
-    <path d="M1335 82 q18 -22 36 0" fill="none"/>
+  <g transform="translate(70, 810)">
+    <rect x="0" y="0" width="1460" height="48" rx="12" fill="rgba(18, 8, 28, 0.92)" stroke="rgba(244, 114, 182, 0.25)"/>
+    <text x="24" y="29" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1.5">STACK</text>
+    <circle cx="85" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="105" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">React 19</text>
+    <circle cx="185" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="205" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">TypeScript</text>
+    <circle cx="305" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="325" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Zustand State Store</text>
+    <circle cx="495" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="515" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Local-First Storage</text>
+    <circle cx="685" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="705" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Infinite Pan/Zoom Canvas</text>
+    <text x="1436" y="29" text-anchor="end" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">100% PRIVATE &amp; BROWSER RESIDENT</text>
   </g>
 </svg>
 `,
 
     portfolio: () => `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Aether Digital Universe Portfolio Architecture">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Aether Flagship Digital Universe Architecture">
   <defs>
-    <linearGradient id="pt-bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#03030c"/>
-      <stop offset="100%" stop-color="#0a0a20"/>
-    </linearGradient>
-    <radialGradient id="pt-glow" cx="50%" cy="40%" r="55%">
-      <stop offset="0%" stop-color="rgba(139, 92, 246, 0.28)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    <radialGradient id="ae-univ-bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#0a0a24"/>
+      <stop offset="45%" stop-color="#040412"/>
+      <stop offset="100%" stop-color="#020206"/>
     </radialGradient>
+    <radialGradient id="ae-singularity" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="20%" stop-color="#67e8f9"/>
+      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#03030c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ae-nebula-cyan" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ae-nebula-indigo" cx="60%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="ae-space-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="24" cy="24" r="0.8" fill="rgba(99, 102, 241, 0.25)"/>
+    </pattern>
+    <filter id="ae-cosmic-glow">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
 
-  <rect width="1200" height="675" fill="url(#pt-bg)"/>
-  <rect width="1200" height="675" fill="url(#pt-glow)"/>
+  <rect width="1600" height="900" fill="url(#ae-univ-bg)"/>
+  <rect width="1600" height="900" fill="url(#ae-space-grid)"/>
 
-  <!-- Orbits -->
-  <g transform="translate(600, 310)">
-    <ellipse cx="0" cy="0" rx="360" ry="130" fill="none" stroke="rgba(99, 102, 241, 0.35)" stroke-width="1.8" transform="rotate(-15)"/>
-    <ellipse cx="0" cy="0" rx="270" ry="95" fill="none" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2" transform="rotate(25)"/>
-    <circle cx="0" cy="0" r="50" fill="rgba(139, 92, 246, 0.3)" stroke="#8b5cf6" stroke-width="2.5"/>
-    <text x="0" y="8" text-anchor="middle" fill="#fff" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800">AETHER</text>
+  <circle cx="500" cy="420" r="450" fill="url(#ae-nebula-cyan)"/>
+  <circle cx="1100" cy="460" r="480" fill="url(#ae-nebula-indigo)"/>
+
+  <g stroke="rgba(99, 102, 241, 0.18)" stroke-width="1" stroke-dasharray="4 6">
+    <line x1="800" y1="50" x2="800" y2="850"/>
+    <line x1="80" y1="450" x2="1520" y2="450"/>
+    <circle cx="800" cy="450" r="380" fill="none"/>
+    <circle cx="800" cy="450" r="280" fill="none"/>
+    <circle cx="800" cy="450" r="160" fill="none"/>
   </g>
 
-  <!-- Terminal Window HUD -->
-  <g transform="translate(600, 110)">
-    <rect x="-350" y="-30" width="700" height="130" rx="12" fill="rgba(10, 10, 25, 0.92)" stroke="rgba(255, 255, 255, 0.14)"/>
-    <circle cx="-320" cy="-8" r="5" fill="#ef4444"/>
-    <circle cx="-302" cy="-8" r="5" fill="#fbbf24"/>
-    <circle cx="-284" cy="-8" r="5" fill="#34d399"/>
-    <text x="-250" y="-4" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11">aether-os // runtime</text>
-    <text x="-320" y="32" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="13">$ aether --explore-universe</text>
-    <text x="-320" y="62" fill="#34d399" font-family="'JetBrains Mono', monospace" font-size="13">&gt; WebGL 2 Engine: 12,000 Particles @ 60 FPS • Lenis Smooth Inertia • CLS: 0.00</text>
+  <g transform="translate(800, 450)">
+    <ellipse cx="0" cy="0" rx="440" ry="150" fill="none" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2" transform="rotate(-18)"/>
+    <ellipse cx="0" cy="0" rx="410" ry="130" fill="none" stroke="rgba(99, 102, 241, 0.4)" stroke-width="2" transform="rotate(32)"/>
+    <ellipse cx="0" cy="0" rx="350" ry="90" fill="none" stroke="rgba(192, 132, 252, 0.25)" stroke-width="1.5" transform="rotate(-62)"/>
+
+    <circle cx="360" cy="-80" r="4.5" fill="#67e8f9" filter="url(#ae-cosmic-glow)"/>
+    <circle cx="-320" cy="90" r="4" fill="#818cf8"/>
+    <circle cx="210" cy="140" r="3.5" fill="#ffffff"/>
+    <circle cx="-250" cy="-110" r="5" fill="#06b6d4"/>
+    <circle cx="150" cy="-160" r="3" fill="#c084fc"/>
+
+    <circle cx="0" cy="0" r="110" fill="url(#ae-singularity)"/>
+    <circle cx="0" cy="0" r="32" fill="#ffffff" filter="url(#ae-cosmic-glow)"/>
+    <circle cx="0" cy="0" r="14" fill="#312e81"/>
+
+    <text x="0" y="6" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="800" letter-spacing="3">AETHER</text>
   </g>
 
-  <!-- Bottom Pills -->
-  <g transform="translate(600, 580)">
-    <rect x="-320" y="-20" width="640" height="40" rx="20" fill="rgba(255,255,255,0.04)" stroke="rgba(139, 92, 246, 0.35)"/>
-    <text x="0" y="5" text-anchor="middle" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600">
-      RAW GLSL SHADERS • THREE.JS • ZERO FRAMEWORK BLOAT • PRODUCTION NETLIFY
-    </text>
+  <g transform="translate(90, 160)">
+    <rect x="0" y="0" width="560" height="350" rx="16" fill="rgba(8, 8, 22, 0.92)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+
+    <rect x="0" y="0" width="560" height="42" rx="16" fill="rgba(255, 255, 255, 0.03)"/>
+    <line x1="0" y1="42" x2="560" y2="42" stroke="rgba(255, 255, 255, 0.08)"/>
+
+    <circle cx="24" cy="21" r="5.5" fill="#ef4444"/>
+    <circle cx="42" cy="21" r="5.5" fill="#fbbf24"/>
+    <circle cx="60" cy="21" r="5.5" fill="#34d399"/>
+    <text x="82" y="25" fill="rgba(255, 255, 255, 0.55)" font-family="'JetBrains Mono', monospace" font-size="11">aether-os // runtime telemetry</text>
+
+    <g transform="translate(26, 75)" font-family="'JetBrains Mono', monospace">
+      <text x="0" y="0" fill="#06b6d4" font-size="13" font-weight="700">$ aether --explore-universe --telemetry</text>
+
+      <text x="0" y="36" fill="#34d399" font-size="12" font-weight="600">● WebGL 2 Engine: 12,000 Particles @ 60 FPS</text>
+      <text x="0" y="64" fill="rgba(255, 255, 255, 0.85)" font-size="12">  ↳ Pure GLSL Shaders · Zero Three.js Overhead</text>
+
+      <text x="0" y="104" fill="#34d399" font-size="12" font-weight="600">● Motion Architecture: Lenis Smooth Scroll</text>
+      <text x="0" y="132" fill="rgba(255, 255, 255, 0.85)" font-size="12">  ↳ Inertia physics with GSAP ScrollTrigger</text>
+
+      <text x="0" y="172" fill="#34d399" font-size="12" font-weight="600">● Layout Stability: CLS 0.00 • LCP &lt; 0.8s</text>
+      <text x="0" y="200" fill="rgba(255, 255, 255, 0.85)" font-size="12">  ↳ Zero cumulative layout shift across viewports</text>
+
+      <text x="0" y="240" fill="#67e8f9" font-size="12" font-weight="700">&gt; Status: All systems nominal. Universe live.</text>
+    </g>
+  </g>
+
+  <g transform="translate(1120, 160)">
+    <rect x="0" y="0" width="390" height="280" rx="16" fill="rgba(8, 8, 22, 0.92)" stroke="rgba(99, 102, 241, 0.3)" stroke-width="1.5"/>
+
+    <g transform="translate(26, 30)">
+      <text x="0" y="14" fill="#6366f1" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1.5">CELESTIAL COORDINATES</text>
+      <text x="0" y="44" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="17" font-weight="800">Spatial Orbit Telemetry</text>
+
+      <line x1="0" y1="65" x2="338" y2="65" stroke="rgba(255, 255, 255, 0.08)"/>
+
+      <g transform="translate(0, 90)" font-family="'JetBrains Mono', monospace" font-size="12">
+        <text x="0" y="0" fill="rgba(255, 255, 255, 0.5)">ORBITAL PHASE:</text>
+        <text x="338" y="0" text-anchor="end" fill="#67e8f9" font-weight="700">SYNCHRONOUS 2π rad</text>
+
+        <text x="0" y="32" fill="rgba(255, 255, 255, 0.5)">PARTICLE DENSITY:</text>
+        <text x="338" y="32" text-anchor="end" fill="#ffffff" font-weight="700">12,000 VERTICES</text>
+
+        <text x="0" y="64" fill="rgba(255, 255, 255, 0.5)">GRAVITATIONAL CORE:</text>
+        <text x="338" y="64" text-anchor="end" fill="#a5b4fc" font-weight="700">POINT ATTRACTOR</text>
+
+        <text x="0" y="96" fill="rgba(255, 255, 255, 0.5)">FRAME TIMING:</text>
+        <text x="338" y="96" text-anchor="end" fill="#34d399" font-weight="700">16.6ms (60 FPS)</text>
+
+        <text x="0" y="128" fill="rgba(255, 255, 255, 0.5)">AUDIO AMBIENCE:</text>
+        <text x="338" y="128" text-anchor="end" fill="#ffffff" font-weight="700">INTERSTELLAR RUNTIME</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(90, 75)">
+    <text x="0" y="14" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="19" font-weight="800" letter-spacing="1">AETHER</text>
+    <text x="88" y="14" fill="#67e8f9" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" letter-spacing="2">// THE LIVING DIGITAL UNIVERSE</text>
+    <text x="0" y="38" fill="rgba(255, 255, 255, 0.55)" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Original spatial architecture designed &amp; handcrafted by Harsh Dubey © 2026</text>
+  </g>
+
+  <g transform="translate(90, 810)">
+    <rect x="0" y="0" width="1420" height="48" rx="12" fill="rgba(8, 8, 22, 0.94)" stroke="rgba(99, 102, 241, 0.3)"/>
+    <text x="24" y="29" fill="#67e8f9" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1.5">CORE TECHNOLOGIES</text>
+    <circle cx="210" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="230" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">WebGL 2 Context</text>
+    <circle cx="380" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="400" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">GLSL Vertex &amp; Fragment Shaders</text>
+    <circle cx="680" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="700" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">GSAP Timeline Engine</text>
+    <circle cx="890" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="910" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Lenis Smooth Scroll</text>
+    <circle cx="1090" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="1110" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Vite Bundler</text>
+    <text x="1396" y="29" text-anchor="end" fill="#818cf8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">100% HANDCRAFTED</text>
   </g>
 </svg>
 `,
@@ -724,7 +989,194 @@ export const SVG_ARTWORKS = {
 `,
 
     pomodoro: () => `
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070812"/><stop offset=".55" stop-color="#14132b"/><stop offset="1" stop-color="#081521"/></linearGradient><linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a79bff"/><stop offset="1" stop-color="#72b8ff"/></linearGradient></defs><rect width="1200" height="720" rx="32" fill="url(#bg)"/><circle cx="1050" cy="90" r="190" fill="#8174ff" opacity=".08"/><text x="64" y="70" fill="#fff" font-family="Arial" font-size="26" font-weight="700">🍅 Pomodoro</text><text x="64" y="98" fill="#8e93a8" font-family="Arial" font-size="13">Focus is the feature. Everything else supports it.</text><g><rect x="64" y="135" width="525" height="380" rx="26" fill="#11121e" stroke="#fff" stroke-opacity=".11"/><rect x="611" y="135" width="525" height="380" rx="26" fill="#11121e" stroke="#fff" stroke-opacity=".11"/><rect x="64" y="535" width="1072" height="105" rx="24" fill="#11121e" stroke="#fff" stroke-opacity=".1"/></g><text x="98" y="178" fill="#9d91ff" font-family="Arial" font-size="11" font-weight="700" letter-spacing="2">FOCUS SESSION</text><text x="98" y="215" fill="#fff" font-family="Arial" font-size="19" font-weight="700">Focus Timer</text><text x="98" y="330" fill="url(#a)" font-family="Arial" font-size="88" font-weight="800">25:00</text><rect x="98" y="365" width="112" height="43" rx="12" fill="url(#a)"/><text x="154" y="392" text-anchor="middle" fill="#090a12" font-family="Arial" font-size="13" font-weight="800">START</text><rect x="220" y="365" width="95" height="43" rx="12" fill="#fff" fill-opacity=".06"/><text x="267" y="392" text-anchor="middle" fill="#fff" font-family="Arial" font-size="13" font-weight="700">RESET</text><text x="98" y="470" fill="#b9bdcc" font-family="Arial" font-size="12">WORK · 25 min</text><text x="253" y="470" fill="#b9bdcc" font-family="Arial" font-size="12">SHORT · 5 min</text><text x="408" y="470" fill="#b9bdcc" font-family="Arial" font-size="12">LONG · 15 min</text><text x="645" y="178" fill="#1ed760" font-family="Arial" font-size="11" font-weight="700" letter-spacing="2">FOCUS MUSIC</text><text x="645" y="215" fill="#fff" font-family="Arial" font-size="19" font-weight="700">Spotify</text><rect x="645" y="240" width="457" height="235" rx="17" fill="#181a22"/><circle cx="692" cy="286" r="22" fill="#1ed760"/><text x="730" y="290" fill="#fff" font-family="Arial" font-size="15" font-weight="700">Focus &amp; Study</text><text x="730" y="313" fill="#83889c" font-family="Arial" font-size="11">Music for your current session</text><rect x="680" y="355" width="390" height="7" rx="4" fill="#30323b"/><rect x="680" y="355" width="160" height="7" rx="4" fill="#1ed760"/><text x="680" y="394" fill="#70758a" font-family="Arial" font-size="10">SPOTIFY EMBED</text><text x="98" y="574" fill="#9d91ff" font-family="Arial" font-size="11" font-weight="700" letter-spacing="2">TODAY</text><text x="98" y="608" fill="#fff" font-family="Arial" font-size="17" font-weight="700">Tasks</text><rect x="250" y="586" width="310" height="30" rx="9" fill="#fff" fill-opacity=".05"/><text x="270" y="606" fill="#73788d" font-family="Arial" font-size="11">Add a task...</text><text x="925" y="602" fill="#a8adbf" font-family="Arial" font-size="11">✦ Long Break Doodle</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Pomodoro Deep Work Productivity Workspace">
+  <defs>
+    <linearGradient id="po-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14070a"/>
+      <stop offset="50%" stop-color="#0a0812"/>
+      <stop offset="100%" stop-color="#06060c"/>
+    </linearGradient>
+    <linearGradient id="po-crimson" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="50%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+    <linearGradient id="po-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="70%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="po-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="po-dots" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="rgba(239, 68, 68, 0.08)"/>
+    </pattern>
+    <filter id="po-blur">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#po-bg)"/>
+  <rect width="1600" height="900" fill="url(#po-dots)"/>
+  <circle cx="440" cy="460" r="320" fill="url(#po-glow)"/>
+  <circle cx="1200" cy="280" r="260" fill="rgba(30, 215, 96, 0.05)"/>
+
+  <g transform="translate(80, 70)">
+    <rect x="0" y="0" width="36" height="36" rx="10" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.4)"/>
+    <circle cx="18" cy="18" r="6" fill="#ef4444"/>
+    <text x="48" y="16" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="800" letter-spacing="1.5">POMODORO</text>
+    <text x="48" y="32" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="2">DEEP WORK PRODUCTIVITY ENGINE</text>
+    <text x="1440" y="24" text-anchor="end" fill="rgba(255, 255, 255, 0.55)" font-family="'JetBrains Mono', monospace" font-size="11">INTERVAL SYNC: ZERO DRIFT // AUDIO API</text>
+  </g>
+
+  <g transform="translate(440, 460)">
+    <circle cx="0" cy="0" r="240" fill="rgba(15, 12, 22, 0.85)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="225" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1.5"/>
+
+    <g stroke="rgba(255, 255, 255, 0.18)" stroke-width="1.5">
+      <line x1="0" y1="-235" x2="0" y2="-222"/>
+      <line x1="117" y1="-203" x2="111" y2="-192"/>
+      <line x1="203" y1="-117" x2="192" y2="-111"/>
+      <line x1="235" y1="0" x2="222" y2="0"/>
+      <line x1="203" y1="117" x2="192" y2="111"/>
+      <line x1="117" y1="203" x2="111" y2="192"/>
+      <line x1="0" y1="235" x2="0" y2="222"/>
+      <line x1="-117" y1="203" x2="-111" y2="192"/>
+      <line x1="-203" y1="117" x2="-192" y2="111"/>
+      <line x1="-235" y1="0" x2="-222" y2="0"/>
+      <line x1="-203" y1="-117" x2="-192" y2="-111"/>
+      <line x1="-117" y1="-203" x2="-111" y2="-192"/>
+    </g>
+
+    <circle cx="0" cy="0" r="195" fill="none" stroke="rgba(255, 255, 255, 0.06)" stroke-width="14"/>
+    <circle cx="0" cy="0" r="195" fill="none" stroke="url(#po-ring)" stroke-width="14" stroke-linecap="round" stroke-dasharray="1225" stroke-dashoffset="340" transform="rotate(-90)" filter="url(#po-blur)"/>
+
+    <rect x="-110" y="-120" width="220" height="30" rx="15" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.35)"/>
+    <circle cx="-85" cy="-105" r="4" fill="#ef4444"/>
+    <text x="5" y="-100" text-anchor="middle" fill="#fca5a5" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5">FOCUS SESSION 03 / 04</text>
+
+    <text x="0" y="24" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="92" font-weight="800" letter-spacing="-2">25:00</text>
+    <text x="0" y="60" text-anchor="middle" fill="rgba(255, 255, 255, 0.45)" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600">DEEP FOCUS • NO DISTRACTIONS</text>
+
+    <g transform="translate(-160, 95)">
+      <rect x="0" y="0" width="100" height="32" rx="8" fill="url(#po-crimson)"/>
+      <text x="50" y="20" text-anchor="middle" fill="#08080f" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800">WORK 25M</text>
+
+      <rect x="110" y="0" width="100" height="32" rx="8" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.1)"/>
+      <text x="160" y="20" text-anchor="middle" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">SHORT 5M</text>
+
+      <rect x="220" y="0" width="100" height="32" rx="8" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.1)"/>
+      <text x="270" y="20" text-anchor="middle" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">LONG 15M</text>
+    </g>
+
+    <g transform="translate(-130, 142)">
+      <rect x="0" y="0" width="150" height="42" rx="10" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.18)"/>
+      <text x="75" y="26" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">PAUSE FOCUS</text>
+
+      <rect x="165" y="0" width="95" height="42" rx="10" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="212" y="26" text-anchor="middle" fill="#64748b" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">RESET</text>
+    </g>
+  </g>
+
+  <g transform="translate(860, 160)">
+    <rect x="0" y="0" width="660" height="270" rx="18" fill="rgba(15, 16, 26, 0.88)" stroke="rgba(255, 255, 255, 0.1)"/>
+
+    <g transform="translate(30, 30)">
+      <circle cx="16" cy="16" r="16" fill="#1ed760"/>
+      <path d="M 8 13 C 13 11 19 12 23 15 M 9 17 C 13 15 18 16 22 18 M 10 21 C 13 19 17 20 20 21" stroke="#000000" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <text x="44" y="15" fill="#1ed760" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1">SPOTIFY INTEGRATION</text>
+      <text x="44" y="28" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11">Ambient Study &amp; Coding Soundscapes</text>
+
+      <g transform="translate(0, 50)">
+        <rect x="0" y="0" width="68" height="68" rx="12" fill="linear-gradient(135deg, #1e1b4b, #431407)" stroke="rgba(255, 255, 255, 0.15)"/>
+        <circle cx="34" cy="34" r="18" fill="rgba(30, 215, 96, 0.25)"/>
+        <path d="M 30 26 L 42 34 L 30 42 Z" fill="#1ed760"/>
+
+        <text x="86" y="24" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="15" font-weight="700">Lofi Coding Beats • Deep Flow</text>
+        <text x="86" y="44" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Endless Focus Sessions · Continuous Ambience</text>
+
+        <g transform="translate(420, 16)" fill="#1ed760">
+          <rect x="0" y="8" width="4" height="20" rx="2"/>
+          <rect x="8" y="2" width="4" height="26" rx="2"/>
+          <rect x="16" y="12" width="4" height="16" rx="2"/>
+          <rect x="24" y="0" width="4" height="28" rx="2"/>
+          <rect x="32" y="6" width="4" height="22" rx="2"/>
+          <rect x="40" y="14" width="4" height="14" rx="2"/>
+          <rect x="48" y="4" width="4" height="24" rx="2"/>
+          <rect x="56" y="10" width="4" height="18" rx="2"/>
+        </g>
+      </g>
+
+      <g transform="translate(0, 140)">
+        <rect x="0" y="0" width="600" height="6" rx="3" fill="rgba(255, 255, 255, 0.1)"/>
+        <rect x="0" y="0" width="380" height="6" rx="3" fill="#1ed760"/>
+        <circle cx="380" cy="3" r="6" fill="#ffffff"/>
+        <text x="0" y="24" fill="rgba(255, 255, 255, 0.45)" font-family="'JetBrains Mono', monospace" font-size="10">02:44</text>
+        <text x="600" y="24" text-anchor="end" fill="rgba(255, 255, 255, 0.45)" font-family="'JetBrains Mono', monospace" font-size="10">03:52</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 295)">
+      <rect x="0" y="0" width="660" height="305" rx="18" fill="rgba(15, 16, 26, 0.88)" stroke="rgba(255, 255, 255, 0.1)"/>
+
+      <g transform="translate(30, 26)">
+        <text x="0" y="16" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="15" font-weight="700">Sprint Task Objectives</text>
+        <text x="600" y="16" text-anchor="end" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">3 / 4 COMPLETED</text>
+
+        <g transform="translate(0, 42)">
+          <rect x="0" y="0" width="600" height="48" rx="10" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.07)"/>
+          <circle cx="24" cy="24" r="10" fill="rgba(34, 197, 94, 0.2)" stroke="#22c55e" stroke-width="1.8"/>
+          <path d="M 19 24 L 22 27 L 29 20" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <text x="48" y="29" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" text-decoration="line-through">Calibrate Web Audio chime synthesis</text>
+          <text x="580" y="28" text-anchor="end" fill="#22c55e" font-family="'JetBrains Mono', monospace" font-size="10">DONE</text>
+        </g>
+
+        <g transform="translate(0, 100)">
+          <rect x="0" y="0" width="600" height="48" rx="10" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.07)"/>
+          <circle cx="24" cy="24" r="10" fill="rgba(34, 197, 94, 0.2)" stroke="#22c55e" stroke-width="1.8"/>
+          <path d="M 19 24 L 22 27 L 29 20" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <text x="48" y="29" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" text-decoration="line-through">Prevent background tab interval throttling drift</text>
+          <text x="580" y="28" text-anchor="end" fill="#22c55e" font-family="'JetBrains Mono', monospace" font-size="10">DONE</text>
+        </g>
+
+        <g transform="translate(0, 158)">
+          <rect x="0" y="0" width="600" height="48" rx="10" fill="rgba(239, 68, 68, 0.08)" stroke="rgba(239, 68, 68, 0.35)"/>
+          <circle cx="24" cy="24" r="10" fill="none" stroke="#ef4444" stroke-width="2"/>
+          <circle cx="24" cy="24" r="4" fill="#ef4444"/>
+          <text x="48" y="29" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600">Local storage session persistence &amp; weekly streak graph</text>
+          <text x="580" y="28" text-anchor="end" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700">IN PROGRESS</text>
+        </g>
+
+        <g transform="translate(0, 216)">
+          <rect x="0" y="0" width="600" height="48" rx="10" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.05)"/>
+          <circle cx="24" cy="24" r="10" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.8"/>
+          <text x="48" y="29" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="13">Deploy offline PWA service worker with ambient sound caching</text>
+          <text x="580" y="28" text-anchor="end" fill="#64748b" font-family="'JetBrains Mono', monospace" font-size="10">QUEUED</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(80, 810)">
+    <rect x="0" y="0" width="1440" height="48" rx="12" fill="rgba(15, 12, 22, 0.9)" stroke="rgba(239, 68, 68, 0.22)"/>
+    <text x="24" y="29" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" letter-spacing="1.5">STACK</text>
+    <circle cx="90" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="110" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Vanilla JavaScript</text>
+    <circle cx="270" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="290" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Web Audio API Cues</text>
+    <circle cx="475" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="495" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Spotify Embed Protocol</text>
+    <circle cx="705" cy="24" r="2.5" fill="rgba(255, 255, 255, 0.3)"/>
+    <text x="725" y="29" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">localStorage State Engine</text>
+    <text x="1416" y="29" text-anchor="end" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">DISTRACTION-FREE UTILITY</text>
+  </g>
+</svg>
 `,
 
     'my-little-universe': () => `
