@@ -721,17 +721,21 @@
     width: 0;
     min-width: 0;
     max-width: 100%;
+    min-height: 38px;
+    max-height: 84px;
     height: 38px;
     box-sizing: border-box;
-    padding: 0 14px;
+    padding: 9px 14px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
+    border-radius: 19px;
     outline: none;
     background: rgba(255, 255, 255, 0.04);
     color: #ffffff;
     font-family: inherit;
     font-size: 0.84rem;
-    line-height: 38px;
+    line-height: 1.45;
+    resize: none;
+    overflow-y: auto;
     transition:
         border-color 0.2s ease,
         background 0.2s ease,
@@ -800,7 +804,8 @@
 #ai-assistant-btn:focus-visible,
 #ai-assistant-panel button:focus-visible,
 #ai-assistant-panel a:focus-visible,
-#ai-assistant-panel input:focus-visible {
+#ai-assistant-panel input:focus-visible,
+#ai-assistant-panel textarea:focus-visible {
     outline: 2px solid rgba(56, 189, 248, 0.8);
     outline-offset: 2px;
 }
@@ -899,8 +904,10 @@
     }
 
     #ai-assistant-panel #assistant-input {
+        min-height: 36px;
         height: 36px;
-        line-height: 36px;
+        padding: 8px 12px;
+        line-height: 1.4;
         font-size: 0.81rem;
     }
 

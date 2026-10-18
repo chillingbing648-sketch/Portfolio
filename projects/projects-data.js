@@ -133,7 +133,7 @@ export const PROJECTS_DATA = [
     description: 'An offline-first attendance administration platform for batch tracking, threshold forecasting, and academic lecture analytics.',
     technologies: ['JavaScript', 'Node.js', 'C++', 'Analytics', 'JSON Storage'],
     sourceUrl: 'https://github.com/chillingbing648-sketch/Attendify',
-    liveUrl: 'https://sy-it.netlify.app/',
+    liveUrl: 'https://chillingbing648-sketch.github.io/Attendify/',
     previewImage: 'attendify',
     readmeUrl: 'https://raw.githubusercontent.com/chillingbing648-sketch/Attendify/main/README.md',
     featured: true,

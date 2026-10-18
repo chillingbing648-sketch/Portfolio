@@ -32,7 +32,7 @@ const FALLBACK = [
     tech: ['C++','Node.js','JSON'],
     description: 'A highly organized web-based platform for structured attendance data tracking. Engineered with a clean UI to manage real-time attendance logistics seamlessly.',
     github: 'https://github.com/chillingbing648-sketch/Attendify.git',
-    live: 'https://preview--vivid-web-transform.lovable.app/',
+    live: 'https://chillingbing648-sketch.github.io/Attendify/',
     award: null,
     caseStudy: {
       heroGradient:'linear-gradient(135deg,#06103a,#120d3a,#0d1530)',

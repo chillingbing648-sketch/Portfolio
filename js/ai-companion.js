@@ -1,366 +1,668 @@
 /**
  * js/ai-companion.js
- * Aether — Portfolio AI Companion (Chat Interface)
+ * Aether — Portfolio Companion (Interactive Assistant)
  *
- * Self-contained conversational assistant with:
- * - Conversation persistence across close/reopen
- * - Smart auto-scroll (only scrolls when user is near bottom)
- * - Natural typing delay & "Aether is thinking..." status
- * - Context-aware follow-ups ("tell me more", "more details", "elaborate")
- * - Double-sending / loading protection
- * - Quick-prompt state fading
- * - Clear conversation control (↺ button)
- * - Mobile keyboard visibility handling
- * - Strictly factual portfolio data (no hallucination)
+ * Implements:
+ * - Dynamic data hydration from verified canonical JSON datasets with inline fallbacks
+ * - Strict factual accuracy (zero hallucinated stats/roles/metrics)
+ * - Robust intent matching with synonym expansion and typo/fuzzy tolerance
+ * - Multi-turn conversational context tracking & dynamic contextual chips
+ * - 100% safe DOM rendering (no raw innerHTML or script execution)
+ * - Safe internal anchor navigation (#projects, #contact, #skills) & external links
+ * - Textarea with Enter-to-send and Shift+Enter for newlines (300-char max cap)
+ * - Double-submission prevention during simulated thinking cycle
+ * - Focus management (trap while open, restore on close, Esc to close)
+ * - Smart auto-scroll that never interrupts manual history reading
+ * - Working conversation reset (↺)
+ * - Expressive animated eye tracking preserving the Aether universe identity
  */
 
+import { fetchJson } from './utils.js';
+
 /* ==========================================================================
-   PORTFOLIO KNOWLEDGE BASE
+   CANONICAL DATASETS & INLINE VERIFIED FALLBACKS
    ========================================================================== */
 
-const PORTFOLIO = {
-    owner: 'Harsh Dubey',
+const PORTFOLIO_META = Object.freeze({
+    name: 'Harsh Dubey',
     location: 'Mumbai, India',
     email: 'harshdubey.works@gmail.com',
     phone: '+91 9321521258',
     github: 'https://github.com/chillingbing648-sketch',
     linkedin: 'https://www.linkedin.com/in/harsh-dubey-640a68389/',
-    tagline: 'AI-Powered Developer & Creative Engineer',
-    cgpa: '9.5',
+    resumePdf: 'Harsh_Resume.pdf',
+    cgpa: '9.50',
+    college: 'Thakur Specialised Degree College',
+    degree: 'BSc Information Technology',
+    about: "Harsh Dubey is a developer and student in Mumbai driven by curiosity, analytical precision, and engineering discipline. He bridges creative frontends (WebGL, custom GLSL shaders, GSAP motion) with practical full-stack and AI systems (REST APIs, C++, Node.js, prompt engineering, LLM integrations)."
+});
 
-    about: `Harsh Dubey is a student driven by curiosity, discipline, and a relentless desire to create meaningful impact. He doesn't just write code — he engineers solutions, leads teams, and transforms complex problems into elegant digital experiences. Curiosity is his default state. Every unfamiliar technology, every ambiguous brief, every difficult conversation becomes an opportunity to understand something more deeply. He adapts at speed, navigating unfamiliar stacks, tight deadlines, and complex stakeholder landscapes with calm, analytical precision. He's a natural collaborator who leads when needed and supports when required — from managing 2,000+ attendee events to winning debate competitions.`,
-
-    skills: {
-        'Frontend': ['HTML5', 'CSS3', 'JavaScript ES6+', 'TypeScript', 'React', 'Next.js', 'TailwindCSS', 'Three.js', 'WebGL', 'Responsive Design', 'Accessibility'],
-        'Backend & Databases': ['Node.js', 'Java', 'Express.js', 'REST APIs', 'Data Structures', 'MySQL', 'MongoDB', 'Firebase', 'Supabase'],
-        'AI & Intelligence': ['Prompt Engineering', 'OpenAI APIs', 'Claude APIs', 'AI Agents'],
-        'DevOps & Architecture': ['Git & GitHub', 'Vercel', 'Netlify', 'CI/CD'],
-        'Soft Skills': ['Leadership', 'Public Speaking', 'Teamwork', 'Critical Thinking', 'Decision Making', 'Strategic Thinking', 'Adaptability', 'Time Management']
+// Fallback datasets mirroring canonical data/*.json files
+const FALLBACK_PROJECTS = [
+    {
+        id: 'modal-kaamkaagaz',
+        title: 'KaamKaagaz — Civic Tech & Admissions Platform',
+        tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS'],
+        description: 'A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.',
+        github: 'https://github.com/chillingbing648-sketch/KaamKaagaz.git',
+        live: 'https://chillingbing648-sketch.github.io/KaamKaagaz/',
+        caseStudy: {
+            problem: 'Critical guidance for essential documents and higher-education admissions is fragmented across disconnected portals and bureaucratic jargon.',
+            architecture: 'Next.js 15 App Router static export with deterministic client-side search across English, Hindi, and Marathi, plus persistent local browser checklists.',
+            impact: 'Self-serve roadmaps, fee/timeline disclosures, and zero-tracking privacy for students and citizens.'
+        }
     },
-
-    projects: [
-        {
-            name: 'KaamKaagaz',
-            description: 'A multilingual civic-tech web application transforming complicated Indian government paperwork and college admissions into clear, structured, step-by-step guidance.',
-            tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Static Export'],
-            highlights: ['Multilingual civic-tech guidance (English, Hindi, Marathi)', 'University admissions hub & portal wayfinding', 'Privacy-first client-side persistent checklists'],
-            details: 'Engineered with Next.js 15 App Router, React 19, and TypeScript to demystify complex government bureaucracy and higher-education admissions. Features deterministic client-side conversational search and zero-tracking local checklists.',
-            github: 'https://github.com/chillingbing648-sketch/KaamKaagaz.git',
-            live: 'https://chillingbing648-sketch.github.io/KaamKaagaz/'
-        },
-        {
-            name: 'Attendify',
-            description: 'A highly organized web-based platform for structured attendance data tracking. Engineered with a clean UI to manage real-time attendance logistics seamlessly.',
-            tech: ['C++', 'Node.js', 'JSON', 'REST API', 'HTML/CSS/JS'],
-            highlights: ['Real-time attendance tracking', 'Subject-wise percentage projections', '"Safe to skip" calculations'],
-            details: 'Eliminated manual spreadsheet tracking across 5-8 subjects simultaneously. Uses C++ core logic wrapped in a Node.js API with real-time percentage alerts.',
-            github: 'https://github.com/chillingbing648-sketch/Attendify.git',
-            live: 'https://preview--vivid-web-transform.lovable.app/'
-        },
-        {
-            name: 'Continuity',
-            description: 'A secure digital legacy platform that brings wills, investments, assets, estates, and important documents into one trusted place — with controlled access for the people who matter most.',
-            tech: ['AI Integration', 'React', 'Data Analysis', 'Secure Data Management'],
-            highlights: ['Digital legacy management', 'Role-based access control', 'Family notification system'],
-            details: 'Organizes scattered financial assets, estates, and wills into a single secure vault with role-based access for designated family members.',
-            github: 'https://github.com/chillingbing648-sketch/Continuity.git',
-            live: 'https://chillingbing648-sketch.github.io/Continuity/'
-        },
-        {
-            name: 'WALL-E',
-            description: 'A supportive AI companion for mood check-ins, guided journaling, and reflective conversations — designed to encourage healthier daily habits with clear, user-first boundaries.',
-            tech: ['JavaScript', 'AI Integration', 'Local Storage', 'Responsive Design'],
-            highlights: ['Mood tracking & check-ins', 'Guided journaling prompts', 'Privacy-first emotional support'],
-            details: 'A privacy-first reflection tool that provides gentle daily check-ins, mood trend visualization, and guided journaling without making clinical claims.',
-            github: 'https://github.com/chillingbing648-sketch/WALL-E.git',
-            live: 'https://chillingbing648-sketch.github.io/WALL-E/'
+    {
+        id: 'modal-attendify',
+        title: 'Attendify — Attendance Platform',
+        tech: ['C++', 'Node.js', 'JSON'],
+        description: 'A highly organized web-based platform for structured attendance data tracking with real-time analytics and predictive threshold forecasting.',
+        github: 'https://github.com/chillingbing648-sketch/Attendify.git',
+        live: 'https://chillingbing648-sketch.github.io/Attendify/',
+        caseStudy: {
+            problem: 'Students need to maintain attendance thresholds across 5-8 subjects simultaneously without brittle spreadsheets.',
+            architecture: 'C++ core logic wrapped in a Node.js API layer with real-time dashboard analytics and "safe to skip" forecasting calculations.',
+            impact: 'Eliminated manual spreadsheet tracking and provided immediate visibility into academic standing.'
         }
-    ],
-
-    experience: [
-        {
-            role: 'IT Specialist',
-            org: 'University of Mumbai',
-            description: 'Managing end-to-end technical operations, university admission digital logistics, and system administration for large-scale academic workflows. Responsible for maintaining data integrity across institutional systems.',
-            responsibilities: ['Technical Support', 'System Administration', 'Computer Systems', 'Admission Operations', 'Process Optimization', 'Troubleshooting']
-        },
-        {
-            role: 'Public Relations Head',
-            org: 'Thakur Specialised Degree College',
-            description: 'Spearheaded student leadership initiatives, public policy coordination, event leadership, and student advocacy. Led PR strategy for an intercollegiate fest attracting 2,000+ attendees and 1,000+ registrations.',
-            responsibilities: ['Leadership', 'Student Representation', 'Public Administration', 'Event Leadership', 'Team Management', 'Public Speaking', 'Decision Making']
-        },
-        {
-            role: 'Chief Minister',
-            org: 'Student Parliament Initiative — Career Katta, Government of Maharashtra & MITSC',
-            description: 'Served as Chief Minister of the Student Parliament initiative, leading student representatives, coordinating leadership activities, and driving initiatives focused on student development, civic engagement, and collaborative decision-making.',
-            responsibilities: ['Student Leadership', 'Civic Engagement', 'Team Coordination', 'Strategic Planning', 'Public Speaking', 'Student Development', 'Decision Making']
+    },
+    {
+        id: 'modal-sustainable',
+        title: 'Continuity — Financial Sustainability Vault',
+        tech: ['AI Integration', 'React', 'Data Analysis'],
+        description: 'A secure digital legacy platform bringing wills, investments, assets, estates, and important documents into one trusted place with controlled access.',
+        github: 'https://github.com/chillingbing648-sketch/Continuity.git',
+        live: 'https://chillingbing648-sketch.github.io/Continuity/',
+        caseStudy: {
+            problem: 'Critical financial and legacy records are scattered across institutions, making them difficult for families to locate when needed.',
+            architecture: 'Centralized platform for asset tracking with role-based access control and designated family notifications.',
+            impact: 'Organized personal legacy management with privacy-first boundaries.'
         }
-    ],
+    },
+    {
+        id: 'modal-chatbot',
+        title: 'WALL-E — Mental Health AI Companion App',
+        tech: ['JavaScript', 'AI Integration', 'Local Storage', 'Responsive Design'],
+        description: 'A supportive AI companion for mood check-ins, guided journaling, and reflective conversations designed for daily wellness habits with clear boundaries.',
+        github: 'https://github.com/chillingbing648-sketch/WALL-E.git',
+        live: 'https://chillingbing648-sketch.github.io/WALL-E/',
+        caseStudy: {
+            problem: 'Low-friction reflection is needed to manage compounding daily stress without pretending to replace professional medical care.',
+            architecture: 'Responsive client-side companion with mood check-ins, guided prompts, and local storage privacy.',
+            impact: 'Gentle, private emotional reflection tool with clear boundary guidelines.'
+        }
+    }
+];
 
-    achievements: [
-        'IntraCollegiate Debate Winner — Won 1st place presenting well-researched arguments under pressure',
-        'PR Head — InterCollegiate Fest — Led efforts attracting 2,000+ attendees and 1,000+ registrations',
-        'Academic Excellence — CGPA 9.5 with active involvement in fests, NSS Unit, and student leadership'
-    ],
+const FALLBACK_SKILLS = [
+    {
+        category: 'Frontend',
+        items: [
+            { name: 'HTML5' }, { name: 'CSS3' }, { name: 'JavaScript ES6+' },
+            { name: 'TypeScript' }, { name: 'React' }, { name: 'Next.js' },
+            { name: 'TailwindCSS' }, { name: 'Three.js' }, { name: 'WebGL' },
+            { name: 'Responsive Design' }, { name: 'Accessibility' }
+        ]
+    },
+    {
+        category: 'Backend & Databases',
+        items: [
+            { name: 'Node.js' }, { name: 'Java' }, { name: 'Express.js' },
+            { name: 'REST APIs' }, { name: 'Data Structures' }, { name: 'MySQL' },
+            { name: 'MongoDB' }, { name: 'Firebase' }, { name: 'Supabase' }
+        ]
+    },
+    {
+        category: 'AI & Intelligence',
+        items: [
+            { name: 'Prompt Engineering' }, { name: 'OpenAI APIs' },
+            { name: 'Claude APIs' }, { name: 'AI Agents' }
+        ]
+    },
+    {
+        category: 'DevOps & Architecture',
+        items: [
+            { name: 'Git & GitHub' }, { name: 'Vercel' }, { name: 'Netlify' }, { name: 'CI/CD' }
+        ]
+    },
+    {
+        category: 'Soft Skills',
+        items: [
+            { name: 'Leadership' }, { name: 'Public Speaking' }, { name: 'Teamwork' },
+            { name: 'Critical Thinking' }, { name: 'Decision Making' }, { name: 'Adaptability' }
+        ]
+    }
+];
 
-    education: [
-        'BSc Information Technology (Currently Pursuing) — Thakur Specialised Degree College · CGPA 9.5',
-        '12th Grade Computer Science (2024–2025) — Sardar Vallabhai Patel College',
-        '10th Grade (2022–2023) — St. Xavier\'s High School · Maharashtra Board'
-    ],
+const FALLBACK_EXPERIENCE = [
+    {
+        title: 'IT Specialist',
+        organization: 'University of Mumbai',
+        description: 'Managing end-to-end technical operations, university admission digital logistics, and system administration for large-scale academic workflows. Maintaining data integrity across institutional systems.',
+        chips: ['Technical Support', 'System Administration', 'Admission Operations', 'Process Optimization']
+    },
+    {
+        title: 'Public Relations Head',
+        organization: 'Thakur Specialized Degree College',
+        description: 'Spearheaded student leadership initiatives, public policy coordination, event leadership, and student advocacy. Led PR strategy for an intercollegiate fest attracting 2,000+ attendees and 1,000+ registrations.',
+        chips: ['Leadership', 'Event Leadership', 'Team Management', 'Public Speaking']
+    },
+    {
+        title: 'Chief Minister',
+        organization: 'Student Parliament Initiative — Career Katta, Government of Maharashtra & MITSC',
+        description: 'Served as Chief Minister of the Student Parliament initiative, leading student representatives and driving programs focused on student development, civic engagement, and collaborative decision-making.',
+        chips: ['Student Leadership', 'Civic Engagement', 'Strategic Planning']
+    }
+];
 
-    services: [
-        'AI Integration — LLMs, Claude API, OpenAI APIs, prompt engineering, AI agents',
-        'Cinematic Web — Three.js, WebGL, GSAP, modern CSS, motion design',
-        'Full-Stack Engineering — System design to deployment, REST APIs, scalable solutions',
-        'Technical Leadership — Cross-functional team management, decision making',
-        'Performance Engineering — 60-120 FPS, Lighthouse 90+, GPU acceleration',
-        'Product Thinking — User needs, MVP definition, rapid iteration, shipping'
-    ]
+const FALLBACK_ACHIEVEMENTS = [
+    {
+        title: 'Intra-Collegiate Debate Winner',
+        badge: '1st Place Gold',
+        description: 'Won first place through rigorous research, persuasive arguments, and decisive cross-examination under pressure.'
+    },
+    {
+        title: 'Public Relations Head — InterCollegiate Fest',
+        badge: 'Leadership & Outreach',
+        description: 'Led festival outreach across 40+ colleges in Mumbai, achieving 2,000+ footfall and 1,000+ registrations.'
+    },
+    {
+        title: 'Academic Excellence & Leadership',
+        badge: 'Academic Distinction',
+        description: 'Maintained a 9.50 CGPA in BSc IT while actively driving student leadership initiatives and events.'
+    }
+];
+
+const FALLBACK_TIMELINE = [
+    {
+        date: 'Currently Pursuing',
+        title: 'BSc Information Technology',
+        subtitle: 'Thakur Specialised Degree College · CGPA 9.5'
+    },
+    {
+        date: '2024 — 2025',
+        title: '12th Grade (Computer Science)',
+        subtitle: 'Sardar Vallabhai Patel College'
+    },
+    {
+        date: '2022 — 2023',
+        title: '10th Grade',
+        subtitle: 'St. Xavier\'s High School · Maharashtra Board'
+    }
+];
+
+// Runtime store hydrated on initialization
+const KnowledgeBase = {
+    projects: FALLBACK_PROJECTS,
+    skills: FALLBACK_SKILLS,
+    experience: FALLBACK_EXPERIENCE,
+    achievements: FALLBACK_ACHIEVEMENTS,
+    timeline: FALLBACK_TIMELINE,
+    meta: PORTFOLIO_META,
+    isHydrated: false
 };
 
+async function hydrateKnowledgeBase() {
+    if (KnowledgeBase.isHydrated) return;
+    try {
+        const [proj, skl, exp, ach, tml] = await Promise.allSettled([
+            fetchJson('data/projects.json', FALLBACK_PROJECTS),
+            fetchJson('data/skills.json', FALLBACK_SKILLS),
+            fetchJson('data/experience.json', FALLBACK_EXPERIENCE),
+            fetchJson('data/achievements.json', FALLBACK_ACHIEVEMENTS),
+            fetchJson('data/timeline.json', FALLBACK_TIMELINE)
+        ]);
+
+        if (proj.status === 'fulfilled' && Array.isArray(proj.value) && proj.value.length) {
+            KnowledgeBase.projects = proj.value;
+        }
+        if (skl.status === 'fulfilled' && Array.isArray(skl.value) && skl.value.length) {
+            KnowledgeBase.skills = skl.value;
+        }
+        if (exp.status === 'fulfilled' && Array.isArray(exp.value) && exp.value.length) {
+            KnowledgeBase.experience = exp.value;
+        }
+        if (ach.status === 'fulfilled' && Array.isArray(ach.value) && ach.value.length) {
+            KnowledgeBase.achievements = ach.value;
+        }
+        if (tml.status === 'fulfilled' && Array.isArray(tml.value) && tml.value.length) {
+            KnowledgeBase.timeline = tml.value;
+        }
+        KnowledgeBase.isHydrated = true;
+    } catch (e) {
+        // Fallback dataset remains active
+        KnowledgeBase.isHydrated = true;
+    }
+}
 
 /* ==========================================================================
-   RESPONSE ENGINE & CONTEXT TRACKING
+   SAFE DOM RENDERING (STRICTLY NO RAW INNERHTML)
    ========================================================================== */
 
-let _lastTopic = null;
+/**
+ * Builds safe DOM tree from formatted markdown-like string.
+ * Supports: **bold**, _italic_, [label](url), and \n line breaks.
+ * Enforces safe URI protocols (https:, mailto:, tel:, #).
+ */
+function renderSafeFormattedMessage(container, text, onInternalLinkClick) {
+    container.textContent = '';
+    if (!text) return;
 
-const RESPONSES = {
-    greeting: [
-        `Hey! I'm Aether, Harsh's portfolio companion. Ask me about his projects, skills, experience, or anything else! 🚀`,
-        `Welcome! I'm Aether — here to help you learn about Harsh Dubey's work. What would you like to know?`,
-        `Hi there! I can tell you about Harsh's projects, skills, experience, and more. What interests you?`
-    ],
-
-    projects: () => {
-        _lastTopic = 'projects';
-        const list = PORTFOLIO.projects.map(p =>
-            `• **${p.name}** — ${p.description}`
-        ).join('\n');
-        return `Here are Harsh's key projects:\n\n${list}\n\nAsk about any specific project (e.g. "Tell me about Attendify" or "tell me more")!`;
-    },
-
-    projectDetail: (name) => {
-        const p = PORTFOLIO.projects.find(proj =>
-            proj.name.toLowerCase().includes(name.toLowerCase())
-        );
-        if (!p) return null;
-        _lastTopic = `project_${p.name}`;
-        return `**${p.name}**\n${p.description}\n\n**Tech Stack:** ${p.tech.join(', ')}\n\n**Highlights:**\n${p.highlights.map(h => `• ${h}`).join('\n')}\n\n[Live Demo](${p.live}) · [GitHub](${p.github})`;
-    },
-
-    skills: () => {
-        _lastTopic = 'skills';
-        const sections = Object.entries(PORTFOLIO.skills).map(([cat, items]) =>
-            `**${cat}:** ${items.join(', ')}`
-        ).join('\n\n');
-        return `Harsh has expertise across multiple domains:\n\n${sections}`;
-    },
-
-    experience: () => {
-        _lastTopic = 'experience';
-        const list = PORTFOLIO.experience.map(e =>
-            `**${e.role}** at ${e.org}\n${e.description}\n_Key areas: ${e.responsibilities.join(', ')}_`
-        ).join('\n\n');
-        return `Here's Harsh's professional experience:\n\n${list}`;
-    },
-
-    contact: () => {
-        _lastTopic = 'contact';
-        return `You can reach Harsh through:\n\n• **Email:** ${PORTFOLIO.email}\n• **Phone:** ${PORTFOLIO.phone}\n• **GitHub:** github.com/chillingbing648-sketch\n• **LinkedIn:** linkedin.com/in/harsh-dubey-640a68389\n• **Location:** ${PORTFOLIO.location}\n\nHe's actively open for freelance projects, internships, and global opportunities!`;
-    },
-
-    about: () => {
-        _lastTopic = 'about';
-        return `${PORTFOLIO.about}\n\nHe's a natural collaborator who leads when needed and supports when required — from managing 2,000+ attendee events to winning debate competitions.`;
-    },
-
-    achievements: () => {
-        _lastTopic = 'achievements';
-        const list = PORTFOLIO.achievements.map(a => `• ${a}`).join('\n');
-        return `Harsh's key achievements:\n\n${list}\n\nEvery project carries a signature: curiosity, innovation, and the discipline to finish what he starts.`;
-    },
-
-    education: () => {
-        _lastTopic = 'education';
-        const list = PORTFOLIO.education.map(e => `• ${e}`).join('\n');
-        return `**Harsh's Educational Background:**\n\n${list}`;
-    },
-
-    services: () => {
-        _lastTopic = 'services';
-        const list = PORTFOLIO.services.map(s => `• ${s}`).join('\n');
-        return `Harsh offers expertise in:\n\n${list}`;
-    },
-
-    followUp: () => {
-        if (!_lastTopic) {
-            return `Harsh is an AI-Powered Developer & Creative Engineer based in Mumbai (CGPA 9.5). Ask me about his **projects**, **skills**, or **experience** for details!`;
+    const lines = text.split('\n');
+    lines.forEach((line, lineIndex) => {
+        if (lineIndex > 0) {
+            container.appendChild(document.createElement('br'));
         }
-        if (_lastTopic.startsWith('project_')) {
-            const projName = _lastTopic.replace('project_', '');
-            const p = PORTFOLIO.projects.find(proj => proj.name === projName);
-            if (p) {
-                return `**More about ${p.name}:**\n\n${p.details}\n\n**Built with:** ${p.tech.join(', ')}. You can view the live project at ${p.live}`;
+
+        // Tokenizer: captures [label](url) or **bold** or _italic_
+        const tokenRegex = /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|_([^_]+)_)/g;
+        let lastIndex = 0;
+        let match;
+
+        while ((match = tokenRegex.exec(line)) !== null) {
+            if (match.index > lastIndex) {
+                container.appendChild(document.createTextNode(line.slice(lastIndex, match.index)));
+            }
+
+            if (match[2] && match[3]) {
+                // Link token: [label](url)
+                const label = match[2];
+                const rawUrl = match[3].trim();
+                const anchor = document.createElement('a');
+                anchor.textContent = label;
+
+                // Validate URL protocol strictly
+                if (/^(https?:\/\/|mailto:|tel:|#|\.\/|\/)/i.test(rawUrl)) {
+                    anchor.href = rawUrl;
+                    if (rawUrl.startsWith('http')) {
+                        anchor.target = '_blank';
+                        anchor.rel = 'noopener noreferrer';
+                    } else if (rawUrl.startsWith('#') && typeof onInternalLinkClick === 'function') {
+                        anchor.addEventListener('click', (ev) => {
+                            ev.preventDefault();
+                            onInternalLinkClick(rawUrl);
+                        });
+                    }
+                } else {
+                    anchor.href = '#';
+                }
+                container.appendChild(anchor);
+            } else if (match[4]) {
+                // Bold token: **text**
+                const strong = document.createElement('strong');
+                strong.textContent = match[4];
+                container.appendChild(strong);
+            } else if (match[5]) {
+                // Italic token: _text_
+                const em = document.createElement('em');
+                em.textContent = match[5];
+                container.appendChild(em);
+            }
+
+            lastIndex = tokenRegex.lastIndex;
+        }
+
+        if (lastIndex < line.length) {
+            container.appendChild(document.createTextNode(line.slice(lastIndex)));
+        }
+    });
+}
+
+/* ==========================================================================
+   INTENT MATCHING & TYPO TOLERANCE
+   ========================================================================== */
+
+function levenshteinDistance(a, b) {
+    if (a === b) return 0;
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    matrix[i][j - 1] + 1,     // insertion
+                    matrix[i - 1][j] + 1      // deletion
+                );
             }
         }
-        switch (_lastTopic) {
-            case 'projects':
-                return `Harsh has shipped 4+ key projects including **KaamKaagaz** (Civic Tech & Admissions), **Attendify** (C++/Node logistics), **Continuity** (Legacy Vault), and **WALL-E** (Mental Health Companion). Which one would you like to explore further?`;
-            case 'skills':
-                return `Harsh's core strength is bridging creative web development (Three.js, WebGL, GSAP) with AI integration (Claude API, OpenAI APIs, Prompt Engineering) and solid full-stack engineering (Node.js, Express, Java).`;
-            case 'experience':
-                return `Harsh served as **IT Specialist** at University of Mumbai, **PR Head** for an intercollegiate fest with 2,000+ attendees, and **Chief Minister** of the Student Parliament initiative (Government of Maharashtra).`;
-            case 'about':
-                return `Harsh maintains a **9.5 CGPA** while leading major events and building full-stack products. Curiosity is his compass and calculated risk-taking drives his continuous growth.`;
-            case 'contact':
-                return `Direct email: **${PORTFOLIO.email}** | Phone: **${PORTFOLIO.phone}** | Location: **Mumbai, India**. Downloads for his full resume are also available on the portfolio!`;
-            default:
-                return `Feel free to ask specific questions about Harsh's **projects**, **skills**, **tech stack**, or **work experience**!`;
-        }
-    },
+    }
+    return matrix[b.length][a.length];
+}
 
-    fallback: [
-        `I'm trained strictly on Harsh's real portfolio data. I can tell you about his **projects**, **skills**, **experience**, **achievements**, or **contact** info. What would you like to know?`,
-        `I don't have information on that outside of Harsh's portfolio. Try asking about his **projects**, **skills**, **experience**, or how to **contact** him!`,
-        `I focus exclusively on Harsh Dubey's portfolio! Ask me about his **work**, **tech stack**, **background**, or **achievements**.`
-    ]
-};
+function wordMatches(word, target, maxDist = 1) {
+    if (word === target) return true;
+    if (Math.abs(word.length - target.length) > maxDist) return false;
+    return levenshteinDistance(word, target) <= maxDist;
+}
 
+function matchIntent(input, lastTopic) {
+    const raw = (input || '').toLowerCase().trim();
+    // Normalize punctuation
+    const text = raw.replace(/[^\w\s-]/g, ' ').replace(/\s+/g, ' ');
+    const tokens = text.split(' ').filter(Boolean);
 
-/* ==========================================================================
-   INTENT MATCHER
-   ========================================================================== */
-
-function matchIntent(input) {
-    const text = input.toLowerCase().trim();
-
-    // Context-aware follow-up queries
-    if (/^(tell me more|more|more details|elaborate|explain more|detail|details|go on|continue)\b/.test(text)) {
-        return { type: 'followUp' };
+    // 1. Follow-up / Context queries
+    if (/^(more|tell me more|details|elaborate|explain more|go on|continue|what else|expand)\b/.test(text)) {
+        return { type: 'followUp', topic: lastTopic };
     }
 
-    // Greeting patterns
-    if (/^(hi|hello|hey|howdy|greetings|sup|yo|what'?s up)\b/.test(text)) {
+    // 2. Greetings
+    if (/^(hi|hello|hey|howdy|greetings|yo|sup|what'?s up|good (morning|afternoon|evening))\b/.test(text)) {
         return { type: 'greeting' };
     }
 
-    // Specific project queries
-    for (const project of PORTFOLIO.projects) {
-        if (text.includes(project.name.toLowerCase())) {
-            return { type: 'projectDetail', name: project.name };
-        }
+    // 3. Specific Projects (exact names, partials, or typos)
+    if (tokens.some(t => wordMatches(t, 'kaamkaagaz', 2) || wordMatches(t, 'kaamkagaz', 2)) ||
+        text.includes('kaamkaagaz') || text.includes('civic tech') || text.includes('admission')) {
+        return { type: 'projectDetail', name: 'KaamKaagaz' };
+    }
+    if (tokens.some(t => wordMatches(t, 'attendify', 2)) || text.includes('attendance') || text.includes('attendify')) {
+        return { type: 'projectDetail', name: 'Attendify' };
+    }
+    if (tokens.some(t => wordMatches(t, 'continuity', 2)) || text.includes('legacy') || text.includes('continuity') || text.includes('vault') || text.includes('wills')) {
+        return { type: 'projectDetail', name: 'Continuity' };
+    }
+    if (tokens.some(t => wordMatches(t, 'walle', 1) || wordMatches(t, 'wall-e', 1)) || text.includes('wall-e') || text.includes('mental health') || text.includes('journaling')) {
+        return { type: 'projectDetail', name: 'WALL-E' };
     }
 
-    // General projects
-    if (/project|work|portfolio|built|shipped|made|created|developed/.test(text)) {
-        return { type: 'projects' };
+    // 4. Aether Archive
+    if (text.includes('archive') || text.includes('aether archive') || text.includes('spatial') || text.includes('carousel') || text.includes('all repositories')) {
+        return { type: 'archive' };
     }
 
-    // Skills
-    if (/skill|tech|stack|language|framework|tool|know|proficien|expertise|capable|technolog/.test(text)) {
-        return { type: 'skills' };
+    // 5. Resume / CV
+    if (tokens.some(t => wordMatches(t, 'resume', 1) || wordMatches(t, 'cv', 0)) || text.includes('curriculum vitae') || text.includes('download resume')) {
+        return { type: 'resume' };
     }
 
-    // Experience
-    if (/experience|job|position|role|career|work.*at|employ|intern|profession|where.*work/.test(text)) {
-        return { type: 'experience' };
-    }
-
-    // Contact
-    if (/contact|email|phone|reach|connect|hire|linkedin|github|social|get in touch|message/.test(text)) {
+    // 6. Contact & Hiring
+    const contactKeywords = ['contact', 'email', 'phone', 'reach', 'hire', 'hiring', 'freelance', 'collaborate', 'linkedin', 'github', 'location', 'call', 'message', 'touch'];
+    if (tokens.some(t => contactKeywords.some(k => wordMatches(t, k, 1))) || text.includes('get in touch') || text.includes('how to reach')) {
         return { type: 'contact' };
     }
 
-    // About
-    if (/about|who|tell me|introduce|background|story|himself|person|bio|descrip/.test(text)) {
-        return { type: 'about' };
+    // 7. General Projects
+    const projectKeywords = ['project', 'projects', 'work', 'portfolio', 'built', 'shipped', 'made', 'created', 'developed', 'apps', 'code'];
+    if (tokens.some(t => projectKeywords.some(k => wordMatches(t, k, 1)))) {
+        return { type: 'projects' };
     }
 
-    // Education
-    if (/educat|college|university|degree|study|student|cgpa|gpa|school|academic/.test(text)) {
+    // 8. Specific Skill Domains
+    if (text.includes('frontend') || text.includes('html') || text.includes('css') || text.includes('react') || text.includes('next.js') || text.includes('webgl') || text.includes('three.js')) {
+        return { type: 'skillDomain', domain: 'Frontend' };
+    }
+    if (text.includes('backend') || text.includes('node') || text.includes('java') || text.includes('sql') || text.includes('database') || text.includes('mongo') || text.includes('firebase') || text.includes('api')) {
+        return { type: 'skillDomain', domain: 'Backend & Databases' };
+    }
+    if (text.includes('ai') || text.includes('intelligence') || text.includes('claude') || text.includes('openai') || text.includes('prompt') || text.includes('agent') || text.includes('llm')) {
+        return { type: 'skillDomain', domain: 'AI & Intelligence' };
+    }
+
+    // 9. General Skills & Tech Stack
+    const skillKeywords = ['skill', 'skills', 'tech', 'stack', 'technology', 'technologies', 'language', 'languages', 'framework', 'frameworks', 'tools', 'expertise', 'proficient'];
+    if (tokens.some(t => skillKeywords.some(k => wordMatches(t, k, 1)))) {
+        return { type: 'skills' };
+    }
+
+    // 10. Experience & Career
+    const experienceKeywords = ['experience', 'job', 'jobs', 'position', 'role', 'roles', 'career', 'intern', 'internship', 'profession', 'employed', 'workplace'];
+    if (tokens.some(t => experienceKeywords.some(k => wordMatches(t, k, 1))) || text.includes('university of mumbai') || text.includes('pr head') || text.includes('student parliament')) {
+        return { type: 'experience' };
+    }
+
+    // 11. Education & Academics
+    const educationKeywords = ['education', 'college', 'university', 'degree', 'study', 'studies', 'student', 'cgpa', 'gpa', 'grades', 'academic', 'academics', 'school'];
+    if (tokens.some(t => educationKeywords.some(k => wordMatches(t, k, 1)))) {
         return { type: 'education' };
     }
 
-    // Achievements
-    if (/achieve|award|prize|accomplish|recognition|hackathon|win|won|milestone|certif/.test(text)) {
+    // 12. Achievements & Honors
+    const achievementKeywords = ['achievement', 'achievements', 'award', 'awards', 'prize', 'prizes', 'debate', 'winner', 'recognition', 'milestone', 'hackathon'];
+    if (tokens.some(t => achievementKeywords.some(k => wordMatches(t, k, 1)))) {
         return { type: 'achievements' };
     }
 
-    // Services / what does he do
-    if (/service|offer|do.*for|what.*do|capabilit|specializ|what can|help with/.test(text)) {
-        return { type: 'services' };
+    // 13. About / Bio
+    const aboutKeywords = ['about', 'who', 'introduce', 'background', 'story', 'bio', 'himself', 'person', 'profile'];
+    if (tokens.some(t => aboutKeywords.some(k => wordMatches(t, k, 1)))) {
+        return { type: 'about' };
     }
 
     return { type: 'fallback' };
 }
 
+/* ==========================================================================
+   DYNAMIC CONTEXTUAL CHIPS CONFIGURATION
+   ========================================================================== */
 
-function generateResponse(input) {
-    const intent = matchIntent(input);
+const INITIAL_CHIPS = [
+    { label: 'Projects', query: 'Tell me about projects' },
+    { label: 'Skills', query: 'What skills does he have?' },
+    { label: 'Experience', query: 'Tell me about his experience' },
+    { label: 'Contact', query: 'How to contact Harsh?' },
+    { label: 'About', query: 'Tell me about Harsh' }
+];
 
-    switch (intent.type) {
-        case 'greeting':
-            return pick(RESPONSES.greeting);
+function getChipsForTopic(topic, meta) {
+    if (!topic) return INITIAL_CHIPS;
+
+    switch (topic) {
         case 'projects':
-            return RESPONSES.projects();
-        case 'projectDetail':
-            return RESPONSES.projectDetail(intent.name) || RESPONSES.projects();
+            return [
+                { label: 'KaamKaagaz', query: 'Tell me about KaamKaagaz' },
+                { label: 'Attendify', query: 'Tell me about Attendify' },
+                { label: 'Continuity', query: 'Tell me about Continuity' },
+                { label: 'WALL-E', query: 'Tell me about WALL-E' },
+                { label: 'Aether Archive ↗', query: 'What is Aether Archive?' }
+            ];
+        case 'project_KaamKaagaz':
+        case 'project_Attendify':
+        case 'project_Continuity':
+        case 'project_WALL-E': {
+            const name = topic.replace('project_', '');
+            return [
+                { label: 'Architecture & Impact', query: `Tell me more about ${name}` },
+                { label: 'Other Projects', query: 'Show other projects' },
+                { label: 'Tech Stack', query: 'What skills does he have?' },
+                { label: 'Contact', query: 'How to contact Harsh?' }
+            ];
+        }
         case 'skills':
-            return RESPONSES.skills();
+            return [
+                { label: 'Frontend & 3D', query: 'Tell me about frontend skills' },
+                { label: 'Backend & DB', query: 'Tell me about backend skills' },
+                { label: 'AI & Intelligence', query: 'Tell me about AI skills' },
+                { label: 'Projects', query: 'Tell me about projects' }
+            ];
         case 'experience':
-            return RESPONSES.experience();
+            return [
+                { label: 'University of Mumbai', query: 'Tell me about IT Specialist role' },
+                { label: 'PR Head Fest', query: 'Tell me about PR Head role' },
+                { label: 'Student Parliament', query: 'Tell me about Student Parliament' },
+                { label: 'Education', query: 'Tell me about his education' }
+            ];
         case 'contact':
-            return RESPONSES.contact();
-        case 'about':
-            return RESPONSES.about();
+            return [
+                { label: 'Email Harsh', query: 'What is his email?' },
+                { label: 'Download Resume', query: 'How to download resume?' },
+                { label: 'LinkedIn', query: 'Show LinkedIn profile' },
+                { label: 'Projects', query: 'Tell me about projects' }
+            ];
         case 'education':
-            return RESPONSES.education();
         case 'achievements':
-            return RESPONSES.achievements();
-        case 'services':
-            return RESPONSES.services();
-        case 'followUp':
-            return RESPONSES.followUp();
+            return [
+                { label: 'Projects', query: 'Tell me about projects' },
+                { label: 'Experience', query: 'Tell me about his experience' },
+                { label: 'Skills', query: 'What skills does he have?' },
+                { label: 'Contact', query: 'How to contact Harsh?' }
+            ];
         default:
-            return pick(RESPONSES.fallback);
+            return INITIAL_CHIPS;
     }
 }
 
-
-function pick(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-
 /* ==========================================================================
-   SAFE DOM HELPERS
+   RESPONSE GENERATOR (FACTUAL ONLY)
    ========================================================================== */
 
-function escapeHTML(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+function generateResponse(intent) {
+    const { meta, projects, skills, experience, achievements, timeline } = KnowledgeBase;
+
+    switch (intent.type) {
+        case 'greeting':
+            return {
+                topic: 'greeting',
+                text: `Welcome! I'm **Aether**, Harsh Dubey's portfolio companion. I'm connected directly to his verified project catalog, technical skills, and career history. What would you like to explore?`
+            };
+
+        case 'projects': {
+            const list = projects.map(p => `• **${p.title.split('—')[0].trim()}** — ${p.description}`).join('\n');
+            return {
+                topic: 'projects',
+                text: `Harsh has engineered **${projects.length} featured flagship architectures**:\n\n${list}\n\nExplore them in the [Projects Section](#projects) or ask me about any specific project (e.g. "Tell me about KaamKaagaz")!`
+            };
+        }
+
+        case 'projectDetail': {
+            const p = projects.find(proj => proj.title.toLowerCase().includes(intent.name.toLowerCase()));
+            if (!p) {
+                return generateResponse({ type: 'projects' });
+            }
+            const techList = p.tech.join(', ');
+            const caseStudy = p.caseStudy;
+            let body = `**${p.title}**\n${p.description}\n\n**Tech Stack:** ${techList}`;
+            if (caseStudy?.architecture) {
+                body += `\n\n**Architecture:** ${caseStudy.architecture}`;
+            }
+            if (caseStudy?.impact) {
+                body += `\n\n**Impact:** ${caseStudy.impact}`;
+            }
+            body += `\n\n[Live Project](${p.live}) · [GitHub Repository](${p.github}) · [View in Portfolio](#projects)`;
+            return {
+                topic: `project_${intent.name}`,
+                text: body
+            };
+        }
+
+        case 'archive':
+            return {
+                topic: 'archive',
+                text: `Harsh's **Aether Archive** is a standalone spatial universe featuring a 3D project carousel, interactive atmosphere engine, and a verified directory of **16 public repositories**.\n\nYou can explore it directly at the [Aether Archive](/projects/) page!`
+            };
+
+        case 'skills': {
+            const categories = skills.map(s => {
+                const names = s.items.map(i => i.name).join(', ');
+                return `• **${s.category}:** ${names}`;
+            }).join('\n');
+            return {
+                topic: 'skills',
+                text: `Harsh's verified technical domains:\n\n${categories}\n\nReview visual breakdowns in the [Skills Section](#skills)!`
+            };
+        }
+
+        case 'skillDomain': {
+            const cat = skills.find(s => s.category.toLowerCase().includes(intent.domain.toLowerCase()));
+            if (!cat) return generateResponse({ type: 'skills' });
+            const items = cat.items.map(i => i.name).join(', ');
+            return {
+                topic: 'skills',
+                text: `**${cat.category} Competencies:**\n\n${items}\n\nSee how these are applied across his work in the [Projects Section](#projects).`
+            };
+        }
+
+        case 'experience': {
+            const list = experience.map(e =>
+                `• **${e.title}** at **${e.organization}**\n  ${e.description}`
+            ).join('\n\n');
+            return {
+                topic: 'experience',
+                text: `Harsh's verified career and leadership roles:\n\n${list}\n\nSee the full timeline in the [Experience Section](#experience).`
+            };
+        }
+
+        case 'education': {
+            const list = timeline.map(t => `• **${t.title}** (${t.date}) — ${t.subtitle}`).join('\n');
+            return {
+                topic: 'education',
+                text: `**Academic Background:**\n\n${list}\n\nHarsh currently maintains a **${meta.cgpa} CGPA** in ${meta.degree} at ${meta.college}.`
+            };
+        }
+
+        case 'achievements': {
+            const list = achievements.map(a => `• **${a.title}** [${a.badge}]: ${a.description}`).join('\n');
+            return {
+                topic: 'achievements',
+                text: `**Verified Achievements & Distinctions:**\n\n${list}`
+            };
+        }
+
+        case 'resume':
+            return {
+                topic: 'contact',
+                text: `Harsh's official curriculum vitae is available for download:\n\n• **Download Resume:** [${meta.resumePdf}](${meta.resumePdf})\n\nYou can also explore his credentials in the [Experience Section](#experience) and [About Section](#about).`
+            };
+
+        case 'contact':
+            return {
+                topic: 'contact',
+                text: `You can connect with Harsh Dubey directly:\n\n• **Email:** [${meta.email}](mailto:${meta.email})\n• **Phone:** [${meta.phone}](tel:${meta.phone.replace(/\s+/g, '')})\n• **LinkedIn:** [harsh-dubey-640a68389](${meta.linkedin})\n• **GitHub:** [chillingbing648-sketch](${meta.github})\n• **Location:** ${meta.location}\n\nHe is open to software engineering opportunities, internships, and collaborations. You can also send a direct transmission via the [Contact Section](#contact)!`
+            };
+
+        case 'about':
+            return {
+                topic: 'about',
+                text: `${meta.about}\n\n• **Current Degree:** ${meta.degree} (${meta.college})\n• **Academic Standing:** ${meta.cgpa} CGPA\n• **Location:** ${meta.location}\n\nLearn more in the [About Section](#about)!`
+            };
+
+        case 'followUp': {
+            const topic = intent.topic;
+            if (topic && topic.startsWith('project_')) {
+                const name = topic.replace('project_', '');
+                const p = projects.find(proj => proj.title.toLowerCase().includes(name.toLowerCase()));
+                if (p && p.caseStudy) {
+                    return {
+                        topic,
+                        text: `**Deep Dive into ${p.title.split('—')[0].trim()}:**\n\n**The Problem:** ${p.caseStudy.problem}\n\n**Engineering Approach:** ${p.caseStudy.architecture}\n\n**Verified Impact:** ${p.caseStudy.impact}\n\n[Explore Live Demo](${p.live}) · [Source Code](${p.github})`
+                    };
+                }
+            }
+            if (topic === 'skills') {
+                return {
+                    topic: 'skills',
+                    text: `Harsh specializes in bridging **interactive WebGL 3D engineering** (GLSL shaders, GSAP motion, responsive layouts) with **solid backend engineering** (Node.js, C++, REST APIs) and **AI integrations** (Claude API, OpenAI, prompt engineering).`
+                };
+            }
+            if (topic === 'experience') {
+                return {
+                    topic: 'experience',
+                    text: `During his tenure as **IT Specialist** at University of Mumbai, Harsh streamlined academic admissions logistics and system integrity. As **Public Relations Head**, he coordinated an intercollegiate festival reaching 2,000+ attendees and 1,000+ registrations across 40+ colleges.`
+                };
+            }
+            return {
+                topic: 'projects',
+                text: `Harsh has built products in civic-tech (**KaamKaagaz**), performance logistics (**Attendify**), digital legacy security (**Continuity**), and wellness companions (**WALL-E**). Which area would you like to review?`
+            };
+        }
+
+        default:
+            return {
+                topic: 'fallback',
+                text: `I focus exclusively on Harsh Dubey's verified portfolio data (projects, skills, experience, achievements, and contact details). If you have an inquiry outside these areas, you can reach Harsh directly through the [Contact Section](#contact) or via email at [${meta.email}](mailto:${meta.email}).`
+            };
+    }
 }
-
-
-/**
- * Convert simple markdown-like formatting to safe HTML.
- * Supports: [label](url), **bold**, _italic_, \n line breaks
- */
-function formatResponse(text) {
-    return escapeHTML(text)
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/_(.+?)_/g, '<em>$1</em>')
-        .replace(/\n/g, '<br>');
-}
-
 
 /* ==========================================================================
-   AETHER CONTROLLER
+   AETHER CONTROLLER (UI & EVENT MANAGEMENT)
    ========================================================================== */
 
 let _aetherInitialized = false;
@@ -387,28 +689,63 @@ export function initAICompanion() {
     // State
     let isOpen = false;
     let isThinking = false;
+    let lastTopic = null;
+    let lastFocusedElement = null;
     const conversation = [];
 
+    // Trigger async background knowledge base hydration
+    hydrateKnowledgeBase();
+
     /* ------------------------------------------------------------------
-       OPEN / CLOSE / TOGGLE
+       CHIP MANAGEMENT
+    ------------------------------------------------------------------ */
+
+    function renderChips(chipsList) {
+        if (!chipsWrap) return;
+        chipsWrap.textContent = '';
+        chipsList.forEach(item => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'assist-chip';
+            btn.textContent = item.label;
+            btn.setAttribute('data-prompt', item.query);
+            btn.setAttribute('aria-label', `Ask: ${item.label}`);
+            chipsWrap.appendChild(btn);
+        });
+        chipsWrap.classList.remove('faded');
+    }
+
+    function updateChipsForTopic(topic) {
+        const nextChips = getChipsForTopic(topic, KnowledgeBase.meta);
+        renderChips(nextChips);
+    }
+
+    /* ------------------------------------------------------------------
+       OPEN / CLOSE / FOCUS TRAP
     ------------------------------------------------------------------ */
 
     function openPanel() {
         if (isOpen) return;
         isOpen = true;
+        lastFocusedElement = document.activeElement;
+
         panel.classList.add('open');
         launcher.classList.add('open');
         launcher.setAttribute('aria-expanded', 'true');
         panel.setAttribute('aria-hidden', 'false');
 
-        // Show welcome message ONCE if conversation is empty
+        // Initial welcome message if conversation is clean
         if (conversation.length === 0) {
-            addAssistantMessage(pick(RESPONSES.greeting));
+            const greeting = generateResponse({ type: 'greeting' });
+            addAssistantMessage(greeting.text);
+            renderChips(INITIAL_CHIPS);
         }
 
         setTimeout(() => {
-            inputEl?.focus();
-        }, 200);
+            if (inputEl) {
+                inputEl.focus();
+            }
+        }, 150);
     }
 
     function closePanel() {
@@ -418,7 +755,12 @@ export function initAICompanion() {
         launcher.classList.remove('open');
         launcher.setAttribute('aria-expanded', 'false');
         panel.setAttribute('aria-hidden', 'true');
-        launcher.focus();
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        } else {
+            launcher.focus();
+        }
     }
 
     function togglePanel() {
@@ -428,27 +770,42 @@ export function initAICompanion() {
     function clearChat() {
         if (isThinking) return;
         conversation.length = 0;
-        _lastTopic = null;
-        if (messages) messages.innerHTML = '';
-        if (chipsWrap) chipsWrap.classList.remove('faded');
-        addAssistantMessage(pick(RESPONSES.greeting));
+        lastTopic = null;
+        if (messages) messages.textContent = '';
+
+        const greeting = generateResponse({ type: 'greeting' });
+        addAssistantMessage(greeting.text);
+        renderChips(INITIAL_CHIPS);
+
+        if (inputEl) {
+            inputEl.value = '';
+            inputEl.style.height = '38px';
+            inputEl.focus();
+        }
     }
 
-
     /* ------------------------------------------------------------------
-       MESSAGE RENDERING & SMART SCROLL
+       MESSAGE RENDERING & UNOBTRUSIVE SMART SCROLL
     ------------------------------------------------------------------ */
+
+    function handleInternalLink(hash) {
+        closePanel();
+        const target = document.querySelector(hash);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 
     function addUserMessage(text) {
         const msg = document.createElement('div');
         msg.className = 'msg user';
         const bubble = document.createElement('div');
         bubble.className = 'msg-bubble';
-        bubble.textContent = text;
+        bubble.textContent = text; // 100% safe textContent
         msg.appendChild(bubble);
         messages.appendChild(msg);
         conversation.push({ role: 'user', content: text });
-        smartScroll();
+        smartScroll(true);
     }
 
     function addAssistantMessage(text) {
@@ -457,27 +814,36 @@ export function initAICompanion() {
         msg.setAttribute('role', 'status');
         const bubble = document.createElement('div');
         bubble.className = 'msg-bubble';
-        bubble.innerHTML = formatResponse(text);
+
+        // Safe DOM tree construction
+        renderSafeFormattedMessage(bubble, text, handleInternalLink);
+
         msg.appendChild(bubble);
         messages.appendChild(msg);
         conversation.push({ role: 'assistant', content: text });
-        smartScroll();
+        smartScroll(false);
     }
 
     function showTypingIndicator() {
         const indicator = document.createElement('div');
         indicator.className = 'msg ai typing-msg';
         indicator.id = 'aether-typing';
-        indicator.innerHTML = `
-            <div class="msg-bubble">
-                <div class="typing-indicator">
-                    <span class="typing-dot"></span>
-                    <span class="typing-dot"></span>
-                    <span class="typing-dot"></span>
-                </div>
-            </div>`;
+        indicator.setAttribute('aria-label', 'Aether is typing');
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'typing-indicator';
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'typing-dot';
+            wrapper.appendChild(dot);
+        }
+        bubble.appendChild(wrapper);
+        indicator.appendChild(bubble);
         messages.appendChild(indicator);
-        smartScroll();
+        smartScroll(true);
         return indicator;
     }
 
@@ -487,70 +853,87 @@ export function initAICompanion() {
     }
 
     /**
-     * Smart Auto-Scroll: only scroll if the user is already near bottom
-     * or if forceScroll is true.
+     * Smart Auto-Scroll:
+     * Only scrolls if user is near bottom (<= 90px threshold) or if forceScroll is true.
+     * Respects user intent when reading past messages.
      */
-    function smartScroll(forceScroll = true) {
+    function smartScroll(forceScroll = false) {
         requestAnimationFrame(() => {
             if (!messages) return;
-            const isNearBottom = messages.scrollHeight - messages.scrollTop - messages.clientHeight < 140;
+            const threshold = 90;
+            const distanceToBottom = messages.scrollHeight - messages.scrollTop - messages.clientHeight;
+            const isNearBottom = distanceToBottom <= threshold;
+
             if (forceScroll || isNearBottom) {
-                messages.scrollTop = messages.scrollHeight;
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                messages.scrollTo({
+                    top: messages.scrollHeight,
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                });
             }
         });
     }
 
     function updateStatus(text, thinking = false) {
         if (!statusText) return;
-        statusText.innerHTML = `<span class="status-dot" aria-hidden="true"></span>${escapeHTML(text)}`;
+        statusText.textContent = '';
+        const dot = document.createElement('span');
+        dot.className = 'status-dot';
+        dot.setAttribute('aria-hidden', 'true');
+        statusText.appendChild(dot);
+        statusText.appendChild(document.createTextNode(text));
     }
 
-
     /* ------------------------------------------------------------------
-       SEND MESSAGE & LOADING PROTECTION
+       SEND MESSAGE & SAFE CYCLE
     ------------------------------------------------------------------ */
 
-    function sendMessage(text) {
-        if (isThinking) return; // Prevent double sending
+    async function sendMessage(rawText) {
+        if (isThinking) return;
 
-        const trimmed = (text || '').slice(0, 300).trim(); // Character limit 300
+        const trimmed = (rawText || '').slice(0, 300).trim();
         if (!trimmed) return;
+
+        // Ensure canonical data is loaded
+        if (!KnowledgeBase.isHydrated) {
+            await hydrateKnowledgeBase();
+        }
 
         isThinking = true;
 
-        // Set UI loading protection
+        // Loading locks
         if (sendBtn) sendBtn.disabled = true;
         if (inputEl) {
             inputEl.value = '';
+            inputEl.style.height = '38px';
             inputEl.disabled = true;
         }
 
-        // Fade quick prompts after first interaction
-        if (chipsWrap && !chipsWrap.classList.contains('faded')) {
-            chipsWrap.classList.add('faded');
-        }
-
-        // Show user message
+        // Display user message
         addUserMessage(trimmed);
 
         // Update status & typing indicator
         updateStatus("Aether is thinking...", true);
-        _eyeState = 'thinking'; // Curious upward glance during thinking
+        _eyeState = 'thinking';
         showTypingIndicator();
 
-        // Realistic typing delay
-        const delay = 450 + Math.random() * 550;
+        // Natural responsive cadence (350ms - 700ms)
+        const delay = 350 + Math.random() * 350;
+
         setTimeout(() => {
             removeTypingIndicator();
             try {
-                const response = generateResponse(trimmed);
-                addAssistantMessage(response);
+                const matched = matchIntent(trimmed, lastTopic);
+                const reply = generateResponse(matched);
+                lastTopic = reply.topic;
+
+                addAssistantMessage(reply.text);
+                updateChipsForTopic(reply.topic);
             } catch (err) {
-                addAssistantMessage("I encountered an issue processing that. Try asking about projects, skills, or experience!");
-                console.warn('[Aether] Response error:', err);
+                addAssistantMessage("I encountered an issue processing that query. You can ask about projects, skills, experience, or contact Harsh directly!");
             } finally {
                 isThinking = false;
-                _eyeState = 'idle'; // Return attention to user
+                _eyeState = 'idle';
                 if (sendBtn) sendBtn.disabled = false;
                 if (inputEl) {
                     inputEl.disabled = false;
@@ -567,74 +950,88 @@ export function initAICompanion() {
         }
     }
 
-
     /* ------------------------------------------------------------------
-       EVENT LISTENERS
+       INPUT TEXTAREA SIZING & EVENTS
     ------------------------------------------------------------------ */
 
-    // Launcher toggle
-    launcher.addEventListener('click', togglePanel);
-
-    // Close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closePanel);
-    }
-
-    // Clear button
-    if (clearBtn) {
-        clearBtn.addEventListener('click', clearChat);
-    }
-
-    // Send button
-    if (sendBtn) {
-        sendBtn.addEventListener('click', handleSend);
-    }
-
-    // Enter to send
     if (inputEl) {
+        // Auto-growing textarea
+        inputEl.addEventListener('input', () => {
+            inputEl.style.height = '38px';
+            const newHeight = Math.min(inputEl.scrollHeight, 84);
+            inputEl.style.height = `${newHeight}px`;
+            if (_eyeState !== 'thinking') _eyeState = 'typing';
+        });
+
+        // Enter to send, Shift+Enter for newline
         inputEl.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
+            if (e.key === 'Enter') {
+                if (!e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                }
             }
         });
 
-        // Mobile keyboard handling & eye state focus
         inputEl.addEventListener('focus', () => {
             if (!_eyeState || _eyeState === 'idle') _eyeState = 'typing';
-            setTimeout(() => {
-                smartScroll(true);
-            }, 300);
+            setTimeout(() => smartScroll(true), 250);
         });
 
         inputEl.addEventListener('blur', () => {
             if (_eyeState === 'typing') _eyeState = 'idle';
         });
-
-        inputEl.addEventListener('input', () => {
-            if (_eyeState !== 'thinking') _eyeState = 'typing';
-        });
     }
 
-    // Quick prompts
+    // Launcher & control buttons
+    launcher.addEventListener('click', togglePanel);
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
+    if (clearBtn) clearBtn.addEventListener('click', clearChat);
+    if (sendBtn) sendBtn.addEventListener('click', handleSend);
+
+    // Chips delegation
     if (chipsWrap) {
         chipsWrap.addEventListener('click', (e) => {
             const chip = e.target.closest('.assist-chip');
             if (!chip) return;
-            const prompt = chip.dataset.prompt || chip.textContent;
+            const prompt = chip.getAttribute('data-prompt') || chip.textContent;
             sendMessage(prompt);
         });
     }
 
-    // Escape to close
+    // Global keyboard management (Escape & Focus Trap)
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen) {
+        if (!isOpen) return;
+
+        if (e.key === 'Escape') {
             closePanel();
+            return;
+        }
+
+        // Focus trap
+        if (e.key === 'Tab') {
+            const focusable = panel.querySelectorAll('button:not([disabled]), textarea:not([disabled]), a[href], [tabindex="0"]');
+            if (!focusable.length) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
         }
     });
 
     /* ------------------------------------------------------------------
-       EXPRESSIVE ANIMATED EYE TRACKING & STATES
+       EXPRESSIVE ANIMATED EYE TRACKING & STATES (PRESERVED)
     ------------------------------------------------------------------ */
     let _eyeState = 'idle'; // 'idle', 'typing', 'thinking'
 
@@ -654,7 +1051,6 @@ export function initAICompanion() {
         let targetY = mouseY;
         let isAnimating = true;
 
-        // Micro-saccades offset
         let saccadeX = 0;
         let saccadeY = 0;
 
@@ -665,7 +1061,6 @@ export function initAICompanion() {
             }
         }, { passive: true });
 
-        // Natural blinking at varied intervals (2.5s - 5.5s)
         function scheduleBlink() {
             const delay = 2500 + Math.random() * 3000;
             setTimeout(() => {
@@ -680,7 +1075,6 @@ export function initAICompanion() {
         }
         scheduleBlink();
 
-        // Tiny pupil micro-saccades every 1.8s
         setInterval(() => {
             saccadeX = (Math.random() - 0.5) * 0.7;
             saccadeY = (Math.random() - 0.5) * 0.7;
@@ -694,17 +1088,15 @@ export function initAICompanion() {
         function animate() {
             if (!isAnimating) return;
 
-            // Effective target coordinates based on eye state
             if (_eyeState === 'thinking') {
                 targetX = window.innerWidth / 2 + 30;
-                targetY = window.innerHeight / 2 - 140; // Curious upward glance
+                targetY = window.innerHeight / 2 - 140;
             } else if (_eyeState === 'typing' && inputEl) {
                 const inputRect = inputEl.getBoundingClientRect();
                 targetX = inputRect.left + inputRect.width / 2;
                 targetY = inputRect.top + inputRect.height / 2;
             }
 
-            // Smooth spring / lerp interpolation
             mouseX += (targetX - mouseX) * 0.12;
             mouseY += (targetY - mouseY) * 0.12;
 
@@ -723,7 +1115,6 @@ export function initAICompanion() {
                 const angle = Math.atan2(dy, dx);
                 const distance = Math.hypot(dx, dy);
 
-                // Constrain pupil inside eye socket (3.2px max offset)
                 const maxOffset = 3.2;
                 const offset = Math.min(distance * 0.045, maxOffset);
 
@@ -739,6 +1130,5 @@ export function initAICompanion() {
         animate();
     }
 
-    // Initialize Eye Tracking
     initEyeTracking();
 }
