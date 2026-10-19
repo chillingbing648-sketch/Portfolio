@@ -1,0 +1,41 @@
+name: CI & Build Verification
+
+on:
+  push:
+    branches:
+      - main
+      - aether-v2
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & Verify Production Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Verify critical SEO & verification assets
+        run: |
+          test -f dist/index.html || exit 1
+          test -f dist/robots.txt || exit 1
+          test -f dist/sitemap.xml || exit 1
+          test -f dist/googleb712f9d322e4bee1.html || exit 1
