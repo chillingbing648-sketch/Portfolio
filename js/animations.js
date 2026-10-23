@@ -138,7 +138,20 @@ function initSectionAnimations() {
 
     const archiveCta = document.querySelector('.archive-editorial-btn');
     if (archiveCta) {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const archiveCard = archiveCta.closest('.archive-editorial-bridge');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (archiveCard && !reducedMotion) {
+            gsap.fromTo(archiveCard,
+                { opacity: 0, y: 22 },
+                {
+                    opacity: 1, y: 0,
+                    duration: 1.0, ease: 'power3.out', delay: 0.25,
+                    scrollTrigger: { trigger: archiveCard, start: 'top 85%' }
+                }
+            );
+        }
+
+        if (reducedMotion) {
             archiveCta.classList.add('is-revealed');
         } else {
             gsap.fromTo(archiveCta,
@@ -165,6 +178,38 @@ function initSectionAnimations() {
                     });
                 }, { threshold: 0.2 });
                 obs.observe(archiveCta);
+            }
+
+            if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                window.addEventListener('pointermove', event => {
+                    if (event.pointerType !== 'mouse') return;
+
+                    const updateProximity = (element, reach, activeClass, xProperty, yProperty, opacityProperty) => {
+                        if (!element) return;
+
+                        const bounds = element.getBoundingClientRect();
+                        const x = event.clientX - bounds.left;
+                        const y = event.clientY - bounds.top;
+                        const nearestX = Math.max(0, Math.min(bounds.width, x));
+                        const nearestY = Math.max(0, Math.min(bounds.height, y));
+                        const distance = Math.hypot(x - nearestX, y - nearestY);
+                        const opacity = Math.max(0, 1 - distance / reach);
+
+                        if (opacity <= 0) {
+                            element.classList.remove(activeClass);
+                            element.style.setProperty(opacityProperty, '0');
+                            return;
+                        }
+
+                        element.style.setProperty(xProperty, `${x}px`);
+                        element.style.setProperty(yProperty, `${y}px`);
+                        element.style.setProperty(opacityProperty, `${opacity}`);
+                        element.classList.add(activeClass);
+                    };
+
+                    updateProximity(archiveCard, 190, 'is-pointer-near', '--card-light-x', '--card-light-y', '--card-glow-opacity');
+                    updateProximity(archiveCta, 145, 'is-liquid-near', '--liquid-x', '--liquid-y', '--liquid-opacity');
+                }, { passive: true });
             }
         }
     }

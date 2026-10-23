@@ -179,31 +179,56 @@
 }
 
 .archive-editorial-bridge {
+    --card-light-x: 50%;
+    --card-light-y: 50%;
+    --card-glow-opacity: 0;
     width: 100%;
     max-width: 760px;
-    background: linear-gradient(135deg, rgba(16, 16, 26, 0.72) 0%, rgba(10, 10, 18, 0.78) 100%);
+    background: linear-gradient(135deg, rgba(28, 29, 33, 0.78) 0%, rgba(15, 16, 19, 0.86) 100%);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(211, 216, 224, 0.13);
     border-radius: var(--radius-md, 16px);
     padding: 2.2rem 2.6rem;
     margin-bottom: 4.8rem;
     position: relative;
+    isolation: isolate;
     z-index: 2;
     text-align: left;
     box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
-        0 14px 40px -12px rgba(0, 0, 0, 0.6);
-    transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.14),
+        0 14px 40px -12px rgba(0, 0, 0, 0.64);
+    transition: border-color 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), translate 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, scale 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-editorial-bridge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(380px circle at var(--card-light-x) var(--card-light-y), rgba(220, 225, 232, 0.16), rgba(178, 186, 198, 0.055) 38%, transparent 72%);
+    opacity: var(--card-glow-opacity);
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 0;
 }
 
 .archive-editorial-bridge:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
+    border-color: rgba(220, 224, 230, 0.24);
+    translate: 0 -3px;
     box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
         0 20px 48px -12px rgba(0, 0, 0, 0.75),
-        0 0 24px -4px rgba(56, 189, 248, 0.08);
+        0 0 24px -4px rgba(203, 210, 220, 0.08);
+}
+
+.archive-editorial-bridge.is-pointer-near {
+    scale: 1.006;
+    border-color: rgba(220, 224, 230, 0.3);
+    box-shadow:
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+        0 22px 52px -12px rgba(0, 0, 0, 0.72),
+        0 0 30px -8px rgba(203, 210, 220, 0.13);
 }
 
 .archive-editorial-inner {
@@ -212,6 +237,8 @@
     justify-content: space-between;
     gap: 2rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
 .archive-editorial-content {
@@ -228,7 +255,7 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--accent-cyan, #38bdf8);
+    color: #b8bec8;
     margin-bottom: 0.55rem;
 }
 
@@ -255,13 +282,15 @@
 
 .archive-editorial-action {
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* Glossy liquid-pill CTA */
 .archive-editorial-btn {
     position: relative;
     isolation: isolate;
-    overflow: visible;
+    overflow: hidden;
     font-size: 0.88rem;
     font-weight: 600;
     padding: 0.68rem 1.45rem;
@@ -269,11 +298,18 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(155deg, #292929 0%, #080808 48%, #181818 100%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background:
+        radial-gradient(ellipse at 50% -55%, rgba(255, 255, 255, 0.52), transparent 62%),
+        linear-gradient(165deg, #353535 0%, #111111 27%, #030303 58%, #191919 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     color: #ffffff;
-    box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.2), inset 0 -3px 5px rgba(0, 0, 0, 0.8), 0 8px 18px rgba(0, 0, 0, 0.45);
-    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.72),
+        inset 0 4px 9px rgba(255, 255, 255, 0.13),
+        inset 0 -8px 12px rgba(0, 0, 0, 0.88),
+        0 1px 0 rgba(255, 255, 255, 0.16),
+        0 10px 28px rgba(0, 0, 0, 0.58);
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
     text-decoration: none;
     cursor: pointer;
@@ -282,23 +318,51 @@
 .archive-editorial-btn::before {
     content: '';
     position: absolute;
-    inset: 1px 2px auto;
-    height: 48%;
+    inset: 1px;
     border-radius: inherit;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.035) 65%, transparent);
+    background:
+        linear-gradient(178deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.035) 42%, transparent 68%),
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.17), transparent 68%);
     pointer-events: none;
     z-index: 0;
 }
 
-.archive-editorial-btn > span:not(.card-living-legs-wrap) {
+.archive-liquid-tracer {
+    position: absolute;
+    left: var(--liquid-x, 50%);
+    top: var(--liquid-y, 50%);
+    width: 220px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 42% 38%, rgba(255, 255, 255, 0.74), transparent 8%),
+        radial-gradient(ellipse at 50% 50%, rgba(235, 239, 245, 0.3), rgba(190, 199, 211, 0.18) 28%, rgba(255, 255, 255, 0.09) 44%, transparent 72%);
+    filter: blur(7px);
+    opacity: var(--liquid-opacity, 0);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.65);
+    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+}
+
+.archive-editorial-btn.is-liquid-near .archive-liquid-tracer {
+    opacity: var(--liquid-opacity, 0);
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.archive-editorial-btn > span:not(.archive-liquid-tracer) {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .archive-editorial-btn:hover {
-    background: linear-gradient(155deg, #353535 0%, #0b0b0b 48%, #202020 100%);
-    border-color: rgba(255, 255, 255, 0.34);
-    box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.25), inset 0 -3px 5px rgba(0, 0, 0, 0.8), 0 12px 24px rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.9),
+        inset 0 5px 12px rgba(255, 255, 255, 0.18),
+        inset 0 -8px 12px rgba(0, 0, 0, 0.9),
+        0 1px 0 rgba(255, 255, 255, 0.2),
+        0 14px 34px rgba(0, 0, 0, 0.64);
     color: #ffffff;
     transform: translateY(-1px);
 }
@@ -317,26 +381,28 @@
     outline-offset: 3px;
 }
 
-/* Hand-drawn legs stay anchored to the CTA pill. */
-.archive-editorial-btn .card-living-legs-wrap {
+/* The sketch legs sit between the pill and the card's lower padding. */
+.archive-editorial-action > .card-living-legs-wrap {
     position: absolute;
-    top: calc(100% - 2px);
+    top: calc(100% - 1px);
     left: 50%;
     transform: translateX(-50%);
     width: 110px;
-    height: 52px;
+    height: 26px;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
 }
 
-.archive-editorial-btn .card-living-legs-svg {
+.archive-editorial-action .card-living-legs-svg {
     width: 100%;
-    height: 100%;
+    height: 52px;
+    transform: scaleY(0.5);
+    transform-origin: top center;
     overflow: visible;
 }
 
 /* Fine sketch linework */
-.archive-editorial-btn .card-leg-path-main {
+.archive-editorial-action .card-leg-path-main {
     stroke: #d1d5db;
     stroke-width: 1.35;
     stroke-linecap: round;
@@ -346,7 +412,7 @@
     stroke-dashoffset: 0;
 }
 
-.archive-editorial-btn .card-leg-path-sketch {
+.archive-editorial-action .card-leg-path-sketch {
     stroke: rgba(156, 163, 175, 0.7);
     stroke-width: 0.95;
     stroke-linecap: round;
@@ -356,8 +422,8 @@
     stroke-dashoffset: 0;
 }
 
-.archive-editorial-btn .card-leg-tick,
-.archive-editorial-btn .card-leg-sole {
+.archive-editorial-action .card-leg-tick,
+.archive-editorial-action .card-leg-sole {
     stroke: rgba(209, 213, 219, 0.65);
     stroke-width: 0.85;
     stroke-linecap: round;
@@ -366,51 +432,51 @@
 }
 
 /* Transform origins for natural leg pendulum swinging */
-.archive-editorial-btn .card-leg-left {
+.archive-editorial-action .card-leg-left {
     transform-origin: 38px 0px;
     transform-box: view-box;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.archive-editorial-btn .card-leg-right {
+.archive-editorial-action .card-leg-right {
     transform-origin: 68px 0px;
     transform-box: view-box;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── VIEWPORT REVEAL ANIMATIONS ── */
-.archive-editorial-btn.is-revealed .card-leg-path-main {
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-path-main {
     stroke-dashoffset: 90;
     animation: card-leg-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
-.archive-editorial-btn.is-revealed .card-leg-path-sketch {
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-path-sketch {
     stroke-dashoffset: 90;
     animation: card-leg-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
 }
 
-.archive-editorial-btn.is-revealed .card-leg-tick,
-.archive-editorial-btn.is-revealed .card-leg-sole {
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-tick,
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-sole {
     opacity: 0;
     animation: card-leg-tick-fade 0.4s ease 0.85s forwards;
 }
 
 /* ── RESTRAINED ORGANIC IDLE SWING ── */
-.archive-editorial-btn.is-revealed .card-leg-left {
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-left {
     animation: card-leg-idle-l 4.2s ease-in-out 1.2s infinite;
 }
 
-.archive-editorial-btn.is-revealed .card-leg-right {
+.archive-editorial-btn.is-revealed ~ .card-living-legs-wrap .card-leg-right {
     animation: card-leg-idle-r 4.8s ease-in-out 1.35s infinite;
 }
 
 /* ── HOVER CHOREOGRAPHY (CTA HOVER) ── */
 @media (hover: hover) and (pointer: fine) {
-    .archive-editorial-btn:hover .card-leg-left {
+    .archive-editorial-btn:hover ~ .card-living-legs-wrap .card-leg-left {
         animation: card-leg-hover-l 0.85s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .archive-editorial-btn:hover .card-leg-right {
+    .archive-editorial-btn:hover ~ .card-living-legs-wrap .card-leg-right {
         animation: card-leg-hover-r 0.85s cubic-bezier(0.25, 1, 0.5, 1);
     }
 }
@@ -458,18 +524,31 @@
 
 /* ── PREFERS REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
+    .archive-editorial-bridge,
+    .archive-editorial-bridge::before,
     .archive-editorial-btn,
-    .archive-editorial-btn .card-leg-left,
-    .archive-editorial-btn .card-leg-right,
-    .archive-editorial-btn .card-leg-path-main,
-    .archive-editorial-btn .card-leg-path-sketch,
-    .archive-editorial-btn .card-leg-tick,
-    .archive-editorial-btn .card-leg-sole {
+    .archive-editorial-action .card-leg-left,
+    .archive-editorial-action .card-leg-right,
+    .archive-editorial-action .card-leg-path-main,
+    .archive-editorial-action .card-leg-path-sketch,
+    .archive-editorial-action .card-leg-tick,
+    .archive-editorial-action .card-leg-sole {
         animation: none !important;
         transform: none !important;
+        translate: none !important;
+        scale: none !important;
         transition: none !important;
         stroke-dashoffset: 0 !important;
         opacity: 1 !important;
+    }
+
+    .archive-editorial-btn .archive-liquid-tracer {
+        opacity: 0 !important;
+        transition: none !important;
+    }
+
+    .archive-editorial-bridge::before {
+        opacity: 0 !important;
     }
 }
 
