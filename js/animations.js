@@ -136,15 +136,37 @@ function initSectionAnimations() {
         );
     }
 
-    if (document.querySelector('.archive-editorial-bridge')) {
-        gsap.fromTo('.archive-editorial-bridge',
-            { opacity: 0, y: 25 },
-            {
-                opacity: 1, y: 0,
-                duration: 1.0, ease: 'power3.out', delay: 0.35,
-                scrollTrigger: { trigger: '.archive-editorial-bridge', start: 'top 85%' }
+    const archiveCta = document.querySelector('.archive-editorial-btn');
+    if (archiveCta) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            archiveCta.classList.add('is-revealed');
+        } else {
+            gsap.fromTo(archiveCta,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 0.8, ease: 'power3.out', delay: 0.35,
+                    scrollTrigger: {
+                        trigger: archiveCta,
+                        start: 'top 85%',
+                        onEnter: () => archiveCta.classList.add('is-revealed')
+                    }
+                }
+            );
+
+            // Fallback for environments where ScrollTrigger does not fire.
+            if ('IntersectionObserver' in window) {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            archiveCta.classList.add('is-revealed');
+                            obs.disconnect();
+                        }
+                    });
+                }, { threshold: 0.2 });
+                obs.observe(archiveCta);
             }
-        );
+        }
     }
 
     gsap.fromTo('.constellation-node',

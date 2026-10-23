@@ -181,24 +181,29 @@
 .archive-editorial-bridge {
     width: 100%;
     max-width: 760px;
-    background: rgba(14, 14, 20, 0.68);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, rgba(16, 16, 26, 0.72) 0%, rgba(10, 10, 18, 0.78) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: var(--radius-md, 16px);
     padding: 2.2rem 2.6rem;
-    margin-bottom: 4rem;
+    margin-bottom: 4.8rem;
     position: relative;
     z-index: 2;
-    transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-    box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.5);
     text-align: left;
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 14px 40px -12px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
 .archive-editorial-bridge:hover {
-    border-color: rgba(255, 255, 255, 0.16);
-    transform: translateY(-2px);
-    box-shadow: 0 18px 48px -12px rgba(0, 0, 0, 0.65);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+        0 20px 48px -12px rgba(0, 0, 0, 0.75),
+        0 0 24px -4px rgba(56, 189, 248, 0.08);
 }
 
 .archive-editorial-inner {
@@ -252,27 +257,222 @@
     flex-shrink: 0;
 }
 
+/* Glossy liquid-pill CTA */
 .archive-editorial-btn {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
     font-size: 0.88rem;
-    font-weight: 500;
-    padding: 0.65rem 1.4rem;
-    border-radius: var(--radius-full);
+    font-weight: 600;
+    padding: 0.68rem 1.45rem;
+    border-radius: var(--radius-full, 9999px);
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: var(--text-main, #ffffff);
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    gap: 0.5rem;
+    background: linear-gradient(155deg, #292929 0%, #080808 48%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.2), inset 0 -3px 5px rgba(0, 0, 0, 0.8), 0 8px 18px rgba(0, 0, 0, 0.45);
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.archive-editorial-btn::before {
+    content: '';
+    position: absolute;
+    inset: 1px 2px auto;
+    height: 48%;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.035) 65%, transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.archive-editorial-btn > span:not(.card-living-legs-wrap) {
+    position: relative;
+    z-index: 1;
 }
 
 .archive-editorial-btn:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateX(2px);
+    background: linear-gradient(155deg, #353535 0%, #0b0b0b 48%, #202020 100%);
+    border-color: rgba(255, 255, 255, 0.34);
+    box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.25), inset 0 -3px 5px rgba(0, 0, 0, 0.8), 0 12px 24px rgba(0, 0, 0, 0.55);
     color: #ffffff;
+    transform: translateY(-1px);
 }
+
+.archive-editorial-btn:hover .archive-editorial-arrow {
+    transform: translate(2px, -2px);
+}
+
+.archive-editorial-btn .archive-editorial-arrow {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-editorial-btn:focus-visible {
+    outline: 2px solid var(--accent-cyan, #38bdf8);
+    outline-offset: 3px;
+}
+
+/* Hand-drawn legs stay anchored to the CTA pill. */
+.archive-editorial-btn .card-living-legs-wrap {
+    position: absolute;
+    top: calc(100% - 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 52px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.archive-editorial-btn .card-living-legs-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Fine sketch linework */
+.archive-editorial-btn .card-leg-path-main {
+    stroke: #d1d5db;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 90;
+    stroke-dashoffset: 0;
+}
+
+.archive-editorial-btn .card-leg-path-sketch {
+    stroke: rgba(156, 163, 175, 0.7);
+    stroke-width: 0.95;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 90;
+    stroke-dashoffset: 0;
+}
+
+.archive-editorial-btn .card-leg-tick,
+.archive-editorial-btn .card-leg-sole {
+    stroke: rgba(209, 213, 219, 0.65);
+    stroke-width: 0.85;
+    stroke-linecap: round;
+    fill: none;
+    opacity: 1;
+}
+
+/* Transform origins for natural leg pendulum swinging */
+.archive-editorial-btn .card-leg-left {
+    transform-origin: 38px 0px;
+    transform-box: view-box;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-editorial-btn .card-leg-right {
+    transform-origin: 68px 0px;
+    transform-box: view-box;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── VIEWPORT REVEAL ANIMATIONS ── */
+.archive-editorial-btn.is-revealed .card-leg-path-main {
+    stroke-dashoffset: 90;
+    animation: card-leg-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.archive-editorial-btn.is-revealed .card-leg-path-sketch {
+    stroke-dashoffset: 90;
+    animation: card-leg-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+}
+
+.archive-editorial-btn.is-revealed .card-leg-tick,
+.archive-editorial-btn.is-revealed .card-leg-sole {
+    opacity: 0;
+    animation: card-leg-tick-fade 0.4s ease 0.85s forwards;
+}
+
+/* ── RESTRAINED ORGANIC IDLE SWING ── */
+.archive-editorial-btn.is-revealed .card-leg-left {
+    animation: card-leg-idle-l 4.2s ease-in-out 1.2s infinite;
+}
+
+.archive-editorial-btn.is-revealed .card-leg-right {
+    animation: card-leg-idle-r 4.8s ease-in-out 1.35s infinite;
+}
+
+/* ── HOVER CHOREOGRAPHY (CTA HOVER) ── */
+@media (hover: hover) and (pointer: fine) {
+    .archive-editorial-btn:hover .card-leg-left {
+        animation: card-leg-hover-l 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .archive-editorial-btn:hover .card-leg-right {
+        animation: card-leg-hover-r 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+}
+
+/* ── KEYFRAMES ── */
+@keyframes card-leg-draw {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes card-leg-tick-fade {
+    to { opacity: 1; }
+}
+
+/* Restrained, minimal idle swing */
+@keyframes card-leg-idle-l {
+    0%, 100% { transform: rotate(0deg); }
+    25%      { transform: rotate(3.5deg); }
+    50%      { transform: rotate(-2deg); }
+    75%      { transform: rotate(2.5deg); }
+}
+
+@keyframes card-leg-idle-r {
+    0%, 100% { transform: rotate(0deg); }
+    30%      { transform: rotate(-4deg); }
+    60%      { transform: rotate(2.5deg); }
+    85%      { transform: rotate(-1.5deg); }
+}
+
+/* CTA hover reaction kicks */
+@keyframes card-leg-hover-l {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(-10deg) translateY(-2px); }
+    55%  { transform: rotate(12deg) translateY(-1px); }
+    80%  { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes card-leg-hover-r {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(12deg) translateY(-2px); }
+    55%  { transform: rotate(-8deg) translateY(-1px); }
+    80%  { transform: rotate(4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ── PREFERS REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+    .archive-editorial-btn,
+    .archive-editorial-btn .card-leg-left,
+    .archive-editorial-btn .card-leg-right,
+    .archive-editorial-btn .card-leg-path-main,
+    .archive-editorial-btn .card-leg-path-sketch,
+    .archive-editorial-btn .card-leg-tick,
+    .archive-editorial-btn .card-leg-sole {
+        animation: none !important;
+        transform: none !important;
+        transition: none !important;
+        stroke-dashoffset: 0 !important;
+        opacity: 1 !important;
+    }
+}
+
 
 .obs-signature-wrap { margin-bottom: 2.5rem; }
 
