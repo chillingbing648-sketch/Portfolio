@@ -19,8 +19,10 @@ export function initLiquidButton() {
             _root.render(
                 <PremiumCard
                     href="projects/"
-                    title="Explore Beyond the Featured Work"
-                />
+                    title="Built Beyond the Brief."
+                >
+                    Explore 16+ projects across AI, full-stack development, and interactive experiences.
+                </PremiumCard>
             );
             return;
         } catch (err) {

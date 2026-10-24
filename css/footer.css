@@ -262,6 +262,13 @@ section.pc {
     padding: 0;
 }
 
+.archive-editorial-mount .pc-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .archive-editorial-cta-mount {
     position: relative;
     display: inline-flex;

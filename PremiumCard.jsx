@@ -44,16 +44,16 @@ const CSS = `
   background:radial-gradient(360px circle at var(--mx) var(--my),rgba(110,125,255,.75),transparent 65%)}
 .pc:hover .pc-ring--glow{opacity:1}
 
-.pc-body{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);
-  align-items:center;gap:clamp(12px,1.8vw,24px);padding:clamp(12px,1.4vw,16px) clamp(18px,2.4vw,30px)}
-.pc-copy{display:flex;flex-direction:column;align-items:flex-start}
-.pc-title{margin:0 0 5px;font-size:clamp(19px,1.9vw,25px);line-height:1.15;font-weight:700;letter-spacing:-.025em;
-  text-wrap:balance;background:linear-gradient(180deg,#090a10 25%,#2a2f3f 80%,#444b5f 100%);-webkit-background-clip:text;background-clip:text;
+.pc-body{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:clamp(16px,2vw,22px);padding:clamp(28px,3.6vw,40px) clamp(20px,3.2vw,36px)}
+.pc-title{margin:0;font-size:clamp(20px,2.2vw,26px);line-height:1.2;font-weight:700;letter-spacing:-.025em;
+  text-align:center;white-space:nowrap;
+  background:linear-gradient(180deg,#090a10 25%,#2a2f3f 80%,#444b5f 100%);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent}
-.pc-text{margin:0;max-width:38ch;font-size:13.5px;line-height:1.45;color:#52586c;letter-spacing:-.01em}
+.pc-text{margin:0;max-width:48ch;font-size:clamp(13px,1.2vw,14.5px);line-height:1.5;color:#52586c;letter-spacing:-.01em;text-align:center}
 .pc-text b{font-weight:600;color:#0d1019}
 
-.pc-aside{position:relative;display:grid;place-items:center;min-height:76px}
+.pc-aside{position:relative;display:grid;place-items:center;min-height:56px;width:100%}
 .pc-aside::before{content:"";position:absolute;width:min(260px,100%);aspect-ratio:1.8;border-radius:50%;
   background:radial-gradient(closest-side,rgba(150,158,182,.5),rgba(120,130,255,.10) 62%,transparent);filter:blur(6px)}
 .pc-orbit{position:absolute;border-radius:50%;border:1px solid rgba(20,24,40,.1);pointer-events:none;
@@ -62,28 +62,27 @@ const CSS = `
 .pc-orbit--b{width:290px;height:125px;border-color:rgba(20,24,40,.06)}
 
 @media (prefers-reduced-motion:no-preference){
-  .pc-copy>*{animation:pc-in .8s cubic-bezier(.2,.7,.2,1) both}
-  .pc-copy>:nth-child(2){animation-delay:.08s}
+  .pc-title{animation:pc-in .8s cubic-bezier(.2,.7,.2,1) both}
+  .pc-aside{animation:pc-in .8s cubic-bezier(.2,.7,.2,1) .06s both}
+  .pc-text{animation:pc-in .8s cubic-bezier(.2,.7,.2,1) .12s both}
   @keyframes pc-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 }
 @media (max-width:820px){
   .pc{margin-bottom:2.6rem}
-  .pc-body{grid-template-columns:1fr;gap:14px;padding:16px 20px}
-  .pc-aside{justify-self:start;min-height:64px}
   .pc-orbit{display:none}
+}
+@media (max-width:540px){
+  .pc-body{padding:26px 18px;gap:16px}
+  .pc-title{white-space:normal;text-wrap:balance;font-size:clamp(18px,5vw,22px)}
+  .pc-text{font-size:13px;line-height:1.45}
 }
 `;
 
 export function PremiumCard({
-  title = 'Explore Beyond the Featured Work',
+  title = 'Built Beyond the Brief.',
   href = 'projects/',
   className = '',
-  children = (
-    <>
-      Dive into <b>16+ production architectures</b>, <b>interactive AI tools</b>, and{' '}
-      <b>full-stack software systems</b>.
-    </>
-  ),
+  children = 'Explore 16+ projects across AI, full-stack development, and interactive experiences.',
 }) {
   const ref = useRef(null);
 
@@ -106,16 +105,19 @@ export function PremiumCard({
       <div className="pc-ring pc-ring--glow" aria-hidden="true" />
 
       <div className="pc-body">
-        <div className="pc-copy">
-          <h2 className="pc-title">{title}</h2>
-          <p className="pc-text">{children}</p>
-        </div>
+        <h2 className="pc-title">{title}</h2>
 
         <div className="pc-aside">
           <span className="pc-orbit pc-orbit--a" aria-hidden="true" />
           <span className="pc-orbit pc-orbit--b" aria-hidden="true" />
-          <LiquidButton href={href} />
+          <LiquidButton
+            href={href}
+            id="exploreArchiveBtn"
+            aria-label="Explore All Projects in Aether Archive"
+          />
         </div>
+
+        <p className="pc-text">{children}</p>
       </div>
     </section>
   );
