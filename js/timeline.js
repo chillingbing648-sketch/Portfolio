@@ -232,13 +232,17 @@ function initTimelineProgress() {
     const container = document.getElementById('timeline-container');
     if (!progressLine || !container) return;
 
+    let totalLen = progressLine.getTotalLength?.() || 1000;
+    window.addEventListener('resize', () => {
+        totalLen = progressLine.getTotalLength?.() || 1000;
+    }, { passive: true });
+
     ScrollTrigger.create({
         trigger: container,
         start: 'top 70%',
         end: 'bottom 30%',
         scrub: 0.6,
         onUpdate: self => {
-            const totalLen = progressLine.getTotalLength?.() || 1000;
             const offset = totalLen * (1 - self.progress);
             progressLine.style.strokeDashoffset = offset;
         }

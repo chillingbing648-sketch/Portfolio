@@ -22,7 +22,7 @@ function initRevealItems() {
             { opacity: 0, y: 50, filter: 'blur(8px)' },
             {
                 opacity: 1, y: 0, filter: 'blur(0px)',
-                duration: 1, ease: 'power4.out',
+                duration: 1, ease: 'power4.out', clearProps: 'filter',
                 delay,
                 scrollTrigger: {
                     trigger: el,
@@ -73,7 +73,7 @@ function initSectionAnimations() {
             {
                 opacity: 1, clipPath: 'inset(0 0% 0 0)', scale: 1,
                 stagger: { each: 0.15, from: 'start' },
-                ease: 'power4.inOut', duration: 1,
+                ease: 'power4.inOut', duration: 1, clearProps: 'clipPath',
                 scrollTrigger: { trigger: '#projects', start: 'top 75%' }
             }
         );
@@ -85,7 +85,7 @@ function initSectionAnimations() {
             { opacity: 0, y: 30, filter: 'blur(12px)' },
             {
                 opacity: 1, y: 0, filter: 'blur(0px)',
-                duration: 1.2, ease: 'power4.out',
+                duration: 1.2, ease: 'power4.out', clearProps: 'filter',
                 scrollTrigger: { trigger: title, start: 'top 88%' }
             }
         );
@@ -252,7 +252,7 @@ export function initNeuralCanvas() {
         vy: (Math.random() - 0.5) * 0.25
     }));
 
-    let isVisible = true;
+    let isVisible = false;
     let animId = null;
 
     function draw() {
@@ -360,7 +360,7 @@ export function initObservatoryCanvas() {
     let animId = null;
 
     function drawObservatory() {
-        if (!isVisible && !prefersReducedMotion) return;
+        if (!isVisible && !prefersReducedMotion) { animId = null; return; }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Nebulae

@@ -206,8 +206,10 @@ function initCardInteractivity() {
     document.querySelectorAll('.project-card-inner').forEach(card => {
         card.parentElement.style.perspective = '1000px';
 
+        let cardRect = null;
+        card.addEventListener('mouseenter', () => { cardRect = card.getBoundingClientRect(); }, { passive: true });
         card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
+            const rect = cardRect || card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
@@ -224,25 +226,28 @@ function initCardInteractivity() {
                     rotateY: rotateY,
                     transformPerspective: 1000,
                     duration: 0.3,
-                    ease: 'power2.out'
+                    ease: 'power2.out',
+                    overwrite: 'auto'
                 });
             } else {
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             }
-        });
+        }, { passive: true });
 
         card.addEventListener('mouseleave', () => {
+            cardRect = null;
             if (typeof gsap !== 'undefined') {
                 gsap.to(card, {
                     rotateX: 0,
                     rotateY: 0,
                     duration: 0.6,
-                    ease: 'elastic.out(1, 0.5)'
+                    ease: 'elastic.out(1, 0.5)',
+                    overwrite: 'auto'
                 });
             } else {
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
             }
-        });
+        }, { passive: true });
     });
 
     // Card & button click / keyboard → open modal

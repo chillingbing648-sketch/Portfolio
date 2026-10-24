@@ -59,7 +59,7 @@ export function LiquidButton({ href, children = <>Explore All Projects <span cla
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let W = 0, H = 0, CX = 0, CY = 0, R = 0, L = 0;
-    let press = 0, pressV = 0, running = false, last = 0, raf = 0;
+    let press = 0, pressV = 0, running = false, last = 0, raf = 0, svgRect = null;
     const m = { x: 0, y: 0, on: false }; // client coordinates
 
     const slots = Array.from({ length: 12 }, (_, i) => ({
@@ -83,6 +83,7 @@ export function LiquidButton({ href, children = <>Explore All Projects <span cla
       const tw = W + PAD * 2, th = H + PAD * 2;
       svg.setAttribute('width', tw); svg.setAttribute('height', th);
       flt.setAttribute('width', tw); flt.setAttribute('height', th);
+      svgRect = svg.getBoundingClientRect();
       drawStatic(); wake();
       return b;
     };
@@ -110,7 +111,7 @@ export function LiquidButton({ href, children = <>Explore All Projects <span cla
     function frame(now) {
       const dt = Math.min(2.5, (now - last) / 16.667); last = now;
       const t = now / 1000;
-      const sr = svg.getBoundingClientRect();            // cursor in local SVG space (scroll-safe)
+      const sr = svgRect || svg.getBoundingClientRect();            // cursor in local SVG space (scroll-safe)
       const mx = m.x - sr.left, my = m.y - sr.top;
       const prox = m.on ? ss(RANGE, 40, sdf(mx, my)) : 0;
       let busy = m.on && prox > 0, d = '';
@@ -174,7 +175,7 @@ export function LiquidButton({ href, children = <>Explore All Projects <span cla
     const onMove = (e) => { m.x = e.clientX; m.y = e.clientY; m.on = !reduce.matches; wake(); };
     const onLeave = () => { m.on = false; };
     const onDown = () => { pressV -= .09; wake(); };
-    const onScroll = () => { if (m.on) wake(); };
+    const onScroll = () => { svgRect = svg.getBoundingClientRect(); if (m.on) wake(); };
 
     window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });

@@ -53,7 +53,7 @@ export function initScroll() {
             lenis.raf(time * 1000);
         });
 
-        gsap.ticker.lagSmoothing(0, 0);
+        gsap.ticker.lagSmoothing(500, 33);
     } else {
         function raf(time) {
             lenis.raf(time);
@@ -65,15 +65,34 @@ export function initScroll() {
 
     /*
      * ---------------------------------------------------------
-     * SCROLL SPEED TRACKING
+     * SCROLL SPEED TRACKING & COMPOSITED PROGRESS BAR
      * ---------------------------------------------------------
      */
 
     let lastScrollY = 0;
+    let maxScroll = 1;
 
     const progressBar = document.getElementById(
         'scroll-progress-bar'
     );
+
+    const updateMaxScroll = () => {
+        maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    };
+    updateMaxScroll();
+    window.addEventListener('resize', updateMaxScroll, { passive: true });
+
+    let decayFrame = null;
+
+    function decayScrollSpeed() {
+        if (scrollSpeed > 0.01) {
+            scrollSpeed *= 0.92;
+            decayFrame = requestAnimationFrame(decayScrollSpeed);
+        } else {
+            scrollSpeed = 0;
+            decayFrame = null;
+        }
+    }
 
     lenis.on('scroll', ({ scroll }) => {
         const delta = Math.abs(scroll - lastScrollY);
@@ -84,56 +103,17 @@ export function initScroll() {
         );
 
         scrollSpeedDecay = 1;
-
         lastScrollY = scroll;
 
-        /*
-         * Update progress bar.
-         */
         if (progressBar) {
-            const maxScroll =
-                document.documentElement.scrollHeight -
-                window.innerHeight;
+            const progress = Math.min(1, Math.max(0, scroll / maxScroll));
+            progressBar.style.transform = `scaleX(${progress})`;
+        }
 
-            if (maxScroll > 0) {
-                const percentage =
-                    (scroll / maxScroll) * 100;
-
-                progressBar.style.width =
-                    Math.min(
-                        100,
-                        Math.max(0, percentage)
-                    ) + '%';
-            }
+        if (!decayFrame && scrollSpeed > 0.01) {
+            decayFrame = requestAnimationFrame(decayScrollSpeed);
         }
     });
-
-    /*
-     * ---------------------------------------------------------
-     * LIGHTWEIGHT SPEED DECAY
-     *
-     * Instead of creating setTimeout() for every scroll event,
-     * decay the value using the browser's frame loop.
-     * ---------------------------------------------------------
-     */
-
-    let decayFrame = null;
-
-    function decayScrollSpeed() {
-        if (scrollSpeed > 0.01) {
-            scrollSpeed *= 0.92;
-        } else {
-            scrollSpeed = 0;
-        }
-
-        decayFrame = requestAnimationFrame(
-            decayScrollSpeed
-        );
-    }
-
-    decayFrame = requestAnimationFrame(
-        decayScrollSpeed
-    );
 
     /*
      * ---------------------------------------------------------

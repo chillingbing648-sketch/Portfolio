@@ -1085,6 +1085,23 @@ export function initAICompanion() {
             if (isAnimating) animate();
         });
 
+        let socketCenters = [];
+        const updateSocketPositions = () => {
+            socketCenters = pupils.map(pupil => {
+                const socket = pupil.parentElement;
+                if (!socket) return null;
+                const rect = socket.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) return null;
+                return {
+                    centerX: rect.left + rect.width / 2,
+                    centerY: rect.top + rect.height / 2
+                };
+            });
+        };
+        updateSocketPositions();
+        window.addEventListener('resize', updateSocketPositions, { passive: true });
+        window.addEventListener('scroll', updateSocketPositions, { passive: true });
+
         function animate() {
             if (!isAnimating) return;
 
@@ -1100,18 +1117,12 @@ export function initAICompanion() {
             mouseX += (targetX - mouseX) * 0.12;
             mouseY += (targetY - mouseY) * 0.12;
 
-            pupils.forEach((pupil) => {
-                const socket = pupil.parentElement;
-                if (!socket) return;
+            pupils.forEach((pupil, i) => {
+                const center = socketCenters[i];
+                if (!center) return;
 
-                const rect = socket.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) return;
-
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                const dx = mouseX - centerX;
-                const dy = mouseY - centerY;
+                const dx = mouseX - center.centerX;
+                const dy = mouseY - center.centerY;
                 const angle = Math.atan2(dy, dx);
                 const distance = Math.hypot(dx, dy);
 

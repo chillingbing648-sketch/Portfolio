@@ -109,14 +109,17 @@ function initMagneticCapsules() {
     if (isTouch) return;
 
     document.querySelectorAll('.skill-capsule').forEach(cap => {
+        let capRect = null;
+        cap.addEventListener('mouseenter', () => { capRect = cap.getBoundingClientRect(); }, { passive: true });
         cap.addEventListener('mousemove', e => {
-            const rect = cap.getBoundingClientRect();
+            const rect = capRect || cap.getBoundingClientRect();
             const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
             const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
-            gsap.to(cap, { x, y, duration: 0.3, ease: 'power2.out' });
-        });
+            gsap.to(cap, { x, y, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+        }, { passive: true });
         cap.addEventListener('mouseleave', () => {
-            gsap.to(cap, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' });
-        });
+            capRect = null;
+            gsap.to(cap, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)', overwrite: 'auto' });
+        }, { passive: true });
     });
 }

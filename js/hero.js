@@ -224,8 +224,13 @@ function init3DTilt() {
 
     if (!portraitWrapper || !portraitContainer) return;
 
+    let portraitRect = null;
+    const updatePortraitRect = () => { portraitRect = portraitWrapper.getBoundingClientRect(); };
+    portraitWrapper.addEventListener('mouseenter', updatePortraitRect, { passive: true });
+    window.addEventListener('resize', updatePortraitRect, { passive: true });
+
     portraitWrapper.addEventListener('mousemove', e => {
-        const rect = portraitWrapper.getBoundingClientRect();
+        const rect = portraitRect || portraitWrapper.getBoundingClientRect();
         const x = e.clientX - rect.left, y = e.clientY - rect.top;
         const rx = ((y - rect.height / 2) / (rect.height / 2)) * -14;
         const ry = ((x - rect.width / 2) / (rect.width / 2)) * 14;
@@ -234,7 +239,7 @@ function init3DTilt() {
             rimLight.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
             rimLight.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
         }
-    });
+    }, { passive: true });
 
     portraitWrapper.addEventListener('mouseleave', () => {
         portraitContainer.style.transform = '';

@@ -2877,8 +2877,6 @@ class TunnelEngine {
       dt *
       motionScale;
 
-    this.applyConfigUniforms();
-
     this.updateDynamics(
       dt
     );
@@ -2901,6 +2899,7 @@ class TunnelEngine {
       return this;
     }
 
+    this.applyConfigUniforms();
     this.running = true;
 
     this.lastTime =

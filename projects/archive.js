@@ -485,15 +485,7 @@ function attachCarouselInteractions() {
         if (activeProj) openProjectModal(activeProj.id);
     });
 
-    // Real-Time Drag & Swipe Scrubbing
-    const onPointerDown = (e) => {
-        isDragging = true;
-        dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-        dragStartY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
-        dragDeltaX = 0;
-        dragStartTime = Date.now();
-    };
-
+    // Real-Time Drag & Swipe Scrubbing (dynamic listener binding for uninhibited scroll)
     const onPointerMove = (e) => {
         if (!isDragging) return;
         const currentX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
@@ -516,6 +508,11 @@ function attachCarouselInteractions() {
     };
 
     const onPointerUp = () => {
+        window.removeEventListener('mousemove', onPointerMove);
+        window.removeEventListener('mouseup', onPointerUp);
+        window.removeEventListener('touchmove', onPointerMove);
+        window.removeEventListener('touchend', onPointerUp);
+
         if (!isDragging) return;
         isDragging = false;
 
@@ -537,13 +534,21 @@ function attachCarouselInteractions() {
         }, 50);
     };
 
-    carouselStageContainer.addEventListener('mousedown', onPointerDown);
-    window.addEventListener('mousemove', onPointerMove, { passive: false });
-    window.addEventListener('mouseup', onPointerUp);
+    const onPointerDown = (e) => {
+        isDragging = true;
+        dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        dragStartY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        dragDeltaX = 0;
+        dragStartTime = Date.now();
 
+        window.addEventListener('mousemove', onPointerMove, { passive: false });
+        window.addEventListener('mouseup', onPointerUp);
+        window.addEventListener('touchmove', onPointerMove, { passive: false });
+        window.addEventListener('touchend', onPointerUp);
+    };
+
+    carouselStageContainer.addEventListener('mousedown', onPointerDown);
     carouselStageContainer.addEventListener('touchstart', onPointerDown, { passive: true });
-    window.addEventListener('touchmove', onPointerMove, { passive: false });
-    window.addEventListener('touchend', onPointerUp);
 
     // Controlled Mouse-Wheel Navigation with short debounce
     carouselStageContainer.addEventListener('wheel', (e) => {
