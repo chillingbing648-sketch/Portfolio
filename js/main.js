@@ -10,7 +10,7 @@
 import { initEnvironmentTheme } from './theme.js';
 import { initLoader } from './loader.js';
 import { initCursor, bindHoverTargets } from './cursor.js';
-import { initScroll, getScrollSpeed } from './scroll.js';
+import { initScroll } from './scroll.js';
 import { initNavigation } from './navigation.js';
 import { initParticles } from './particles.js';
 import { initHero } from './hero.js';
@@ -88,7 +88,7 @@ function initOptionalModules() {
         ['cursor',             initCursor],
         ['navigation',         initNavigation],
         ['scroll',             initScroll],
-        ['particles',          () => initParticles(getScrollSpeed)],
+        ['particles',          () => initParticles(() => 0)],
         ['hero',               initHero],
         ['skills',             initSkills],
         ['projects',           initProjects],

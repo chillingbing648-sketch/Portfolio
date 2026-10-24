@@ -478,15 +478,7 @@ void main() {
     u_flowDirection;
 
   float speed =
-    u_speed *
-    (
-      1.0 +
-      min(
-        abs(u_scrollSpeed),
-        3.0
-      ) *
-      0.65
-    );
+    u_speed;
 
   float timeFlow =
     u_time *
@@ -1271,7 +1263,7 @@ class TunnelEngine {
     this.getScrollSpeed =
       typeof scrollSpeedGetter === 'function'
         ? scrollSpeedGetter
-        : () => _scrollSpeed;
+        : () => 0;
 
     this.gl = null;
 
@@ -3264,8 +3256,7 @@ function glUniforms(
 }
 
 export function initParticles(
-  scrollSpeedGetter = () =>
-    _scrollSpeed
+  scrollSpeedGetter = () => 0
 ) {
 
   const canvas =

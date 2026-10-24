@@ -9,7 +9,6 @@
  */
 
 let scrollSpeed = 0;
-let scrollSpeedDecay = 0;
 
 export function getScrollSpeed() {
     return scrollSpeed;
@@ -51,12 +50,22 @@ export function initScroll() {
 
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
+            if (scrollSpeed > 0.001) {
+                scrollSpeed *= 0.92;
+            } else {
+                scrollSpeed = 0;
+            }
         });
 
         gsap.ticker.lagSmoothing(500, 33);
     } else {
         function raf(time) {
             lenis.raf(time);
+            if (scrollSpeed > 0.001) {
+                scrollSpeed *= 0.92;
+            } else {
+                scrollSpeed = 0;
+            }
             requestAnimationFrame(raf);
         }
 
@@ -82,17 +91,6 @@ export function initScroll() {
     updateMaxScroll();
     window.addEventListener('resize', updateMaxScroll, { passive: true });
 
-    let decayFrame = null;
-
-    function decayScrollSpeed() {
-        if (scrollSpeed > 0.01) {
-            scrollSpeed *= 0.92;
-            decayFrame = requestAnimationFrame(decayScrollSpeed);
-        } else {
-            scrollSpeed = 0;
-            decayFrame = null;
-        }
-    }
 
     lenis.on('scroll', ({ scroll }) => {
         const delta = Math.abs(scroll - lastScrollY);
@@ -102,7 +100,6 @@ export function initScroll() {
             3
         );
 
-        scrollSpeedDecay = 1;
         lastScrollY = scroll;
 
         if (progressBar) {
@@ -110,9 +107,6 @@ export function initScroll() {
             progressBar.style.transform = `scaleX(${progress})`;
         }
 
-        if (!decayFrame && scrollSpeed > 0.01) {
-            decayFrame = requestAnimationFrame(decayScrollSpeed);
-        }
     });
 
     /*
@@ -205,15 +199,7 @@ export function initScroll() {
      */
 
     lenis._portfolioCleanup = () => {
-        if (
-            decayFrame !== null
-        ) {
-            cancelAnimationFrame(
-                decayFrame
-            );
-
-            decayFrame = null;
-        }
+        window.removeEventListener('resize', updateMaxScroll);
 
         if (
             usingGsapTicker &&
