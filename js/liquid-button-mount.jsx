@@ -19,7 +19,6 @@ export function initLiquidButton() {
             _root.render(
                 <PremiumCard
                     href="projects/"
-                    eyebrow="The complete universe"
                     title="Explore Beyond the Featured Work"
                 />
             );

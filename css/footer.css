@@ -257,6 +257,11 @@
     justify-content: center;
 }
 
+.archive-editorial-mount .pc,
+section.pc {
+    padding: 0;
+}
+
 .archive-editorial-cta-mount {
     position: relative;
     display: inline-flex;

@@ -1,14 +1,12 @@
-'use client';
 import React, { useRef } from 'react';
-import LiquidButton from './LiquidButton.jsx'; // your existing button, untouched
+import { LiquidButton } from './LiquidButton.jsx';
 
 /**
- * PremiumCard – "The Complete Universe" call-to-action card.
+ * PremiumCard — brushed white-silver glass card with hairline ring,
+ * cursor spotlight, and nested orbits around the LiquidButton CTA.
  *
- * Material idea: the button is wet, glossy and convex; the card is its opposite —
- * brushed white-silver glass with a hairline edge, a faint engineering grid and a soft
- * spotlight that follows the cursor. The only thing they share is the indigo
- * light colour, so the button looks "seated" in the card instead of copied by it.
+ * Designed to sit in a dark cosmic viewport. The card itself reads as a
+ * bright, refined editorial module (Apple / Linear key visual style).
  */
 
 const NOISE =
@@ -18,9 +16,9 @@ const NOISE =
   "<rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const CSS = `
-.pc{--mx:30%;--my:0%;position:relative;width:100%;max-width:960px;margin:0 auto 4.8rem;border-radius:28px;
+.pc{--mx:30%;--my:0%;position:relative;width:100%;max-width:730px;margin:0 auto 4.2rem;border-radius:22px;padding:0;box-sizing:border-box;
   font-family:"Plus Jakarta Sans","Inter","Segoe UI",system-ui,sans-serif;color:#151824;
-  box-shadow:0 60px 110px -35px rgba(0,0,0,.9),0 24px 48px -24px rgba(0,0,0,.65),0 0 130px -30px rgba(190,200,255,.38)}
+  box-shadow:0 50px 100px -30px rgba(0,0,0,.85),0 20px 40px -20px rgba(0,0,0,.6),0 0 110px -25px rgba(190,200,255,.35)}
 .pc-bg{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;
   background:
     linear-gradient(115deg,transparent 30%,rgba(255,255,255,.7) 44%,rgba(255,255,255,0) 58%),
@@ -46,42 +44,37 @@ const CSS = `
   background:radial-gradient(360px circle at var(--mx) var(--my),rgba(110,125,255,.75),transparent 65%)}
 .pc:hover .pc-ring--glow{opacity:1}
 
-.pc-body{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
-  align-items:center;gap:clamp(16px,3vw,40px);padding:clamp(28px,4vw,48px)}
+.pc-body{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);
+  align-items:center;gap:clamp(12px,1.8vw,24px);padding:clamp(12px,1.4vw,16px) clamp(18px,2.4vw,30px)}
 .pc-copy{display:flex;flex-direction:column;align-items:flex-start}
-.pc-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 13px 6px 11px;border-radius:999px;
-  border:1px solid rgba(20,24,40,.1);background:rgba(255,255,255,.65);box-shadow:0 1px 0 #fff inset,0 1px 2px rgba(20,24,40,.06);
-  font:500 11.5px/1 "JetBrains Mono","SF Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#596077}
-.pc-dot{width:6px;height:6px;border-radius:50%;background:#5b6cff;box-shadow:0 0 8px 1px rgba(91,108,255,.55)}
-.pc-title{margin:22px 0 14px;font-size:clamp(28px,3.4vw,42px);line-height:1.08;font-weight:700;letter-spacing:-.03em;
-  text-wrap:balance;background:linear-gradient(180deg,#0b0d15 30%,#4b5166);-webkit-background-clip:text;background-clip:text;
+.pc-title{margin:0 0 5px;font-size:clamp(19px,1.9vw,25px);line-height:1.15;font-weight:700;letter-spacing:-.025em;
+  text-wrap:balance;background:linear-gradient(180deg,#090a10 25%,#2a2f3f 80%,#444b5f 100%);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent}
-.pc-text{margin:0;max-width:46ch;font-size:16.5px;line-height:1.65;color:#5f657a}
-.pc-text b{font-weight:600;color:#161a28}
+.pc-text{margin:0;max-width:38ch;font-size:13.5px;line-height:1.45;color:#52586c;letter-spacing:-.01em}
+.pc-text b{font-weight:600;color:#0d1019}
 
-.pc-aside{position:relative;display:grid;place-items:center;min-height:170px}
-.pc-aside::before{content:"";position:absolute;width:min(380px,110%);aspect-ratio:1.5;border-radius:50%;
+.pc-aside{position:relative;display:grid;place-items:center;min-height:76px}
+.pc-aside::before{content:"";position:absolute;width:min(260px,100%);aspect-ratio:1.8;border-radius:50%;
   background:radial-gradient(closest-side,rgba(150,158,182,.5),rgba(120,130,255,.10) 62%,transparent);filter:blur(6px)}
 .pc-orbit{position:absolute;border-radius:50%;border:1px solid rgba(20,24,40,.1);pointer-events:none;
   -webkit-mask-image:radial-gradient(closest-side,transparent 55%,#000);mask-image:radial-gradient(closest-side,transparent 55%,#000)}
-.pc-orbit--a{width:300px;height:190px}
-.pc-orbit--b{width:430px;height:280px;border-color:rgba(20,24,40,.06)}
+.pc-orbit--a{width:200px;height:90px}
+.pc-orbit--b{width:290px;height:125px;border-color:rgba(20,24,40,.06)}
 
 @media (prefers-reduced-motion:no-preference){
   .pc-copy>*{animation:pc-in .8s cubic-bezier(.2,.7,.2,1) both}
-  .pc-copy>:nth-child(2){animation-delay:.08s}.pc-copy>:nth-child(3){animation-delay:.16s}
+  .pc-copy>:nth-child(2){animation-delay:.08s}
   @keyframes pc-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 }
 @media (max-width:820px){
-  .pc{margin-bottom:3rem}
-  .pc-body{grid-template-columns:1fr}
-  .pc-aside{justify-self:start;min-height:130px}
+  .pc{margin-bottom:2.6rem}
+  .pc-body{grid-template-columns:1fr;gap:14px;padding:16px 20px}
+  .pc-aside{justify-self:start;min-height:64px}
   .pc-orbit{display:none}
 }
 `;
 
 export function PremiumCard({
-  eyebrow = 'The complete universe',
   title = 'Explore Beyond the Featured Work',
   href = 'projects/',
   className = '',
@@ -114,7 +107,6 @@ export function PremiumCard({
 
       <div className="pc-body">
         <div className="pc-copy">
-          <span className="pc-eyebrow"><i className="pc-dot" />{eyebrow}</span>
           <h2 className="pc-title">{title}</h2>
           <p className="pc-text">{children}</p>
         </div>

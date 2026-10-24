@@ -15,18 +15,18 @@ const N = 18;         // spine points per tendril
 const CSS = `
 .lqb-wrap{position:relative;display:inline-block;isolation:isolate}
 .lqb-fx{position:absolute;left:${-PAD}px;top:${-PAD}px;pointer-events:none;z-index:0;overflow:visible}
-.lqb{position:relative;z-index:1;display:inline-flex;align-items:center;gap:14px;height:74px;padding:0 54px;
+.lqb{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 28px;
   border:0;border-radius:999px;background:transparent;color:#fff;cursor:pointer;text-decoration:none;
-  font:600 22px/1 "Plus Jakarta Sans","Inter","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em;
+  font:600 15px/1 "Plus Jakarta Sans","Inter","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em;
   text-shadow:0 1px 0 rgba(0,0,0,.6);-webkit-tap-highlight-color:transparent}
 .lqb-arrow{display:inline-block;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
 .lqb:hover .lqb-arrow,.lqb:focus-visible .lqb-arrow{transform:translate(3px,-3px)}
 .lqb:focus-visible{outline:2px solid #9fb0ff;outline-offset:8px}
 @media (max-width: 640px) {
-  .lqb{height:58px;padding:0 32px;font-size:17px;gap:10px}
+  .lqb{height:44px;padding:0 20px;font-size:14px;gap:7px}
 }
 @media (max-width: 400px) {
-  .lqb{height:50px;padding:0 22px;font-size:15px;gap:8px}
+  .lqb{height:38px;padding:0 14px;font-size:12.5px;gap:5px}
 }
 `;
 
@@ -47,7 +47,7 @@ function smooth(P) {
   return d + 'Z';
 }
 
-export default function LiquidButton({ href, children = <>Explore All Projects <span className="lqb-arrow" aria-hidden="true">↗</span></>, className = '', ...rest }) {
+export function LiquidButton({ href, children = <>Explore All Projects <span className="lqb-arrow" aria-hidden="true">↗</span></>, className = '', ...rest }) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const fid = `lqf${uid}`, g1 = `lqg1${uid}`, g2 = `lqg2${uid}`;
   const btnRef = useRef(null), svgRef = useRef(null), fltRef = useRef(null);
@@ -255,3 +255,6 @@ export default function LiquidButton({ href, children = <>Explore All Projects <
     </span>
   );
 }
+
+export default LiquidButton;
+
