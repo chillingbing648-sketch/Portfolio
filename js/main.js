@@ -23,6 +23,7 @@ import { initSearch } from './search.js';
 import { initLibrary } from './library.js';
 import { initAICompanion } from './ai-companion.js';
 import { initPitchModal } from './pitch-idea.js';
+import { initLiquidButton } from './liquid-button-mount.jsx';
 
 // ── State ──────────────────────────────────────────────────────────────────────
 let _appInitialized = false;
@@ -48,6 +49,7 @@ async function bootstrap() {
 
     // STEP 3: Wait for HTML components to inject into DOM completely
     await loadComponents();
+    try { initLiquidButton(); } catch (e) { log('LiquidButton init skipped: ' + e.message, 'warn'); }
 
     // STEP 4: Register before starting the loader so synchronous completion is handled
     document.addEventListener('loader:complete', () => {
@@ -99,6 +101,7 @@ function initOptionalModules() {
         ['search',             initSearch],
         ['ai-companion',       initAICompanion],
         ['pitch-modal',        initPitchModal],
+        ['liquid-button',      initLiquidButton],
         ['hover-targets',      bindHoverTargets],
         ['music-toggle',       initMusicToggle]
     ];

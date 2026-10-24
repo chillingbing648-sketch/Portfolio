@@ -666,10 +666,7 @@
 
     .archive-editorial-action {
         width: 100%;
-    }
-
-    .archive-editorial-btn {
-        width: 100%;
+        display: flex;
         justify-content: center;
     }
 

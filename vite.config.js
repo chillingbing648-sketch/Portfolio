@@ -1,7 +1,9 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  plugins: [react()],
   // Use relative base so assets resolve on root domains (Netlify) and subpath deployments (GitHub Pages)
   base: './',
   publicDir: 'public',
