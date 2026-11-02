@@ -23,7 +23,7 @@ Repository audited and verified on 2026-10-18 via read-only inspection and build
 | Pages | Home page with anchor sections `#about`, `#services`, `#projects`, `#work`, `#experience`, `#library`, `#contact`, plus a separate page at `/projects/` ("Aether Archive"). |
 | Naming and voice | Cosmic/"universe" and "transmission" metaphors ("Explore Universe", "Return to Origin", "End Transmission", "Aether", "Aether Archive"). Confident, concise, first-person copy. |
 | Theme | Dark. `theme-color` is `#030712` (home) and `#030308` (archive). |
-| Home features | Cinematic intro with Skip (`Esc`), sticky nav, terminal-style UI (`hd-terminal — bash`, `⌘ Terminal`, `Ctrl+K` palette, `Tab` autocomplete, `↑↓` history), "Aether" portfolio companion with chips (Projects, Skills, Experience, Contact, About), ambient sound toggle (labelled muted by default), "Return to Origin" scroll-top control, skip-to-content link, 4-step project intake wizard (Domain, Concept up to 500 chars, Channel, Launch) that hands off to WhatsApp, Instagram (copies pitch), or Discord (copies pitch). |
+| Home features | Sticky nav, "Aether" portfolio companion with chips (Projects, Skills, Experience, Contact, About), ambient sound toggle (labelled muted by default), "Return to Origin" scroll-top control, skip-to-content link, 4-step project intake wizard (Domain, Concept up to 500 chars, Channel, Launch) that hands off to WhatsApp, Instagram (copies pitch), or Discord (copies pitch). |
 | Archive features | 3D "spatial" project carousel (keyboard arrows, drag/swipe, mouse wheel, `Enter` for deep story), searchable/sortable/filterable repository directory (`/` focuses search; sorts include recency, A-Z, repository size; 16 repositories listed), empty-state with reset. |
 | Asset naming | Built assets carry content hashes (e.g. `assets/Photo-CR5fKQZe.jpeg`), so a bundler build step exists. |
 | SEO | Canonical URL, Open Graph and Twitter tags, `robots` meta, site-verification meta. |
@@ -48,7 +48,7 @@ Repository audited and verified on 2026-10-18 via read-only inspection and build
      - Archive: `projects/index.html` (bundled entry imports `projects/archive.js` as an ES module).
 
 3. **Source layout:**
-   - Component templates / partials: `components/*.html` (`about.html`, `contact.html`, `footer.html`, `hero.html`, `library.html`, `navbar.html`, `projects.html`, `skills.html`, `terminal.html`, `timeline.html`). Note: Core section markup is also directly inlined in `index.html`.
+   - Component templates / partials: `components/*.html` (`about.html`, `contact.html`, `footer.html`, `hero.html`, `library.html`, `navbar.html`, `projects.html`, `skills.html`, `timeline.html`). Note: Core section markup is also directly inlined in `index.html`.
    - Styling: `css/*.css` (16 modular CSS files) and `projects/archive.css`.
    - JavaScript modules: `js/*.js` (19 ES modules) and `projects/*.js` (`archive.js`, `artworks.js`, `projects-data.js`).
    - Data files: `data/*.json` and `public/data/*.json` (`achievements.json`, `commands.json`, `experience.json`, `library.json`, `projects.json`, `roles.json`, `skills.json`, `timeline.json`).
@@ -72,7 +72,7 @@ Repository audited and verified on 2026-10-18 via read-only inspection and build
      - GSAP 3.12.5 (`gsap.min.js`, `ScrollTrigger.min.js`, `ScrollToPlugin.min.js`).
      - Lenis 1.1.18 smooth scroll (`lenis.min.js`).
    - CSS animations: Defined in `css/animations.css`.
-   - Setup/teardown: Event-driven bootstrap (`loader:complete` custom event in `js/main.js`); modules guard against missing DOM elements.
+   - Setup/teardown: DOM-ready bootstrap in `js/main.js`; modules guard against missing DOM elements.
 
 6. **Environment conventions:**
    - `.env`, `.env.local`, `.env.production` files: **not found**.
