@@ -36,17 +36,6 @@ function initRevealItems() {
 
 // ── Section-Level Animations ─────────────────────────────────────────────────
 function initSectionAnimations() {
-    // Services section
-    gsap.fromTo('.service-card',
-        { opacity: 0, y: 60, scale: 0.94 },
-        {
-            opacity: 1, y: 0, scale: 1,
-            stagger: { each: 0.12, from: 'start' },
-            ease: 'expo.out', duration: 1,
-            scrollTrigger: { trigger: '#services', start: 'top 75%' }
-        }
-    );
-
     // About text paragraphs
     gsap.fromTo('#about .about-text p',
         { opacity: 0, x: -30 },
