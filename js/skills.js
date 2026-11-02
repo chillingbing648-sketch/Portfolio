@@ -226,6 +226,9 @@ function initSkillCarousel(container, total) {
     viewport.addEventListener('pointermove', event => {
         if (!isDragging || pointerStart === null) return;
         pointerDelta = event.clientX - pointerStart;
+        if (typeof gsap !== 'undefined') {
+            gsap.set(track, { x: (-activeIndex * viewport.getBoundingClientRect().width) + pointerDelta });
+        }
     });
     const endDrag = () => {
         if (!isDragging) return;
