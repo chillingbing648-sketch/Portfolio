@@ -1,11 +1,6 @@
 /**
- * Lenis Smooth Scroll Engine & Speed Tracker
- *
- * Performance optimized:
- * - Lenis is driven by ONE animation loop only.
- * - Uses GSAP ticker when GSAP + ScrollTrigger are available.
- * - Falls back to requestAnimationFrame otherwise.
- * - Avoids creating a timeout on every scroll event.
+ * Lenis + GSAP scroll engine.
+ * One clock drives both Lenis and ScrollTrigger to keep scroll-linked motion in sync.
  */
 
 let scrollSpeed = 0;
@@ -15,202 +10,85 @@ export function getScrollSpeed() {
 }
 
 export function initScroll() {
-    if (typeof Lenis === 'undefined') {
-        return null;
-    }
+    if (typeof Lenis === 'undefined') return null;
+    if (window.lenis) return window.lenis;
 
     const lenis = new Lenis({
-        duration: 1.05,
-        easing: t => 1 - Math.pow(2, -10 * t),
-        direction: 'vertical',
+        duration: 1.25,
+        easing: t => 1 - Math.pow(1 - t, 4),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1.5,
+        syncTouch: false,
+        autoRaf: false
     });
 
     window.lenis = lenis;
 
-    /*
-     * ---------------------------------------------------------
-     * SINGLE LENIS ANIMATION LOOP
-     * ---------------------------------------------------------
-     */
-
+    let tickerCallback = null;
     let usingGsapTicker = false;
 
-    if (
-        typeof gsap !== 'undefined' &&
-        typeof ScrollTrigger !== 'undefined'
-    ) {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
-
         usingGsapTicker = true;
-
         lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-            if (scrollSpeed > 0.001) {
-                scrollSpeed *= 0.92;
-            } else {
-                scrollSpeed = 0;
-            }
-        });
-
-        gsap.ticker.lagSmoothing(500, 33);
+        tickerCallback = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(tickerCallback);
+        // Prevent GSAP's default lag smoothing from fighting Lenis' time-based interpolation.
+        gsap.ticker.lagSmoothing(0);
     } else {
-        function raf(time) {
+        const raf = (time) => {
             lenis.raf(time);
-            if (scrollSpeed > 0.001) {
-                scrollSpeed *= 0.92;
-            } else {
-                scrollSpeed = 0;
-            }
-            requestAnimationFrame(raf);
-        }
-
+            if (!lenis.destroyed) requestAnimationFrame(raf);
+        };
         requestAnimationFrame(raf);
     }
 
-    /*
-     * ---------------------------------------------------------
-     * SCROLL SPEED TRACKING & COMPOSITED PROGRESS BAR
-     * ---------------------------------------------------------
-     */
-
     let lastScrollY = 0;
     let maxScroll = 1;
-
-    const progressBar = document.getElementById(
-        'scroll-progress-bar'
-    );
-
+    const progressBar = document.getElementById('scroll-progress-bar');
     const updateMaxScroll = () => {
         maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     };
     updateMaxScroll();
     window.addEventListener('resize', updateMaxScroll, { passive: true });
 
-
     lenis.on('scroll', ({ scroll }) => {
-        const delta = Math.abs(scroll - lastScrollY);
-
-        scrollSpeed = Math.min(
-            delta * 0.02,
-            3
-        );
-
+        scrollSpeed = Math.min(Math.abs(scroll - lastScrollY) * 0.02, 3);
         lastScrollY = scroll;
-
         if (progressBar) {
             const progress = Math.min(1, Math.max(0, scroll / maxScroll));
-            progressBar.style.transform = `scaleX(${progress})`;
+            progressBar.style.transform = 'scaleX(' + progress + ')';
         }
-
     });
 
-    /*
-     * ---------------------------------------------------------
-     * RETURN TO ORIGIN
-     * ---------------------------------------------------------
-     */
-
-    const returnBtn =
-        document.getElementById(
-            'returnToOrigin'
-        );
-
+    const returnBtn = document.getElementById('returnToOrigin');
     if (returnBtn) {
         let returnButtonVisible = false;
-
         const updateReturnButton = () => {
-            const shouldShow =
-                lenis.scroll >
-                window.innerHeight * 0.8;
-
-            if (
-                shouldShow !==
-                returnButtonVisible
-            ) {
-                returnButtonVisible =
-                    shouldShow;
-
-                returnBtn.classList.toggle(
-                    'visible',
-                    shouldShow
-                );
+            const shouldShow = lenis.scroll > window.innerHeight * 0.8;
+            if (shouldShow !== returnButtonVisible) {
+                returnButtonVisible = shouldShow;
+                returnBtn.classList.toggle('visible', shouldShow);
             }
         };
-
-        lenis.on(
-            'scroll',
-            updateReturnButton
-        );
-
-        returnBtn.addEventListener(
-            'click',
-            () => {
-                if (
-                    typeof gsap !== 'undefined' &&
-                    typeof ScrollToPlugin !== 'undefined'
-                ) {
-                    gsap.registerPlugin(
-                        ScrollToPlugin
-                    );
-
-                    gsap.to(
-                        returnBtn,
-                        {
-                            scale: 1.4,
-                            duration: 0.2,
-                            ease: 'power2.out',
-                            yoyo: true,
-                            repeat: 1
-                        }
-                    );
-
-                    gsap.to(
-                        window,
-                        {
-                            scrollTo: {
-                                y: 0,
-                                autoKill: false
-                            },
-                            duration: 1.4,
-                            ease: 'power4.inOut'
-                        }
-                    );
-                } else {
-                    lenis.scrollTo(
-                        0,
-                        {
-                            duration: 1.2
-                        }
-                    );
-                }
+        lenis.on('scroll', updateReturnButton);
+        returnBtn.addEventListener('click', () => {
+            if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+                gsap.registerPlugin(ScrollToPlugin);
+                gsap.to(returnBtn, { scale: 1.12, duration: 0.22, ease: 'power2.out', yoyo: true, repeat: 1, overwrite: 'auto' });
             }
-        );
+            lenis.scrollTo(0, { duration: 1.35, easing: t => 1 - Math.pow(1 - t, 4) });
+        });
     }
-
-    /*
-     * ---------------------------------------------------------
-     * CLEANUP
-     * ---------------------------------------------------------
-     */
 
     lenis._portfolioCleanup = () => {
         window.removeEventListener('resize', updateMaxScroll);
-
-        if (
-            usingGsapTicker &&
-            typeof gsap !== 'undefined'
-        ) {
-            gsap.ticker.remove(
-                lenis.raf
-            );
-        }
-
+        if (usingGsapTicker && tickerCallback && typeof gsap !== 'undefined') gsap.ticker.remove(tickerCallback);
         lenis.destroy();
+        if (window.lenis === lenis) delete window.lenis;
     };
 
     return lenis;
