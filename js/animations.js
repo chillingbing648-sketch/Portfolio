@@ -92,18 +92,6 @@ function initSectionAnimations() {
         );
     });
 
-    // Skills categories stagger
-    if (document.querySelectorAll('.skill-category').length) {
-        gsap.fromTo('.skill-category',
-            { opacity: 0, x: -40 },
-            {
-                opacity: 1, x: 0,
-                stagger: 0.14, duration: 0.9, ease: 'expo.out',
-                scrollTrigger: { trigger: '#about .skills-wrapper', start: 'top 75%' }
-            }
-        );
-    }
-
     // Observatory content
     gsap.fromTo('.obs-headline',
         { opacity: 0, scale: 0.9, filter: 'blur(16px)' },
