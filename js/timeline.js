@@ -288,7 +288,6 @@ function initTimelineProgress() {
             });
         } else {
             gsap.set(progressLine, { strokeDashoffset: 0 });
-            gsap.set(items, { clearProps: 'all' });
         }
 
         requestAnimationFrame(() => ScrollTrigger.refresh());
