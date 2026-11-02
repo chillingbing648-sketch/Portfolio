@@ -2,7 +2,7 @@
  * js/main.js
  * Application Bootstrapper — Safe Execution Chain
  * 
- * Rule: Initialize modules after HTML partials are injected; no blocking intro screen.
+ * Rule: Initialize modules after HTML partials are injected; release the loading reveal when ready.
  * Rule: Promise.allSettled for component loading — one 404 must not break the page.
  * Rule: Every optional module is try/catch wrapped independently.
  */
