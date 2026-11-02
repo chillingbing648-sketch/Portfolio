@@ -13,14 +13,15 @@ export function initScroll() {
     if (typeof Lenis === 'undefined') return null;
     if (window.lenis) return window.lenis;
 
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
     const lenis = new Lenis({
-        duration: 1.25,
+        duration: prefersReducedMotion ? 0.01 : 1.15,
         easing: t => 1 - Math.pow(1 - t, 4),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 0.85,
-        touchMultiplier: 1.5,
+        smoothWheel: !prefersReducedMotion,
+        wheelMultiplier: prefersReducedMotion ? 1 : 0.82,
+        touchMultiplier: prefersReducedMotion ? 1 : 1.35,
         syncTouch: false,
         autoRaf: false
     });
@@ -33,12 +34,15 @@ export function initScroll() {
 
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
         usingGsapTicker = true;
         lenis.on('scroll', ScrollTrigger.update);
         tickerCallback = (time) => lenis.raf(time * 1000);
         gsap.ticker.add(tickerCallback);
         // Prevent GSAP's default lag smoothing from fighting Lenis' time-based interpolation.
         gsap.ticker.lagSmoothing(0);
+        window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+        if (document.fonts?.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
     } else {
         const raf = (time) => {
             lenis.raf(time);
