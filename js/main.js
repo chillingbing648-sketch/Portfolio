@@ -8,6 +8,7 @@
  */
 
 import { initEnvironmentTheme } from './theme.js';
+import { initLoadingScreen } from './loading-screen.js';
 import { initCursor, bindHoverTargets } from './cursor.js';
 import { initScroll } from './scroll.js';
 import { initNavigation } from './navigation.js';
@@ -37,6 +38,8 @@ async function bootstrap() {
     if (_appInitialized) return;
     _appInitialized = true;
 
+    const finishLoadingScreen = initLoadingScreen();
+
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -51,6 +54,7 @@ async function bootstrap() {
 
     // Initialize the portfolio immediately after its HTML partials are ready.
     initOptionalModules();
+    finishLoadingScreen();
 }
 
 // ── Component Loader ───────────────────────────────────────────────────────────
