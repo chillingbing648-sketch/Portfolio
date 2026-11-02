@@ -294,7 +294,7 @@ function initTimelineProgress() {
         requestAnimationFrame(() => ScrollTrigger.refresh());
         if (document.fonts?.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
     } else {
-        progressLine.style.strokeDasharray = '1';
+        progressLine.style.strokeDasharray = 'none';
         progressLine.style.strokeDashoffset = '0';
         items.forEach(item => item.classList.add('is-visible'));
     }
