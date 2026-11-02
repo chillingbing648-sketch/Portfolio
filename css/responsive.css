@@ -25,10 +25,6 @@
         max-width: 88%;
     }
 
-    .services-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2.5rem;
-    }
 }
 
 /* ── 2. Standard Desktop & Laptop (1025px - 1440px) ───────────────────────── */
@@ -82,11 +78,6 @@
 
     .about-grid {
         gap: 2.5rem;
-    }
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.8rem;
     }
 
     .projects-grid {
@@ -238,11 +229,6 @@
 
     .about-story-box {
         padding: 2.5rem 2rem !important;
-    }
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
     }
 
     .projects-grid {
@@ -450,15 +436,6 @@
     }
 
     /* Grids */
-    .services-grid {
-        grid-template-columns: 1fr;
-        gap: 1.4rem;
-    }
-
-    .service-card {
-        padding: 2.2rem 1.6rem;
-    }
-
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.8rem;
