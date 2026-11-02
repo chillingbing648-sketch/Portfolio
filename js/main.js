@@ -2,13 +2,12 @@
  * js/main.js
  * Application Bootstrapper — Safe Execution Chain
  * 
- * Rule: loader.js depends on NOTHING. Everything else waits for loader:complete.
+ * Rule: Initialize modules after HTML partials are injected; no blocking intro screen.
  * Rule: Promise.allSettled for component loading — one 404 must not break the page.
  * Rule: Every optional module is try/catch wrapped independently.
  */
 
 import { initEnvironmentTheme } from './theme.js';
-import { initLoader } from './loader.js';
 import { initCursor, bindHoverTargets } from './cursor.js';
 import { initScroll } from './scroll.js';
 import { initNavigation } from './navigation.js';
@@ -18,7 +17,6 @@ import { initSkills } from './skills.js';
 import { initProjects } from './projects.js';
 import { initTimeline } from './timeline.js';
 import { initAnimations, initNeuralCanvas, initObservatoryCanvas } from './animations.js';
-import { initTerminal } from './terminal.js';
 import { initSearch } from './search.js';
 import { initLibrary } from './library.js';
 import { initAICompanion } from './ai-companion.js';
@@ -51,13 +49,8 @@ async function bootstrap() {
     await loadComponents();
     try { initLiquidButton(); } catch (e) { log('LiquidButton init skipped: ' + e.message, 'warn'); }
 
-    // STEP 4: Register before starting the loader so synchronous completion is handled
-    document.addEventListener('loader:complete', () => {
-        log('loader:complete received — initializing modules');
-        initOptionalModules();
-    });
-
-    initLoader();
+    // Initialize the portfolio immediately after its HTML partials are ready.
+    initOptionalModules();
 }
 
 // ── Component Loader ───────────────────────────────────────────────────────────
@@ -97,7 +90,6 @@ function initOptionalModules() {
         ['animations',         initAnimations],
         ['neural-canvas',      initNeuralCanvas],
         ['observatory-canvas', initObservatoryCanvas],
-        ['terminal',           initTerminal],
         ['search',             initSearch],
         ['ai-companion',       initAICompanion],
         ['pitch-modal',        initPitchModal],
