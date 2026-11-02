@@ -29,6 +29,7 @@ export function initScroll() {
 
     let tickerCallback = null;
     let usingGsapTicker = false;
+    let rafActive = true;
 
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
@@ -41,7 +42,7 @@ export function initScroll() {
     } else {
         const raf = (time) => {
             lenis.raf(time);
-            if (!lenis.destroyed) requestAnimationFrame(raf);
+            if (rafActive) requestAnimationFrame(raf);
         };
         requestAnimationFrame(raf);
     }
@@ -85,6 +86,7 @@ export function initScroll() {
     }
 
     lenis._portfolioCleanup = () => {
+        rafActive = false;
         window.removeEventListener('resize', updateMaxScroll);
         if (usingGsapTicker && tickerCallback && typeof gsap !== 'undefined') gsap.ticker.remove(tickerCallback);
         lenis.destroy();
