@@ -405,11 +405,6 @@
         padding: 0.4rem 0.8rem;
     }
 
-    .skill-capsule {
-        font-size: 0.8rem;
-        padding: 0.45rem 0.85rem;
-    }
-
     /* Grids */
     .projects-grid {
         grid-template-columns: 1fr;
