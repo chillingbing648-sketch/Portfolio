@@ -66,68 +66,6 @@ section[id] {
     scroll-margin-top: var(--scroll-margin);
 }
 
-/* Cinematic Loader Skip Control */
-.loader-skip-btn {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 100;
-    padding: 0.55rem 1.15rem;
-    background: rgba(13, 13, 28, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: var(--radius-full);
-    color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
-    font-weight: 600;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-    transition: var(--transition-fast);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.loader-skip-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    border-color: var(--accent-cyan);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.25);
-}
-
-.loader-skip-key {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.68rem;
-    color: var(--accent-cyan);
-}
-
-body.loading {
-    overflow: hidden !important;
-}
-
-/* While loading: hide content behind the loader overlay */
-body.loading #hero,
-body.loading #navbar,
-body.loading nav,
-body.loading .hero-content {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Once body.loading is removed, content is visible by default.
-   GSAP entrance animations are additive bonuses, not requirements. */
-body:not(.loading) #hero,
-body:not(.loading) #navbar,
-body:not(.loading) nav,
-body:not(.loading) .hero-content {
-    opacity: 1;
-    visibility: visible;
-}
-
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
