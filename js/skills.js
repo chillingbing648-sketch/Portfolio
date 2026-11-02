@@ -250,7 +250,9 @@ function initSkillCarousel(container, total) {
 
     setActive(0, false);
 
-    if (typeof gsap !== 'undefined' && !reducedMotion) {
+    if (typeof ScrollTrigger !== 'undefined') requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reducedMotion) {
         gsap.fromTo(container.querySelectorAll('.skills-carousel-eyebrow, .skills-carousel-count, .skills-category-tab, .skills-slide-heading, .skill-capsule, .skills-carousel-controls'),
             { opacity: 0, y: 18 },
             {
