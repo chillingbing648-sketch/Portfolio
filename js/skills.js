@@ -88,45 +88,45 @@ function renderSkills(container, data) {
     const categories = data.filter(category => Array.isArray(category.items) && category.items.length);
     if (!categories.length) return;
 
-    container.innerHTML = \`
+    container.innerHTML = `
         <section class="skills-carousel" aria-label="Technical and professional skills">
             <div class="skills-carousel-topline">
                 <span class="skills-carousel-eyebrow">THE TOOLKIT</span>
-                <span class="skills-carousel-count" data-skill-count>01 <i>/ \${String(categories.length).padStart(2, '0')}</i></span>
+                <span class="skills-carousel-count" data-skill-count>01 <i>/ ${String(categories.length).padStart(2, '0')}</i></span>
             </div>
             <div class="skills-carousel-nav" role="tablist" aria-label="Skill categories">
-                \${categories.map((cat, index) => \`
-                    <button class="skills-category-tab\${index === 0 ? ' is-active' : ''}"
-                            type="button" role="tab" aria-selected="\${index === 0}"
-                            aria-controls="skills-panel-\${index}" id="skills-tab-\${index}"
-                            data-skill-tab="\${index}">\${cat.category}</button>
-                \`).join('')}
+                ${categories.map((cat, index) => `
+                    <button class="skills-category-tab${index === 0 ? ' is-active' : ''}"
+                            type="button" role="tab" aria-selected="${index === 0}"
+                            aria-controls="skills-panel-${index}" id="skills-tab-${index}"
+                            data-skill-tab="${index}">${cat.category}</button>
+                `).join('')}
             </div>
             <div class="skills-carousel-viewport" data-skill-viewport>
                 <div class="skills-carousel-track" data-skill-track>
-                    \${categories.map((cat, index) => \`
-                        <section class="skills-slide" id="skills-panel-\${index}" role="tabpanel"
-                                 aria-labelledby="skills-tab-\${index}" aria-hidden="\${index !== 0}"
-                                 \${index !== 0 ? 'inert' : ''} data-skill-slide="\${index}">
+                    ${categories.map((cat, index) => `
+                        <section class="skills-slide" id="skills-panel-${index}" role="tabpanel"
+                                 aria-labelledby="skills-tab-${index}" aria-hidden="${index !== 0}"
+                                 ${index !== 0 ? 'inert' : ''} data-skill-slide="${index}">
                             <div class="skills-slide-heading">
-                                <span class="skills-slide-icon" aria-hidden="true">\${cat.icon || '✳'}</span>
+                                <span class="skills-slide-icon" aria-hidden="true">${cat.icon || '✳'}</span>
                                 <div>
-                                    <span class="skills-slide-index">DISCIPLINE / \${String(index + 1).padStart(2, '0')}</span>
-                                    <h3>\${cat.category}</h3>
+                                    <span class="skills-slide-index">DISCIPLINE / ${String(index + 1).padStart(2, '0')}</span>
+                                    <h3>${cat.category}</h3>
                                 </div>
                             </div>
-                            <div class="skill-tags" role="list" aria-label="\${cat.category} skills">
-                                \${cat.items.map(item => \`
-                                    <div class="skill-capsule" role="listitem" tabindex="\${index === 0 ? '0' : '-1'}"
-                                         data-skill="\${item.name.toLowerCase()}" title="\${item.name}"
-                                         aria-label="\${item.name}">
-                                        <span class="skill-icon" aria-hidden="true">\${item.icon || '✦'}</span>\${item.name}
+                            <div class="skill-tags" role="list" aria-label="${cat.category} skills">
+                                ${cat.items.map(item => `
+                                    <div class="skill-capsule" role="listitem" tabindex="${index === 0 ? '0' : '-1'}"
+                                         data-skill="${item.name.toLowerCase()}" title="${item.name}"
+                                         aria-label="${item.name}">
+                                        <span class="skill-icon" aria-hidden="true">${item.icon || '✦'}</span>${item.name}
                                     </div>
-                                \`).join('')}
+                                `).join('')}
                             </div>
-                            <span class="skills-slide-total">\${String(cat.items.length).padStart(2, '0')} CAPABILITIES</span>
+                            <span class="skills-slide-total">${String(cat.items.length).padStart(2, '0')} CAPABILITIES</span>
                         </section>
-                    \`).join('')}
+                    `).join('')}
                 </div>
             </div>
             <div class="skills-carousel-controls">
@@ -140,7 +140,7 @@ function renderSkills(container, data) {
                 </div>
             </div>
         </section>
-    \`;
+    `;
 
     initSkillCarousel(container, categories.length);
 }
