@@ -744,25 +744,6 @@
         gap: 1.2rem;
     }
 
-    /* Terminal window */
-    #terminal-overlay {
-        padding: 0.6rem;
-    }
-
-    .terminal-window {
-        max-height: calc(100dvh - 20px);
-        border-radius: var(--radius-sm);
-    }
-
-    .terminal-body {
-        padding: 1rem;
-        font-size: 0.8rem;
-        min-height: 240px;
-    }
-
-    .terminal-input-row {
-        padding: 0.6rem 1rem;
-    }
 
     /* Return to origin */
     #returnToOrigin {
@@ -825,16 +806,7 @@
     .timeline-item.right::before {
         left: 9px;
     }
-
-    .loader-terminal {
-        padding: 1rem 0.8rem;
-    }
-
-    .boot-line {
-        font-size: 0.76rem;
-    }
-
-    .achievement-card {
+.achievement-card {
         padding: 1.25rem 1rem;
     }
 
