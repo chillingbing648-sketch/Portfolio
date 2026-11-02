@@ -227,24 +227,75 @@ function initAchievementInteractions(grid) {
 }
 
 function initTimelineProgress() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    const progressLine = document.getElementById('timelineProgress');
     const container = document.getElementById('timeline-container');
-    if (!progressLine || !container) return;
+    const progressLine = document.getElementById('timelineProgress');
+    if (!container || !progressLine) return;
 
-    let totalLen = progressLine.getTotalLength?.() || 1000;
-    window.addEventListener('resize', () => {
-        totalLen = progressLine.getTotalLength?.() || 1000;
-    }, { passive: true });
+    const items = Array.from(container.querySelectorAll('.timeline-item'));
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
 
-    ScrollTrigger.create({
-        trigger: container,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        scrub: 0.6,
-        onUpdate: self => {
-            const offset = totalLen * (1 - self.progress);
-            progressLine.style.strokeDashoffset = offset;
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const totalLength = progressLine.getTotalLength?.() || 1000;
+        gsap.set(progressLine, {
+            strokeDasharray: totalLength,
+            strokeDashoffset: totalLength
+        });
+
+        if (!reducedMotion) {
+            gsap.to(progressLine, {
+                strokeDashoffset: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: container,
+                    start: 'top 72%',
+                    end: 'bottom 58%',
+                    scrub: 0.85,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            items.forEach(item => {
+                const card = item.querySelector('.timeline-card');
+                if (!card) return;
+                const fromX = item.classList.contains('left') ? -54 : 54;
+
+                gsap.fromTo(card,
+                    { autoAlpha: 0, x: fromX, y: 28, clipPath: 'inset(0 0 12% 0)' },
+                    {
+                        autoAlpha: 1, x: 0, y: 0, clipPath: 'inset(0 0 0% 0)',
+                        duration: 1.05,
+                        ease: 'power4.out',
+                        clearProps: 'clipPath',
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 82%',
+                            once: true
+                        }
+                    }
+                );
+
+                gsap.fromTo(item,
+                    { '--timeline-node-scale': 0.4 },
+                    {
+                        '--timeline-node-scale': 1,
+                        duration: 0.65,
+                        ease: 'back.out(1.8)',
+                        scrollTrigger: { trigger: item, start: 'top 82%', once: true }
+                    }
+                );
+            });
+        } else {
+            gsap.set(progressLine, { strokeDashoffset: 0 });
+            gsap.set(items, { clearProps: 'all' });
         }
-    });
+
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+        if (document.fonts?.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    } else {
+        progressLine.style.strokeDasharray = '1';
+        progressLine.style.strokeDashoffset = '0';
+        items.forEach(item => item.classList.add('is-visible'));
+    }
 }
